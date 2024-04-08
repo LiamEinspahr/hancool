@@ -1,25 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Layout from './components/layout/Layout';
+
+//theme
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+//pages
+import TablePage from './components/pages/TablePage';
+import AboutPage from './components/pages/AboutPage';
+
+//router
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Layout></Layout>
+      </ThemeProvider>
+      <Routes>
+        <Route
+            path="/"
+            element={<TablePage />}
+        ></Route>  
+        <Route
+            path="/home"
+            element={<TablePage />}
+        ></Route>
+        <Route
+            path="/about"
+            element={<AboutPage />}
+        ></Route>
+    </Routes>
+    </Router>
   );
 }
 
