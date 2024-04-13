@@ -1,11 +1,15 @@
 import * as React from 'react';
 import Table from '../ui/table/Table';
+import Search from '../ui/search/Search';
 
 
 
 export default function TablePage() {
     
     return(
-        <Table></Table>
+        <>
+            <Search></Search>
+            <Table></Table>
+        </>
     );
 }

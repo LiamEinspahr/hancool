@@ -3,7 +3,7 @@ import { GridColDef } from '@mui/x-data-grid';
 
 export const columns: GridColDef[] = [
     {field: 'word', headerName: 'Word', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell' },
-    {field: 'romanization', headerName: 'Romanization', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
+    {field: 'id', headerName: 'Romanization', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
     {field: 'definition', headerName: 'Definition', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
     {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
     {field: 'lastModified', headerName: 'Last Checked', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
