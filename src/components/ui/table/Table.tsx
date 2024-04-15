@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Box, alpha, styled } from '@mui/material';
-import { DataGrid, GridColDef, gridClasses } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowsProp, GridColDef, gridClasses, GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
 import { columns, data } from '../../data/Data';
 
-const ODD_OPACITY = 0.2;
 
 const DataTable = styled(DataGrid)(({ theme }) => ({
   [`& .${gridClasses.row}.even`]: {
@@ -15,13 +14,6 @@ const DataTable = styled(DataGrid)(({ theme }) => ({
       backgroundColor: '#57A527',
       '&:hover': {
         backgroundColor: '#8FBB99',
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity,
-          ),
-        },
       },
     },
   },
@@ -34,58 +26,55 @@ const DataTable = styled(DataGrid)(({ theme }) => ({
       backgroundColor: '#3D741B',
       '&:hover': {
         backgroundColor: '#8FBB99',
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity,
-          ),
-        },
       },
     },
   },
   '& .header-cell' : {
-    backgroundColor: '#2A2A28',
+    backgroundColor: '#2A2A28'
     },
   '.MuiSvgIcon-root': {
     color: 'white'
     },
+  '.MuiDataGrid-columnHeaderTitleContainer' : {
+    backgroundColor: '#2A2A28'
+  },
+  '.MuiTablePagination-displayedRows': {
+    color: 'white'
+  },
+  '.MuiTablePagination-selectLabel': {
+    color: 'white'
+  },
+  '.MuiInputBase-input': {
+    color: 'white'
+  },
+    margin: '2vw 2vh',
+    color: '#FFFF',
 }));
 
 export default function Table() {
 
+    const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
+        items: [],
+        quickFilterExcludeHiddenColumns: false,
+        quickFilterValues: [],
+      });
+
+    const [columnVisibilityModel, setColumnVisibilityModel] = React.useState<GridColumnVisibilityModel>({});
+
     return(
       <DataTable
-      {...data}
-      getRowClassName={(params) =>
-        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-      }
-        rows={data}
         columns={columns}
-        columnVisibilityModel={{
-          word: true,
-          id: false,
-          definition: true,
-          comfortability: true,
-          lastModified: false,
-          lock: false
-        }}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        sx={{
-          margin: '2vw 2vh',
-          color: '#FFFF',
-          
-          
-        }}
+        columnVisibilityModel={columnVisibilityModel}
+        disableColumnFilter
+        disableDensitySelector
+        filterModel={filterModel}
+        onColumnVisibilityModelChange={(newModel) =>
+            setColumnVisibilityModel(newModel)
+        }
+        onFilterModelChange={(newModel) => setFilterModel(newModel)}
+        rows={data}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{ toolbar: { showQuickFilter: true } }}
       />
     );
 }
