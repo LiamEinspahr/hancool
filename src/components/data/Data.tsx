@@ -1,7 +1,11 @@
 //Thhis array will be used as the rows component inside Table.tsx
 import * as  React from 'react';
-import { TableRow } from './DataInterface';
+import { TableRow } from './TableRowInterface';
 
+
+export const getRowData = () => {
+    return(data);
+}
 
 const template: TableRow = 
 {

@@ -1,25 +1,15 @@
 import * as React from 'react';
 import { ToggleButton } from "@mui/material";
-import { useRowStateContext } from '../Table';
 
 
-export default function RowLock() {
+export default function RowLock({id, lockState, onClick}) {
 
-    const {rowState, setRowState} = useRowStateContext();
-
-
-    
-    const handleRowLockStateChange = () => {
-        console.log(rowState);
-        setRowState(!rowState);
-    }
-
-
-    return(
-        <ToggleButton sx={{ backgroundColor: 'white'}}
-                      {...rowState ? {value: "ButtonIsLocked"} : {value: "ButtonIsntLocked"}}
-                      onClick={handleRowLockStateChange}>
-            {rowState ? 'Unlock' : 'Lock' }
+      return (
+        <ToggleButton
+          sx={{ backgroundColor: 'white'}}
+          value="id"
+          onClick={(e) => onClick(id,lockState)}
+        >
         </ToggleButton>
-    );
+      );
 }
