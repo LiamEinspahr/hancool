@@ -12,6 +12,11 @@ import AboutPage from './components/pages/AboutPage';
 //router
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
+//context
+import { useContext } from 'react';
+
+
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
