@@ -38,10 +38,10 @@ export default function Table() {
   //COLUMN DEFINITIONS
   //===========================================================================================================
   const columns: GridColDef[] = [
-    {field: 'id', headerName: 'ID', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
-    {field: 'word', headerName: 'Word', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell' },
-    {field: 'romanization', headerName: 'Romanization', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
-    {field: 'definition', headerName: 'Definition', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
+    {field: 'id', headerName: 'ID', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
+    {field: 'word', headerName: 'Word', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell' },
+    {field: 'romanization', headerName: 'Romanization', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
+    {field: 'definition', headerName: 'Definition', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
     {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
