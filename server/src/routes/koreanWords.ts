@@ -4,10 +4,10 @@ import db from "../db";
 const router = Router();
 
 // GET /api/words/<specific>
-router.get('/:word_id', async (req,res) => {
+router.get('/:id', async (req,res) => {
     try {
-      console.log(req.params.word_id);
-      const [word] = await db.words.getOneKoreanWord();
+      const id = req.params.id
+      const [word] = await db.words.getOneKoreanWord(id);
       res.json(word);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
