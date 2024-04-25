@@ -12,8 +12,6 @@ import AboutPage from './components/pages/AboutPage';
 //router
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-//context
-import { useContext } from 'react';
 
 
 
@@ -24,6 +22,9 @@ const darkTheme = createTheme({
 });
 
 function App() {
+
+
+
   return (
     <Router>
       <ThemeProvider theme={darkTheme}>

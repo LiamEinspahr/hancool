@@ -6,13 +6,13 @@ import RowSlider from '../ui/table/row-slider/RowSlider';
 
 
 export interface TableRow {
-    id: number,
+    id: number | null,
     word: string;
     romanization: string,  
     definition: string;
     comfortability: number;
-    lastModified: Date | null;
-    lock: boolean;
+    expirationDate: string;
+    lock: boolean | number;
 };
 
 

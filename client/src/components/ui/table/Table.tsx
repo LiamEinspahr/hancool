@@ -1,21 +1,37 @@
 import * as React from 'react';
 import { createContext, useContext } from 'react';
-import { Box, alpha, styled } from '@mui/material';
+import { Box, Button, alpha, styled } from '@mui/material';
 import { DataGrid, GridToolbar, GridRowsProp, GridColDef, gridClasses, GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
-import { data, getRowData } from '../../data/Data';
 import { DataTable } from './styled-data-grid/StyledDataGrid';
 import RowSlider from './row-slider/RowSlider';
 import RowDate from './row-date/RowDate';
 import RowLock from './row-lock/RowLock';
+import { TableRow } from '../../data/TableRowInterface';
+import dayjs from 'dayjs';
 
 
 
 export default function Table() {
 
+  const today = new Date().toISOString().split('T')[0];
+
+  //Server
+  //===========================================================================================================
+  const [backendKoreanWords, setBackendKoreanWords] = React.useState<TableRow[]>([]);
+
+  React.useEffect(() => {
+    fetch("/api/words").then(
+      response => response.json()
+    ).then(
+      data => {
+        setBackendKoreanWords(data) 
+      }
+    )
+  }, [])
+  //===========================================================================================================
 
   //STATES
   //===========================================================================================================
-  const [rows, setRows] = React.useState(getRowData());
   const [columnVisibilityModel, setColumnVisibilityModel] = React.useState<GridColumnVisibilityModel>({});
   const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
     items: [],
@@ -28,10 +44,47 @@ export default function Table() {
 
   //FUNCTIONS
   //===========================================================================================================
-   const handleLock = (id, lockState) => {
-    const dataRows = [...rows];
+  const handleLock = (id, lockState) => {
+    const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === id)!.lock = !lockState;
-    setRows(dataRows);
+    setBackendKoreanWords(dataRows);
+  }
+
+  const test: TableRow = {
+    id: null,
+    word: 'I',
+    romanization: 'am',
+    definition: 'testing',
+    comfortability: 5,
+    expirationDate: today,
+    lock: false
+
+  }
+  const insertRow = (newRow: TableRow) => {
+    console.log(newRow.expirationDate);
+    if(newRow.lock === true)
+        newRow.lock = 1;
+    else
+      newRow.lock = 0;
+
+    fetch('/api/words', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify(newRow)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to send data to server");
+      }
+      // Handle successful response
+      console.log("Data sent successfully!");
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error sending data to server:", error);
+    });
   }
   //===========================================================================================================
 
@@ -49,7 +102,7 @@ export default function Table() {
           );
       }
     },
-    {field: 'lastModified', headerName: 'Last Checked', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
+    {field: 'expirtationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
                   <RowDate disabled={params.row.lock}></RowDate>
@@ -67,6 +120,8 @@ export default function Table() {
 //===========================================================================================================
 
   return(
+    <>
+      <button onClick={ () => insertRow(test)}></button>
         <DataTable
           checkboxSelection
           columns={columns}
@@ -78,13 +133,18 @@ export default function Table() {
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
           }
+          initialState={{
+            pagination: { paginationModel: {pageSize: 25}}
+          }}
           onColumnVisibilityModelChange={(newModel) =>
               setColumnVisibilityModel(newModel)
           }
           onFilterModelChange={(newModel) => setFilterModel(newModel)}
-          rows={data}
+          pageSizeOptions={[25, 50, 75]}
+          rows={backendKoreanWords}
           slots={{ toolbar: GridToolbar }}
           slotProps={{ toolbar: { showQuickFilter: true } }}
         />
+        </>
   );
 }
