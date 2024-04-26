@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { createContext, useContext } from 'react';
-import { Box, Button, alpha, styled } from '@mui/material';
-import { DataGrid, GridToolbar, GridRowsProp, GridColDef, gridClasses, GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
+import { GridToolbar, GridColDef,  GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
 import { DataTable } from './styled-data-grid/StyledDataGrid';
 import RowSlider from './row-slider/RowSlider';
 import RowDate from './row-date/RowDate';
 import RowLock from './row-lock/RowLock';
 import { TableRow } from '../../data/TableRowInterface';
-import dayjs from 'dayjs';
-
+import AddWord from './table-dialog/TableDialogAddWord';
+import { Button } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import TableCustomToolbar from './table-custom-toolbar/TableCustomToolbar';
 
 
 export default function Table() {
@@ -33,6 +33,7 @@ export default function Table() {
   //STATES
   //===========================================================================================================
   const [columnVisibilityModel, setColumnVisibilityModel] = React.useState<GridColumnVisibilityModel>({});
+  const [dialogState, setDialogState] = React.useState(false);
   const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
     items: [],
     quickFilterExcludeHiddenColumns: false,
@@ -121,7 +122,6 @@ export default function Table() {
 
   return(
     <>
-      <button onClick={ () => insertRow(test)}></button>
         <DataTable
           checkboxSelection
           columns={columns}
@@ -142,8 +142,8 @@ export default function Table() {
           onFilterModelChange={(newModel) => setFilterModel(newModel)}
           pageSizeOptions={[25, 50, 75]}
           rows={backendKoreanWords}
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{ toolbar: { showQuickFilter: true } }}
+          slots={{ toolbar: TableCustomToolbar}}
+          slotProps={{ toolbar: { showQuickFilter: true, dialogState: dialogState } }}
         />
         </>
   );
