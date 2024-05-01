@@ -9,8 +9,7 @@ export async function SelectQuery<T>(queryString: string): Promise<Partial<T[]>>
 
 //insert, update, delete
 export async function ModifyQuery<T>(queryString: string): Promise<ResultSetHeader> {
-    console.log(queryString);
-    const [results] = await pool.query(queryString);
+    const [results] = await pool.execute(queryString);
     return results as ResultSetHeader;
   }
   

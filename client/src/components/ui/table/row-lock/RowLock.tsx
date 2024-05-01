@@ -7,8 +7,8 @@ export default function RowLock({id, lockState, onClick}) {
       return (
         <ToggleButton
           sx={{ backgroundColor: 'white'}}
-          value="id"
-          onClick={(e) => onClick(id,lockState)}
+          value={id}
+          onClick={(e) => onClick(id, lockState)}
         >
         </ToggleButton>
       );

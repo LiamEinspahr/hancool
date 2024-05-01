@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { GridToolbar, GridColDef,  GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
+import { GridToolbar, GridColDef,  GridFilterModel, GridColumnVisibilityModel, GridValidRowModel, GridRowModel} from '@mui/x-data-grid';
 import { DataTable } from './styled-data-grid/StyledDataGrid';
-import RowSlider from './row-slider/RowSlider';
+import RowSelect from './row-slider/RowSelect';
 import RowDate from './row-date/RowDate';
 import RowLock from './row-lock/RowLock';
 import { TableRow } from '../../data/TableRowInterface';
@@ -45,24 +45,73 @@ export default function Table() {
 
   //FUNCTIONS
   //===========================================================================================================
-  const handleLock = (id, lockState) => {
+  const handleID = (id, newValue) => {
     const dataRows = [...backendKoreanWords];
-    dataRows.find((row) => row.id === id)!.lock = !lockState;
+    dataRows.find((row) => row.id === id)!.id = id;
+    setBackendKoreanWords(dataRows);
+  }
+  
+  const handleWord = (id, newValue) => {
+    const dataRows = [...backendKoreanWords];
+    dataRows.find((row) => row.id === id)!.word = newValue;
     setBackendKoreanWords(dataRows);
   }
 
-  const test: TableRow = {
-    id: null,
-    word: 'I',
-    romanization: 'am',
-    definition: 'testing',
-    comfortability: 5,
-    expirationDate: today,
-    lock: false
-
+  const handleRomanization = (id, newValue) => {
+    const dataRows = [...backendKoreanWords];
+    dataRows.find((row) => row.id === id)!.romanization = newValue;
+    setBackendKoreanWords(dataRows);
   }
+
+  const handleDefinition = (id, newValue) => {
+    const dataRows = [...backendKoreanWords];
+    dataRows.find((row) => row.id === id)!.definition = newValue;
+    setBackendKoreanWords(dataRows);
+  }
+
+  const handleComfortability = (id, newValue) => {
+    const dataRows = [...backendKoreanWords];
+    dataRows.find((row) => row.id === id)!.comfortability = newValue;
+    setBackendKoreanWords(dataRows);
+  }
+
+  const handleDate = (id, newValue) => {
+    const dataRows = [...backendKoreanWords];
+    dataRows.find((row) => row.id === id)!.expirationDate = newValue;
+    setBackendKoreanWords(dataRows);
+  }
+  
+  const handleLock = (id, lockState) => {
+
+    //Need to get opposite of current lockstate to pass in
+    //Also need to convert to an object for JSON.stringify
+    const newLockState = (!lockState ? {lock: 1} : {lock: 0} );
+    const dataRows = [...backendKoreanWords];
+
+
+    dataRows.find((row) => row.id === id)!.lock = !lockState;
+    setBackendKoreanWords(dataRows);
+    fetch(`/api/words/updateLock/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newLockState)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
+  }
+
+
   const insertRow = (newRow: TableRow) => {
-    console.log(newRow.expirationDate);
     if(newRow.lock === true)
         newRow.lock = 1;
     else
@@ -87,6 +136,15 @@ export default function Table() {
       console.error("Error sending data to server:", error);
     });
   }
+
+  const saveOnServer = (newRow: any, oldRow: any) => {
+    setBackendKoreanWords((oldData) => oldData.map((row) => (row.id === newRow.id ? newRow : row)));
+    console.log("new Word: " + newRow.word);
+    console.log("old Word: " + oldRow.word);
+    console.log("updated: " + backendKoreanWords[newRow.id-1].word);
+
+    return newRow;
+};
   //===========================================================================================================
 
   //COLUMN DEFINITIONS
@@ -99,14 +157,14 @@ export default function Table() {
     {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
-              <RowSlider disabled={params.row.lock}></RowSlider>
+              <RowSelect id={params.row.id} disabled={params.row.lock} passedInValue={params.row.comfortability}  onChange={handleComfortability}></RowSelect>
           );
       }
     },
     {field: 'expirtationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
-                  <RowDate disabled={params.row.lock}></RowDate>
+                  <RowDate disabled={params.row.lock} onChange={handleDate}></RowDate>
           );
       }
     },
@@ -133,6 +191,7 @@ export default function Table() {
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
           }
+          getRowId={(row) => row.id}
           initialState={{
             pagination: { paginationModel: {pageSize: 25}}
           }}
@@ -141,6 +200,7 @@ export default function Table() {
           }
           onFilterModelChange={(newModel) => setFilterModel(newModel)}
           pageSizeOptions={[25, 50, 75]}
+          processRowUpdate={saveOnServer}
           rows={backendKoreanWords}
           slots={{ toolbar: TableCustomToolbar}}
           slotProps={{ toolbar: { showQuickFilter: true, dialogState: dialogState } }}
