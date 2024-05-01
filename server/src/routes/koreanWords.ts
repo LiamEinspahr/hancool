@@ -39,11 +39,10 @@ router.get('/:id', async (req,res) => {
   });
 
   // ====================================================================================
-  /*router.put('/updateID/:id', async (req,res) => {
+  router.put('/updateID/:id', async (req,res) => {
     try {
       const oldID = req.params.id;
-      const updatedID= {...req.body };
-      const updatedWord = [...req.body]
+      const updatedID = req.body.id;
       const result = await db.words.modifyKoreanWordID(updatedID, oldID);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
@@ -53,7 +52,7 @@ router.get('/:id', async (req,res) => {
   router.put('/updateWord/:id', async (req,res) => {
     try {
       const id = req.params.id;
-      const updatedWord = { ...req.body };
+      const updatedWord = req.body.word;
       const result = await db.words.modifyKoreanWord(updatedWord, id);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
@@ -63,7 +62,7 @@ router.get('/:id', async (req,res) => {
   router.put('/updateRomanization/:id', async (req,res) => {
     try {
       const id = req.params.id;
-      const updatedRomanization = [...req.body]
+      const updatedRomanization = req.body.romanization;
       const result = await db.words.modifyKoreanWordRomanization(updatedRomanization, id);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
@@ -73,7 +72,7 @@ router.get('/:id', async (req,res) => {
   router.put('/updateDefinition/:id', async (req,res) => {
     try {
       const id = req.params.id;
-      const updatedDefinition = [...req.body]
+      const updatedDefinition = req.body.definition;
       const result = await db.words.modifyKoreanWordDefinition(updatedDefinition, id);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
@@ -83,14 +82,14 @@ router.get('/:id', async (req,res) => {
   router.put('/updateComfortability/:id', async (req,res) => {
     try {
       const id = req.params.id;
-      const updatedComforability = [...req.body]
+      const updatedComforability = req.body.comfortability;
       const result = await db.words.modifyKoreanWordComfortability(updatedComforability, id);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
   });
 
-  router.put('/updateExpirationDate/:id', async (req,res) => {
+  /*router.put('/updateExpirationDate/:id', async (req,res) => {
     try {
       const id = req.params.id;
       const updatedExpirationDate = [...req.body]

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GridToolbar, GridColDef,  GridFilterModel, GridColumnVisibilityModel, GridValidRowModel, GridRowModel} from '@mui/x-data-grid';
 import { DataTable } from './styled-data-grid/StyledDataGrid';
-import RowSelect from './row-slider/RowSelect';
+import RowComfortability from './row-comfortability/RowComfortability';
 import RowDate from './row-date/RowDate';
 import RowLock from './row-lock/RowLock';
 import { TableRow } from '../../data/TableRowInterface';
@@ -45,34 +45,133 @@ export default function Table() {
 
   //FUNCTIONS
   //===========================================================================================================
-  const handleID = (id, newValue) => {
+  const handleID = (oldID, newID) => {
+
+    const newIDJSON = {id: newID};
     const dataRows = [...backendKoreanWords];
-    dataRows.find((row) => row.id === id)!.id = id;
+    dataRows.find((row) => row.id === oldID)!.id = newID;
     setBackendKoreanWords(dataRows);
+
+    fetch(`/api/words/updateID/${oldID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newIDJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
   }
   
   const handleWord = (id, newValue) => {
+
+    const newWordJSON= {word: newValue};
     const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === id)!.word = newValue;
     setBackendKoreanWords(dataRows);
+
+    fetch(`/api/words/updateWord/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newWordJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
+  
   }
 
   const handleRomanization = (id, newValue) => {
+    const newRomanizationJSON= {romanization: newValue};
     const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === id)!.romanization = newValue;
     setBackendKoreanWords(dataRows);
+
+    fetch(`/api/words/updateRomanization/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newRomanizationJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
   }
 
   const handleDefinition = (id, newValue) => {
+
+    const newDefinitionJSON = {definition: newValue};
     const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === id)!.definition = newValue;
     setBackendKoreanWords(dataRows);
+
+    fetch(`/api/words/updateDefinition/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newDefinitionJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
   }
 
   const handleComfortability = (id, newValue) => {
+    const newComfortabilityJSON = {comfortability: newValue};
     const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === id)!.comfortability = newValue;
     setBackendKoreanWords(dataRows);
+
+    fetch(`/api/words/updateComfortability/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newComfortabilityJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
   }
 
   const handleDate = (id, newValue) => {
@@ -138,10 +237,35 @@ export default function Table() {
   }
 
   const saveOnServer = (newRow: any, oldRow: any) => {
+
+    let property = "";
+
+    for (const key in oldRow) {
+      if (oldRow.hasOwnProperty(key)) {
+          if (oldRow[key] !== newRow[key]) {
+              console.log(`${key} changed from ${oldRow[key]} to ${newRow[key]}`);
+              property = key;
+              break;
+            }
+        }
+    } 
+ 
+    switch(property) { 
+      case 'word' :
+        handleWord(oldRow.id, newRow.word);
+        break;
+      case 'romanization' : 
+        handleRomanization(oldRow.id, newRow.romanization);
+        break;
+      case 'definition' :
+        handleDefinition(oldRow.id, newRow.definition);
+        break;
+      case 'id' :
+        handleID(oldRow.id, newRow.id);
+        break;
+    }
+
     setBackendKoreanWords((oldData) => oldData.map((row) => (row.id === newRow.id ? newRow : row)));
-    console.log("new Word: " + newRow.word);
-    console.log("old Word: " + oldRow.word);
-    console.log("updated: " + backendKoreanWords[newRow.id-1].word);
 
     return newRow;
 };
@@ -157,14 +281,14 @@ export default function Table() {
     {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
-              <RowSelect id={params.row.id} disabled={params.row.lock} passedInValue={params.row.comfortability}  onChange={handleComfortability}></RowSelect>
+              <RowComfortability id={params.row.id} disabled={params.row.lock} passedInValue={params.row.comfortability}  onChange={handleComfortability}></RowComfortability>
           );
       }
     },
     {field: 'expirtationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
-                  <RowDate disabled={params.row.lock} onChange={handleDate}></RowDate>
+                  <RowDate disabled={params.row.lock} id={params.row.id} onChange={handleDate} passedInDate={params.row.expirationDate}></RowDate>
           );
       }
     },

@@ -3,7 +3,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, {Dayjs} from 'dayjs';
 import { DatePicker ,LocalizationProvider } from '@mui/x-date-pickers';
 
-export default function RowDate({disabled, onChange}) {
+export default function RowDate({disabled, id, onChange, passedInDate}) {
 
     const [value, setValue] = React.useState<Dayjs | null>(dayjs());
     
