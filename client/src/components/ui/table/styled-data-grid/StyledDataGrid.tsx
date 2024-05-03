@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Box, alpha, styled } from '@mui/material';
 import { DataGrid, GridToolbar, GridRowsProp, GridColDef, gridClasses, GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
+import { BorderColor } from '@mui/icons-material';
 
 
 export const DataTable = styled(DataGrid)(({ theme }) => ({
@@ -31,21 +32,27 @@ export const DataTable = styled(DataGrid)(({ theme }) => ({
     '& .header-cell' : {
       backgroundColor: '#2A2A28'
       },
-    '.MuiSvgIcon-root': {
-      color: 'white'
-      },
     '.MuiDataGrid-columnHeaderTitleContainer' : {
       backgroundColor: '#2A2A28'
     },
+    '.MuiDataGrid-editInputCell': {
+      color: 'white',
+      backgroundColor: '#2E2E2E',
+      BorderColor: '#2E2E2E'
+    },
+    '.MuiInputBase-root': {
+      color: 'white'
+    },
+    '.MuiSvgIcon-root': {
+      color: 'white'
+      },
     '.MuiTablePagination-displayedRows': {
       color: 'white'
     },
     '.MuiTablePagination-selectLabel': {
       color: 'white'
     },
-    '.MuiInputBase-input': {
-      color: 'white'
-    },
+    
       margin: '2vw 2vh',
       color: '#FFFF',
   }));
