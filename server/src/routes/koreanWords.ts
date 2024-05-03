@@ -89,15 +89,15 @@ router.get('/:id', async (req,res) => {
     }
   });
 
-  /*router.put('/updateExpirationDate/:id', async (req,res) => {
+  router.put('/updateExpirationDate/:id', async (req,res) => {
     try {
       const id = req.params.id;
-      const updatedExpirationDate = [...req.body]
+      const updatedExpirationDate = req.body.expirationDate;
       const result = await db.words.modifyKoreanWordExpirationDate(updatedExpirationDate, id);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
-  });*/
+  });
 
   //UPDATE /api/words/updateLock/:id
   router.put('/updateLock/:id', async (req,res) => {

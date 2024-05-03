@@ -175,9 +175,28 @@ export default function Table() {
   }
 
   const handleDate = (id, newValue) => {
+    const newExpirationDateJSON = {expirationDate: newValue};
     const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === id)!.expirationDate = newValue;
     setBackendKoreanWords(dataRows);
+
+    fetch(`/api/words/updateExpirationDate/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(newExpirationDateJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("err");
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error updating lock state:", error);
+      return;
+    });
   }
   
   const handleLock = (id, lockState) => {

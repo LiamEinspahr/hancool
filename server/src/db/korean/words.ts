@@ -68,7 +68,7 @@ export interface IWordRow extends RowDataPacket {
 
   //UPDATE DATE
   export function modifyKoreanWordExpirationDate(newDate: any, id: string) {
-    const queryString = `UPDATE \`korean\`.\`words\` SET \`date\` = '${newDate}' WHERE (\`id\` = '${id}');`;
+    const queryString = `UPDATE \`korean\`.\`words\` SET \`expirationDate\` = '${newDate}' WHERE (\`id\` = '${id}');`;
     return ModifyQuery(queryString);
   }
 
