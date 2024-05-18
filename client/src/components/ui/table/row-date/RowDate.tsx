@@ -30,7 +30,7 @@ export default function RowDate({disabled, id, onChange, passedInDate}) {
             onChange={(newValue) => handleChange(newValue)}
             sx={{
                 width: '75%',
-                paddingTop: '1px',
+                paddingTop: '7px',
                 paddingBottom: '1px'
             }}
             value={value}

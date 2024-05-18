@@ -1,5 +1,8 @@
 import { Router } from "express";
 import db from "../db";
+import { parse } from "path";
+
+const today = new Date().toISOString().split('T')[0];
 
 const router = Router();
 
@@ -16,22 +19,46 @@ router.get('/:id', async (req,res) => {
 
   // GET /api/words/<general>
   router.get('/', async (req,res) => {
+    
     try {
       const words = await db.words.getAllKoreanWords();
       words.map((word) => {
+        let wordDate = parseDate(word?.expirationDate);
+        if(wordDate === today) {
+          word!.lock = false;
+        }
+        else {
         word!.lock = !!word!.lock
+        }
       })
       res.json(words);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
   });
+
+  const parseDate = (date: string | undefined) => {
+    let yyyymmdd = new Date(date!).toISOString().split('T')[0];
+    //console.log(yyyymmdd);
+    return(yyyymmdd);
+  }
   
   //INSERT
   router.post('/', async (req, res) => {
     try {
       const newWord = {...req.body };
       const result = db.words.insertKoreanWord(newWord);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({error: 'Internal server error'});
+    }
+  });
+
+  //DELETE
+  router.delete('/', async (req, res) => {
+    try {
+      const id = req.body.id;
+      const result = db.words.deleteKoreanWord(id);
       res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
