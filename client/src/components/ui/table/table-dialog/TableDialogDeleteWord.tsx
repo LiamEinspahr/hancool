@@ -2,14 +2,9 @@ import * as React from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slider, Switch, TextField, Typography } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import TableDialogSwitch from './dialog-switch/TableDialogSwitch';
-
-interface AddWordProps {
-    currentState: boolean
-}
 
 
-export default function TableDialogDeleteWord(props: AddWordProps) {
+export default function TableDialogDeleteWord(props: any) {
     const [open, setOpen] = React.useState(props.currentState);
 
     const handleClickOpen = () => {
@@ -33,8 +28,7 @@ export default function TableDialogDeleteWord(props: AddWordProps) {
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
                 const formJson = Object.fromEntries((formData as any).entries());
-                const email = formJson.email;
-                console.log(email);
+                props.onDestory(formJson.id)
                 handleClose();
             },
             }}
@@ -51,7 +45,6 @@ export default function TableDialogDeleteWord(props: AddWordProps) {
                     id="tdID"
                     name="id"
                     label="ID"
-                    type="email"
                     fullWidth
                 />
             </DialogContent>

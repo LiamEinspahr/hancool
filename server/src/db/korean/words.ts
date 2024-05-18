@@ -23,14 +23,15 @@ export interface IWordRow extends RowDataPacket {
 
   //INSERTION
   export function insertKoreanWord(newWord: IWordRow) {
-    const queryString = `INSERT INTO \`korean\`.\`words\` (\`word\`, \`romanization\`, \`definition\`, \`comfortability\`, \`expirationDate\`, \`lock\`) VALUES ('${newWord.word}', '${newWord.romanization}', '${newWord.definition}', '${newWord.comfortability}', '${newWord.expirationDate}', '${newWord.lock}');`;
+    const queryString = `INSERT INTO \`korean\`.\`words\` (\`id\`, \`word\`, \`romanization\`, \`definition\`, \`comfortability\`, \`expirationDate\`, \`lock\`) VALUES ('${newWord.id}', '${newWord.word}', '${newWord.romanization}', '${newWord.definition}', '${newWord.comfortability}', '${newWord.expirationDate}', '${newWord.lock}');`;
     return ModifyQuery(queryString);
 
   }
 
   //DELETION
   export function deleteKoreanWord(id: string) {
-    return ModifyQuery<IWordRow>('DELETE FROM `korean`.`words` WHERE (`id` = ' + id + "');");
+    const queryString = `DELETE FROM \`korean\`.\`words\` WHERE (\`id\` = '${id}');`;
+    return ModifyQuery<IWordRow>(queryString);
   }
 
   // =======================================================================================================================================================================

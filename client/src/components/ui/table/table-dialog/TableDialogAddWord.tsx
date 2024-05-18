@@ -2,14 +2,10 @@ import * as React from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slider, Switch, TextField, Typography } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import TableDialogSwitch from './dialog-switch/TableDialogSwitch';
-
-interface AddWordProps {
-    currentState: boolean
-}
+import { TableRow } from '../../../data/TableRowInterface';
 
 
-export default function TableDialogAddWord(props: AddWordProps) {
+export default function TableDialogAddWord(props: any) {
     const [open, setOpen] = React.useState(props.currentState);
 
     const handleClickOpen = () => {
@@ -19,6 +15,11 @@ export default function TableDialogAddWord(props: AddWordProps) {
     const handleClose = () => {
       setOpen(false);
     };
+
+    const [comfortability, setComfortability] = React.useState<number>();
+    const [expirationDate, setExpirationDate] = React.useState<string>();
+    const [lock, setLock] = React.useState<boolean>();
+
 
 
     return(
@@ -33,8 +34,8 @@ export default function TableDialogAddWord(props: AddWordProps) {
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
                 const formJson = Object.fromEntries((formData as any).entries());
-                const email = formJson.email;
-                console.log(email);
+                const newRow: TableRow = {id: formJson.id, word: formJson.word, romanization: formJson.romanization, definition: formJson.definition, comfortability: formJson.comfortability, expirationDate: formJson.expirationDate, lock: formJson.lock};
+                props.onAdd(newRow);
                 handleClose();
             },
             }}
@@ -52,7 +53,6 @@ export default function TableDialogAddWord(props: AddWordProps) {
                     id="tdID"
                     name="id"
                     label="ID"
-                    type="email"
                     fullWidth
                 />
                 <TextField
@@ -82,26 +82,33 @@ export default function TableDialogAddWord(props: AddWordProps) {
                     label="Definition"
                     fullWidth
                 />
-                <Box sx={{mt: 2}}>
-                    <Typography>Comfortability</Typography>
-                    <Slider defaultValue={3} step={1} marks min={1} max={5}> </Slider>
-                </Box>
-                <Box sx={{mt: 2}}>
-                <Typography>Expiration Date</Typography>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                        sx={{
-                            width: '100%',
-                            paddingTop: '1px',
-                            paddingBottom: '1px'
-                        }}
-                            />
-                    </LocalizationProvider>
-                </Box>
-                <Box sx={{mt: 2}}>
-                    <Typography>Lock</Typography>
-                    <TableDialogSwitch></TableDialogSwitch>
-                </Box>
+                <TextField
+                    autoFocus
+                    required
+                    margin="dense"
+                    id="tdComfortability"
+                    name="comfortability"
+                    label="Comfortability"
+                    fullWidth
+                />
+                <TextField
+                    autoFocus
+                    required
+                    margin="dense"
+                    id="tdExpirationDate"
+                    name="expirationDate"
+                    label="Expiration Date"
+                    fullWidth
+                />
+                <TextField
+                    autoFocus
+                    required
+                    margin="dense"
+                    id="tdLock"
+                    name="lock"
+                    label="Lock"
+                    fullWidth
+                />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>

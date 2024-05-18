@@ -24,7 +24,7 @@ export default function Table() {
       response => response.json()
     ).then(
       data => {
-        setBackendKoreanWords(data) 
+        setBackendKoreanWords(data)
       }
     )
   }, [])
@@ -47,6 +47,8 @@ export default function Table() {
   //===========================================================================================================
   const handleID = (oldID, newID) => {
 
+    console.log("oldID: " + oldID);
+    console.log("newID: " + newID);
     const newIDJSON = {id: newID};
     const dataRows = [...backendKoreanWords];
     dataRows.find((row) => row.id === oldID)!.id = newID;
@@ -72,6 +74,7 @@ export default function Table() {
   }
   
   const handleWord = (id, newValue) => {
+    console.log("called handleWored");
 
     const newWordJSON= {word: newValue};
     const dataRows = [...backendKoreanWords];
@@ -230,10 +233,6 @@ export default function Table() {
 
 
   const insertRow = (newRow: TableRow) => {
-    if(newRow.lock === true)
-        newRow.lock = 1;
-    else
-      newRow.lock = 0;
 
     fetch('/api/words', {
       method: "POST",
@@ -248,12 +247,46 @@ export default function Table() {
       }
       // Handle successful response
       console.log("Data sent successfully!");
+      if(newRow.lock === Number(1))
+          newRow.lock = true;
+      else
+        newRow.lock = false;
+      setBackendKoreanWords((oldArray) => [...oldArray, newRow]);
     })
     .catch(error => {
       // Handle errors
       console.error("Error sending data to server:", error);
     });
   }
+
+  const deleteRow = (id: string) => {
+    
+    const idJSON = {id: id};
+    fetch('/api/words', {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify(idJSON)
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to send data to server");
+      }
+      // Handle successful response
+      console.log("Data sent successfully!");
+      const destroyID = backendKoreanWords.findIndex((row) => row.id === Number(id));
+      //setBackendKoreanWords((oldArray) => oldArray.splice(destroyID, 1));
+      setBackendKoreanWords((oldArray) => oldArray.filter(function(row) {
+        return row.id !== Number(id);
+      }));
+    })
+    .catch(error => {
+      // Handle errors
+      console.error("Error sending data to server:", error);
+    });
+  }
+
 
   const saveOnServer = (newRow: any, oldRow: any) => {
 
@@ -297,14 +330,14 @@ export default function Table() {
     {field: 'word', headerName: 'Word', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell' },
     {field: 'romanization', headerName: 'Romanization', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
     {field: 'definition', headerName: 'Definition', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
-    {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
+    {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'field-cell',
       renderCell: (params) => {
           return(
               <RowComfortability id={params.row.id} disabled={params.row.lock} passedInValue={params.row.comfortability}  onChange={handleComfortability}></RowComfortability>
           );
-      }
+      },
     },
-    {field: 'expirtationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
+    {field: 'expirationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'field-cell',
       renderCell: (params) => {
           return(
                   <RowDate disabled={params.row.lock} id={params.row.id} onChange={handleDate} passedInDate={params.row.expirationDate}></RowDate>
@@ -314,7 +347,7 @@ export default function Table() {
     {field: 'lock', headerName: 'Lock', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
       renderCell: (params) => {
           return(
-                  <RowLock id={params.row.id} lockState={params.row.lock} onClick={handleLock}></RowLock>            
+                  <RowLock expirationDate={params.row.expirationDate} id={params.row.id} lockState={params.row.lock} onClick={handleLock}></RowLock>            
               );
       } 
     },
@@ -345,8 +378,10 @@ export default function Table() {
           pageSizeOptions={[25, 50, 75]}
           processRowUpdate={saveOnServer}
           rows={backendKoreanWords}
+          rowHeight={75}
           slots={{ toolbar: TableCustomToolbar}}
-          slotProps={{ toolbar: { showQuickFilter: true, dialogState: dialogState } }}
+          slotProps={{ toolbar: { showQuickFilter: true, dialogState: dialogState, onAddData: insertRow, onDestoryData: deleteRow } }}
+          sx={{paddingTop: 4}}
         />
         </>
   );
