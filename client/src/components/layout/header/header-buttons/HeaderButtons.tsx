@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { Button, Input } from '@mui/material';
+import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { render } from '@testing-library/react';
+import { Padding } from '@mui/icons-material';
 
 
 
 
 export default function HeaderButtons() {
-    const buttons=['Home', 'About']
 
     return(
         <>
-            {buttons.map(text => (
-            <Link to={"/"+ text.toLowerCase()}>
-                <Button variant='outlined'>{text}</Button>
+            <Link to = {"/home"} style={{paddingLeft: "1vw"}}>
+                <Button variant='outlined' key="home">Home</Button>
             </Link>
-        ))}
+            <Link to = {"/about"} style={{paddingLeft: "0.33vw"}}>
+                <Button variant='outlined' key="about">About</Button>
+            </Link>
         </>
     );
 }

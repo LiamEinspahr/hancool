@@ -5,7 +5,7 @@ export default function HeaderTitle() {
 
 
     return(
-        <Box sx={{fontSize: "1vw"}}>
+        <Box sx={{fontSize: "2vw"}}>
             한Cool
         </Box>
     );

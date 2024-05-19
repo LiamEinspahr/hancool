@@ -1,19 +1,14 @@
 import * as React from 'react';
-import { GridToolbar, GridColDef,  GridFilterModel, GridColumnVisibilityModel, GridValidRowModel, GridRowModel} from '@mui/x-data-grid';
+import {GridColDef,  GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
 import { DataTable } from './styled-data-grid/StyledDataGrid';
 import RowComfortability from './row-comfortability/RowComfortability';
 import RowDate from './row-date/RowDate';
 import RowLock from './row-lock/RowLock';
 import { TableRow } from '../../data/TableRowInterface';
-import AddWord from './table-dialog/TableDialogAddWord';
-import { Button } from '@mui/material';
-import { Add } from '@mui/icons-material';
 import TableCustomToolbar from './table-custom-toolbar/TableCustomToolbar';
 
 
 export default function Table() {
-
-  const today = new Date().toISOString().split('T')[0];
 
   //Server
   //===========================================================================================================
@@ -275,8 +270,6 @@ export default function Table() {
       }
       // Handle successful response
       console.log("Data sent successfully!");
-      const destroyID = backendKoreanWords.findIndex((row) => row.id === Number(id));
-      //setBackendKoreanWords((oldArray) => oldArray.splice(destroyID, 1));
       setBackendKoreanWords((oldArray) => oldArray.filter(function(row) {
         return row.id !== Number(id);
       }));
@@ -326,25 +319,25 @@ export default function Table() {
   //COLUMN DEFINITIONS
   //===========================================================================================================
   const columns: GridColDef[] = [
-    {field: 'id', headerName: 'ID', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
+    {field: 'id', headerName: 'ID', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
     {field: 'word', headerName: 'Word', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell' },
-    {field: 'romanization', headerName: 'Romanization', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
-    {field: 'definition', headerName: 'Definition', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell'},
-    {field: 'comfortability', headerName: 'Comfortability', flex: 1, headerClassName: 'header-cell', cellClassName: 'field-cell',
+    {field: 'romanization', headerName: 'Romanization', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
+    {field: 'definition', headerName: 'Definition', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
+    {field: 'comfortability', headerName: 'Comfortability', flex: 0.5, headerClassName: 'header-cell', cellClassName: 'field-cell', align: 'left', headerAlign: 'left',
       renderCell: (params) => {
           return(
               <RowComfortability id={params.row.id} disabled={params.row.lock} passedInValue={params.row.comfortability}  onChange={handleComfortability}></RowComfortability>
           );
       },
     },
-    {field: 'expirationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'field-cell',
+    {field: 'expirationDate', headerName: 'Expiration Date', flex: 1, headerClassName: 'header-cell', cellClassName: 'field-cell', align: 'left', headerAlign: 'left',
       renderCell: (params) => {
           return(
                   <RowDate disabled={params.row.lock} id={params.row.id} onChange={handleDate} passedInDate={params.row.expirationDate}></RowDate>
           );
       }
     },
-    {field: 'lock', headerName: 'Lock', flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell',
+    {field: 'lock', headerName: 'Lock', flex: 0.5, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left',
       renderCell: (params) => {
           return(
                   <RowLock expirationDate={params.row.expirationDate} id={params.row.id} lockState={params.row.lock} onClick={handleLock}></RowLock>            
@@ -357,7 +350,6 @@ export default function Table() {
   return(
     <>
         <DataTable
-          checkboxSelection
           columns={columns}
           columnVisibilityModel={columnVisibilityModel}
           disableColumnFilter
@@ -381,7 +373,6 @@ export default function Table() {
           rowHeight={75}
           slots={{ toolbar: TableCustomToolbar}}
           slotProps={{ toolbar: { showQuickFilter: true, dialogState: dialogState, onAddData: insertRow, onDestoryData: deleteRow } }}
-          sx={{paddingTop: 4}}
         />
         </>
   );

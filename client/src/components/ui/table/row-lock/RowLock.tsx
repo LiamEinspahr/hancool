@@ -6,25 +6,30 @@ export default function RowLock({expirationDate, id, lockState, onClick}) {
 
   const newDate = new Date();
   newDate.setDate(newDate.getDate() - 1);
-  const today = newDate.toISOString().split('T')[0];
-  const expirationDateString = expirationDate.split('T')[0];
-
 
   const handleChange = () => {
-    console.log(today);
-    console.log(expirationDateString);
-    if(today === expirationDateString)
-        lockState = true;
-
     return onClick(id, lockState);
   }
 
       return (
-        <ToggleButton
-          sx={{ backgroundColor: 'white'}}
-          value={id}
-          onClick={(e) => handleChange()}
-        >
-        </ToggleButton>
+        <>
+          { lockState 
+            ? <ToggleButton
+              sx={{ backgroundColor: '#383838', color: 'white', border: 'none', opacity: '80%'}}
+              value={id}
+              onClick={(e) => handleChange()}
+            >
+              Unlock
+            </ToggleButton>
+
+            : <ToggleButton
+            sx={{ backgroundColor: 'white', border: 'none', opacity: '100%', fontWeight: '600'}}
+            value={id}
+            onClick={(e) => handleChange()}
+          >
+            Lock
+          </ToggleButton>
+          }
+      </>
       );
 }
