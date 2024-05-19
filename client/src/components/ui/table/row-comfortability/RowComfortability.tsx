@@ -14,10 +14,10 @@ export default function RowComfortability({id, disabled, passedInValue, onChange
   return (
     <Box sx={{height: "100%", paddingTop: 1.33 }}>
       <FormControl sx={{width: "50%"}}>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="comfortability-select">Select</InputLabel>
         <Select
           disabled={disabled}
-          label="Age"
+          label="select"
           onChange={handleChange}
           sx={{height: "75%"}}
           value={comfortability}
