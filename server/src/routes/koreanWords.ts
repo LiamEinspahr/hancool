@@ -71,6 +71,7 @@ router.get('/:id', async (req,res) => {
       const oldID = req.params.id;
       const updatedID = req.body.id;
       const result = await db.words.modifyKoreanWordID(updatedID, oldID);
+      res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
@@ -81,6 +82,7 @@ router.get('/:id', async (req,res) => {
       const id = req.params.id;
       const updatedWord = req.body.word;
       const result = await db.words.modifyKoreanWord(updatedWord, id);
+      res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
@@ -91,6 +93,7 @@ router.get('/:id', async (req,res) => {
       const id = req.params.id;
       const updatedRomanization = req.body.romanization;
       const result = await db.words.modifyKoreanWordRomanization(updatedRomanization, id);
+      res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
@@ -101,6 +104,7 @@ router.get('/:id', async (req,res) => {
       const id = req.params.id;
       const updatedDefinition = req.body.definition;
       const result = await db.words.modifyKoreanWordDefinition(updatedDefinition, id);
+      res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
@@ -111,6 +115,7 @@ router.get('/:id', async (req,res) => {
       const id = req.params.id;
       const updatedComforability = req.body.comfortability;
       const result = await db.words.modifyKoreanWordComfortability(updatedComforability, id);
+      res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
@@ -121,6 +126,7 @@ router.get('/:id', async (req,res) => {
       const id = req.params.id;
       const updatedExpirationDate = req.body.expirationDate;
       const result = await db.words.modifyKoreanWordExpirationDate(updatedExpirationDate, id);
+      res.json(result);
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }
@@ -133,6 +139,7 @@ router.get('/:id', async (req,res) => {
       const updatedLock = req.body.lock;
       const result = await db.words.modifyKoreanWordLock(updatedLock, id);
       res.json(result);
+      return;
     } catch (error) {
       res.status(500).json({error: 'Internal server error'});
     }

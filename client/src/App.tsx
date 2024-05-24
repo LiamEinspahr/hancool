@@ -11,6 +11,7 @@ import AboutPage from './components/pages/AboutPage';
 
 //router
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import ResourcesPage from './components/pages/ResourcesPage';
 
 
 
@@ -37,12 +38,20 @@ function App() {
             element={<TablePage />}
         ></Route>  
         <Route
-            path="/home"
+            path="/korean"
+            element={<TablePage />}
+        ></Route>
+        <Route
+            path="/japanese"
             element={<TablePage />}
         ></Route>
         <Route
             path="/about"
             element={<AboutPage />}
+        ></Route>
+        <Route
+            path="/resources"
+            element={<ResourcesPage />}
         ></Route>
     </Routes>
     </Router>

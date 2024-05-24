@@ -319,11 +319,11 @@ export default function Table() {
   //COLUMN DEFINITIONS
   //===========================================================================================================
   const columns: GridColDef[] = [
-    {field: 'id', headerName: 'ID', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
-    {field: 'word', headerName: 'Word', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell' },
-    {field: 'romanization', headerName: 'Romanization', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
-    {field: 'definition', headerName: 'Definition', editable: true, flex: 1, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
-    {field: 'comfortability', headerName: 'Comfortability', flex: 0.5, headerClassName: 'header-cell', cellClassName: 'field-cell', align: 'left', headerAlign: 'left',
+    {field: 'id', headerName: 'ID', editable: true, flex: 0.33, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
+    {field: 'word', headerName: 'Word', editable: true, flex: 0.5, headerClassName: 'header-cell', cellClassName: 'body-cell' },
+    {field: 'romanization', headerName: 'Romanization', editable: true, flex: 0.5, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
+    {field: 'definition', headerName: 'Definition', editable: true, flex: 1.25, headerClassName: 'header-cell', cellClassName: 'body-cell', align: 'left', headerAlign: 'left'},
+    {field: 'comfortability', headerName: 'Comfortability', flex: 0.75, headerClassName: 'header-cell', cellClassName: 'field-cell', align: 'left', headerAlign: 'left',
       renderCell: (params) => {
           return(
               <RowComfortability id={params.row.id} disabled={params.row.lock} passedInValue={params.row.comfortability}  onChange={handleComfortability}></RowComfortability>
