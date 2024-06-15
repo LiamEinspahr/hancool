@@ -6,7 +6,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 //pages
-import TablePage from './components/pages/TablePage';
+import KRTablePage from './components/pages/KRTablePage';
+import JPTablePage from './components/pages/JPTablePage';
 import AboutPage from './components/pages/AboutPage';
 
 //router
@@ -35,15 +36,15 @@ function App() {
       <Routes>
         <Route
             path="/"
-            element={<TablePage />}
+            element={<KRTablePage />}
         ></Route>  
         <Route
             path="/korean"
-            element={<TablePage />}
+            element={<KRTablePage />}
         ></Route>
         <Route
             path="/japanese"
-            element={<TablePage />}
+            element={<JPTablePage />}
         ></Route>
         <Route
             path="/about"

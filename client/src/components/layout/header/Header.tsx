@@ -26,6 +26,7 @@ const defaultState = {
   setRenderedButtons: (btns: headerButtonsType[]) => {}
 } as RenderedButtonsContextType
 
+
 export const RenderedButtonsContext = React.createContext<RenderedButtonsContextType>(defaultState);
 export const HeaderButtonsContext = React.createContext<typeof headerButtons>(headerButtons);
 
