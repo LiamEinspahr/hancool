@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Box, Toolbar } from '@mui/material';
+import { AppBar, Box, Toolbar, styled } from '@mui/material';
 import HeaderButtons from './header-buttons/HeaderButtons';
 import HeaderTitle from './header-title/HeaderTitle';
 import HeaderSettings from './header-settings/HeaderSettings';
@@ -40,9 +40,8 @@ export default function Header() {
 
 
     return(
-        <Box sx={{ flexGrow: 1 }} >
-      <AppBar position="static" >
-        <Toolbar sx={{paddingX: "3%"}}> 
+      <AppBar position="static">
+        <Toolbar sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
           <HeaderTitle></HeaderTitle>
           <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
             <HeaderButtonsContext.Provider value={currentHeaderButtons}>
@@ -51,8 +50,6 @@ export default function Header() {
             </HeaderButtonsContext.Provider>
          </RenderedButtonsContext.Provider>
         </Toolbar>
-        
       </AppBar>
-    </Box>
     );
 }

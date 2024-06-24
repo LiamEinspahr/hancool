@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, Button, Container, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {headerButtonsType, RenderedButtonsContext, HeaderButtonsContext } from '../Header';
 import ButtonToggleSettings from './app-settings/ButtonToggleSettings';
@@ -65,13 +65,13 @@ export default function HeaderSettings() {
       );
     
       return (
-        <div>
-          <IconButton onClick={toggleDrawer(true)} sx={{marginLeft: '71.69vw'}}>
+        <Container sx={{position: 'absolute', float:'right', marginLeft: 0 , marginRight: 0, ['@media (min-width: 600px)']: {paddingLeft: 0, paddingRight: 0}, ['@media (min-width: 1200px)']: {width: '98%', maxWidth: '100%'} }}>
+          <IconButton onClick={toggleDrawer(true)} sx={{float: 'right'}}>
             <SettingsIcon />
           </IconButton>
           <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
             {DrawerList}
           </Drawer>
-        </div>
+        </Container>
       );
     }
