@@ -43,7 +43,7 @@ export default function HeaderSettings() {
                 <Stack sx={{display: "grid", justifyItems: 'start', marginBottom: "4vh", paddingLeft: "18%"}}>
                 {headerButtons.map((btn, index) => (
                   <Box marginTop={"20px"}>
-                    <ToggleButton aria-label={`${btn}`} aria-pressed={setRenderedButtons[index]} sx={{backgroundColor: btn.isShown ? toggleColors.isOff : toggleColors.isOn }} tabIndex={index} value={btn.name}>{btn.name}</ToggleButton>
+                    <ToggleButton key={index} aria-label={`${btn}`} aria-pressed={setRenderedButtons[index]} sx={{backgroundColor: btn.isShown ? toggleColors.isOff : toggleColors.isOn }} tabIndex={index} value={btn.name}>{btn.name}</ToggleButton>
                   </Box>
                 ))}
                 </Stack>
@@ -65,7 +65,7 @@ export default function HeaderSettings() {
       );
     
       return (
-        <Container sx={{position: 'absolute', float:'right', marginLeft: 0 , marginRight: 0, ['@media (min-width: 600px)']: {paddingLeft: 0, paddingRight: 0}, ['@media (min-width: 1200px)']: {width: '98%', maxWidth: '100%'} }}>
+        <Container sx={{position: 'relative', float:'right', marginLeft: 0 , marginRight: 0, ['@media (min-width: 600px)']: {paddingLeft: 0, paddingRight: 0}, ['@media (min-width: 1200px)']: {width: 'auto'} }}>
           <IconButton onClick={toggleDrawer(true)} sx={{float: 'right'}}>
             <SettingsIcon />
           </IconButton>
