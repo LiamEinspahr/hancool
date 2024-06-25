@@ -7,13 +7,15 @@ import HeaderSettings from './header-settings/HeaderSettings';
 export interface headerButtonsType {
   isShown: Boolean,
   name: string,
+  isLanguage: Boolean
 }
 
 const headerButtons: headerButtonsType[] = [
-  {isShown: true, name: 'korean'},
-  {isShown: true, name: 'japanese'},
-  {isShown: true, name: 'resources'},
-  {isShown: true, name: 'about'},
+  {isShown: true, name: 'tables', isLanguage: false},
+  {isShown: true, name: 'korean', isLanguage: true},
+  {isShown: true, name: 'japanese', isLanguage: true},
+  {isShown: true, name: 'resources', isLanguage: false},
+  {isShown: true, name: 'about', isLanguage: false},
 ];
 
 interface RenderedButtonsContextType {

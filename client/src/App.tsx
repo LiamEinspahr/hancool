@@ -13,6 +13,7 @@ import AboutPage from './components/pages/AboutPage';
 //router
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ResourcesPage from './components/pages/ResourcesPage';
+import TablesPage from './components/pages/TablesPage';
 
 
 
@@ -34,9 +35,13 @@ function App() {
         <Layout></Layout>
       </ThemeProvider>
       <Routes>
-        <Route
+      <Route
             path="/"
             element={<KRTablePage />}
+        ></Route> 
+        <Route
+            path="/tables"
+            element={<TablesPage />}
         ></Route>  
         <Route
             path="/korean"

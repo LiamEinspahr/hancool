@@ -2,13 +2,23 @@ import * as React from 'react';
 import { Box, Button, Container, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {headerButtonsType, RenderedButtonsContext, HeaderButtonsContext } from '../Header';
-import ButtonToggleSettings from './app-settings/ButtonToggleSettings';
 
+interface nonButtonDisplay_SettingsInterface {
+  id: string,
+  displayName: string
+}
+
+const nonButtonDisplay_Settings: nonButtonDisplay_SettingsInterface[] = [
+  {id: 'offlineMode', displayName: 'Offline Mode'},
+  {id: 'exit', displayName: 'Exit'}
+]
 
 const toggleColors = {
   isOn: "#850000",
   isOff: "#32A72C"
 }
+
+
 
 export default function HeaderSettings() {
 
@@ -49,16 +59,13 @@ export default function HeaderSettings() {
                 </Stack>
               </ToggleButtonGroup>
             </ListItem>
-            <ListItem key="offlineMode" disablePadding>
-              <ListItemButton>
-                <ListItemText primary="Offline Mode" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem key="exit" disablePadding>
-              <ListItemButton>
-                <ListItemText primary="Exit" />
-              </ListItemButton>
-            </ListItem>
+            {nonButtonDisplay_Settings.map((btn, index) => (
+              <ListItem key={`${btn.id}`} disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={`${btn.displayName}`} />
+                </ListItemButton>
+              </ListItem>
+            ))}
           </List>
           <Divider />
         </Box>
