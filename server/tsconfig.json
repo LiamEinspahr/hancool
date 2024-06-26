@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "paths": {
+      "all": ["/*"],
+      "kr": ["/src/route_japanese/*"],
+      "jp": ["/src/routes_korean/*"],
+    },
     "lib": ["ESNext"],
     "target": "es2016",
     "module": "commonjs",                                /* Specify what module code is generated. */
