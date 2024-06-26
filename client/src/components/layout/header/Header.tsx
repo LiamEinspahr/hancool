@@ -44,16 +44,18 @@ export default function Header() {
 
 
     return(
-      <AppBar position="static">
-        <Toolbar sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
-          <HeaderTitle></HeaderTitle>
-          <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
-            <HeaderButtonsContext.Provider value={currentHeaderButtons}>
-              <HeaderButtons></HeaderButtons>
-              <HeaderSettings></HeaderSettings>
-            </HeaderButtonsContext.Provider>
-         </RenderedButtonsContext.Provider>
-        </Toolbar>
-      </AppBar>
+      <Box >
+        <AppBar position="static" sx={{boxShadow: 10}}>
+          <Toolbar sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
+            <HeaderTitle></HeaderTitle>
+            <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
+              <HeaderButtonsContext.Provider value={currentHeaderButtons}>
+                <HeaderButtons></HeaderButtons>
+                <HeaderSettings></HeaderSettings>
+              </HeaderButtonsContext.Provider>
+          </RenderedButtonsContext.Provider>
+          </Toolbar>
+        </AppBar>
+      </Box>
     );
 }

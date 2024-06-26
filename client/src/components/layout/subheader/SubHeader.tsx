@@ -30,7 +30,7 @@ export default function SubHeader() {
     
     return(
         <>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, boxShadow: 10, color: 'red', marginBottom: '3vh'}}>
                 <AppBar position="static" sx={{backgroundColor: '#161616'}}>
                     <Toolbar sx={{ marginLeft: '0%', backgroundColor: '#161616', ['@media (min-width: 600px)']: {minHeight: '48px', paddingLeft: '0.5%', paddingRight: '0.5%', maxWidth: '92vw'}}}>
                         <ToggleButtonGroup exclusive
