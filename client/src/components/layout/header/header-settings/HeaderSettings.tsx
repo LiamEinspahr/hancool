@@ -52,9 +52,12 @@ export default function HeaderSettings() {
                 onChange={HandleRender}>
                 <Stack sx={{display: "grid", justifyItems: 'start', marginBottom: "4vh", paddingLeft: "18%"}}>
                 {headerButtons.map((btn, index) => (
-                  <Box marginTop={"20px"}>
-                    <ToggleButton key={index} aria-label={`${btn}`} aria-pressed={setRenderedButtons[index]} sx={{backgroundColor: btn.isShown ? toggleColors.isOff : toggleColors.isOn }} tabIndex={index} value={btn.name}>{btn.name}</ToggleButton>
-                  </Box>
+                  (headerButtons[index].displayNavigation !== false)
+                    ? <Box marginTop={"20px"}>
+                        <ToggleButton key={index} aria-label={`${btn}`} aria-pressed={setRenderedButtons[index]} sx={{backgroundColor: btn.isShown ? toggleColors.isOff : toggleColors.isOn }} tabIndex={index} value={btn.name}>{btn.name}</ToggleButton>
+                      </Box>
+                    : <></>
+
                 ))}
                 </Stack>
               </ToggleButtonGroup>

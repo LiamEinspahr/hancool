@@ -1,27 +1,34 @@
 import * as React from 'react';
+import { SubHeaderContext } from '../../App';
 import { RenderedButtonsContext } from '../layout/header/Header';
-import { AppBar, Box, Button, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
-
+import KR_Table from '../ui/table/kr_table/KR_Table';
+import JP_Table from '../ui/table/jp_table/JP_Table';
+import SubHeader from '../layout/subheader/SubHeader';
 
 export default function TablesPage() {
 
-    const {renderedButtons, setRenderedButtons} = React.useContext(RenderedButtonsContext);
+    const {renderedLanguage, setRenderedLanguage} = React.useContext(SubHeaderContext);
     
+    function handleClick(name: string) {
+        if(name === 'korean') {
+            setRenderedLanguage('korean');
+        }
+        else if(name === 'japanese') {
+            setRenderedLanguage('japanese');
+        }
+        else {
+            return <h1>ERROR</h1>
+        }
+
+        return;
+    }
+
     return(
-        <Box sx={{height: "9vh"}}>
-            <AppBar position='relative' sx={{height: '9vh'}}>
-                <Toolbar sx={{['@media (orientation: landscape)']: {height: 0}, ['@media (min-width: 600px)']: {height: 0} }}>
-                {renderedButtons.map((button, index) => (
-                    (renderedButtons[index].isLanguage)
-                    ? <Link to = {`/${renderedButtons[index].name}`} style={{paddingLeft: "0.33vw"}}>
-                        <Button variant='outlined' key={`${renderedButtons[index].name}`} sx={{color: 'white'}}>{renderedButtons[index].name}</Button>
-                    </Link>
-                    : <></>
-                ))}
-                </Toolbar>
-            </AppBar>
-        </Box>
+        <>
+            <SubHeader />
+            {renderedLanguage === 'korean' ? <KR_Table /> : <JP_Table />}
+        </>
     );
 }
 
