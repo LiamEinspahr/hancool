@@ -1,15 +1,6 @@
 import React from 'react';
 import { Box, Button, Card, CardActions, CardContent, Container, Typography } from '@mui/material';
 import { CardInterface } from '../../data/CardInterface';
-
-const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', backgroundColor: '#272727', color: 'white' }}
-    >
-      •
-    </Box>
-  );
   
   export default function StudyCard({cards}) {
     return (

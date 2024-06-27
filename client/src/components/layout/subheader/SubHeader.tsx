@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { AppBar, Box, Button, Container, ToggleButton, ToggleButtonGroup, Toolbar, Typography, styled } from '@mui/material';
+import { AppBar, Box, Button, Container, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { BorderAllRounded } from '@mui/icons-material';
 import { RenderedButtonsContext } from '../header/Header';
 import KR_Table from '../../ui/table/kr_table/KR_Table';
 import { SubHeaderContext } from '../../../App';
-
-
 
 
 export default function SubHeader() {
@@ -30,7 +28,7 @@ export default function SubHeader() {
     
     return(
         <>
-        <Box sx={{ flexGrow: 1, boxShadow: 10, color: 'red', marginBottom: '3vh'}}>
+        <Box sx={{ flexGrow: 1, boxShadow: 10, color: 'red', marginBottom: '3vh', ['.MuiBox-root']:{zIndex: 10}}}>
                 <AppBar position="static" sx={{backgroundColor: '#161616'}}>
                     <Toolbar sx={{ marginLeft: '0%', backgroundColor: '#161616', ['@media (min-width: 600px)']: {minHeight: '48px', paddingLeft: '0.5%', paddingRight: '0.5%', maxWidth: '92vw'}}}>
                         <ToggleButtonGroup exclusive
