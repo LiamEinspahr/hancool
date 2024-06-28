@@ -44,9 +44,9 @@ export default function Header() {
 
 
     return(
-      <Box >
-        <AppBar position="static" sx={{boxShadow: 10}}>
-          <Toolbar sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
+      <Box id="header_root" >
+        <AppBar id="header_appbar" position="static" sx={{boxShadow: 10}}>
+          <Toolbar id="header_toolbar" sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
             <HeaderTitle></HeaderTitle>
             <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
               <HeaderButtonsContext.Provider value={currentHeaderButtons}>

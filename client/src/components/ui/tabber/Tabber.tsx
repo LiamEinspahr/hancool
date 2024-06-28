@@ -15,7 +15,7 @@ const theme = createTheme({
     }
 })
 
-export default function Panner() {
+export default function Tabber() {
 
     const {renderedCards, setRenderedCards} = React.useContext(StudyCardsPageContext);
 
