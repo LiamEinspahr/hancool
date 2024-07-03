@@ -33,9 +33,11 @@ export default function StudyCardsPage() {
 
     return(
         <Box id="studyCardsPage_root" sx={{height: '93.5vh', position: 'relative'}}>
-            <StudyCardsPageHeader />
-            <StudyCardsPageBody renderedCard={renderedCards} />
-            <StudyCardsPageFooter />
+            <StudyCardsPageContext.Provider value={{renderedCards, setRenderedCards}}>
+                <StudyCardsPageHeader />
+                <StudyCardsPageBody />
+                <StudyCardsPageFooter />
+            </StudyCardsPageContext.Provider>
         </Box>
     );
 }

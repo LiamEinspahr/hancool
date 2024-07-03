@@ -4,32 +4,33 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { IconButton } from '@mui/material';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+export default function ConjugationsCard({currentState, setDrawerState}) {
+  const [openExpansion, setOpenExpansion] = React.useState(false);
 
-const card = (
-  <React.Fragment>
-    <CardContent>
-      Conjugations
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </React.Fragment>
-);
+  const handler = (state: boolean) => {
+    console.log("handler called");
+    return setDrawerState(!currentState);
+  }
 
-export default function ConjugationsCard() {
   return (
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card}</Card>
-    </Box>
+      <Card 
+        sx={{height: '100%', backgroundColor: '#222222', 
+        color: 'white', positon: 'fixed', 
+        width: '100%',
+
+        }} 
+        variant="outlined">
+          <CardContent sx={{height: '90%'}}>
+            Abbreviations
+        </CardContent>
+        <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
+          <IconButton onClick={() => handler(currentState)}>
+            <ArrowRightIcon sx={{backgroundColor: '#222222', color: 'white', position: 'absolute', fontSize: '60px'}} />
+          </IconButton>
+        </CardActions>
+      </Card>
   );
 }

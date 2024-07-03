@@ -28,7 +28,7 @@ export default function Tabber() {
 
     return(
         <ThemeProvider theme={theme}>
-            <Box sx={{borderRadius: '2px', maxWidth: '28%', maxHeight: '44.49px',  backgroundColor: '#53AA41' }}>
+            <Box sx={{borderRadius: '2px', maxWidth: '100%', maxHeight: '44.49px',  backgroundColor: '#53AA41' }}>
                 <Tabs
                     value={value}
                     onChange={handleChange}

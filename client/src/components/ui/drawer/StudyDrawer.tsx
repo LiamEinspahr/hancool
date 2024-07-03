@@ -7,10 +7,13 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { cardTestData } from '../../data/CardTestData';
+import ListIcon from '@mui/icons-material/List';
+import { IconButton } from '@mui/material';
 
 
 
-export default function StudyDrawer({data}) {
+export default function StudyDrawer()  {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -20,7 +23,7 @@ export default function StudyDrawer({data}) {
   const DrawerList = (
       <Box sx={{}} role="presentation" onClick={toggleDrawer(false)}>
         <List>
-          {data.map((card, index) => (
+          {cardTestData.map((card, index) => (
             <ListItem key={card.title} disablePadding>
               <ListItemButton>
                 <ListItemText primary={card.title} />
@@ -33,8 +36,10 @@ export default function StudyDrawer({data}) {
   );
 
   return (
-    <div>
-      <Button onClick={toggleDrawer(true)}>Open drawer</Button>
+    <>
+      <IconButton sx={{color: '#9BCDFF'}} onClick={toggleDrawer(!open)}>
+        <ListIcon />
+      </IconButton>
       <Drawer
         hideBackdrop
         sx={{['&.MuiDrawer-root']:{position: 'relative', paddingLeft: '20%'}, ['&.MuiDrawer-paper']:{position: 'relative'}, ['&.MuiBackdrop-root']:{paddingLeft: '5%'}}} 
@@ -57,6 +62,6 @@ export default function StudyDrawer({data}) {
       >
         {DrawerList}
       </Drawer>
-    </div>
+    </>
   );
 }

@@ -9,17 +9,22 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import { StudyCardsPageContext } from '../../pages/StudyCards/StudyCardsPage';
+import TemplateStudyCard from '../card/TemplateStudyCard';
+import SimpleGrow from '../card/card_expansion/CardExpansion';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const content = [
-  "lol",
-  "haha",
-  "xd",
-  "test"
+const content: any = [
+  'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/137.png',
+  'https://assets.pokemon.com/assets/cms2/img/pokedex/full//233.png',
+  'https://www.models-resource.com/resources/big_icons/56/55277.png?updated=1665890171'
 ];
 
 function Paginator() {
+
+  const {renderedCards, setRenderedCards} = React.useContext(StudyCardsPageContext);
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = content.length;
@@ -43,7 +48,7 @@ function Paginator() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, borderRadius: '2px'}}>
+    <Box id="paginator_root" sx={{borderRadius: '2px'}}>
       <Paper
         square
         elevation={0}
@@ -57,10 +62,10 @@ function Paginator() {
           borderRadius: '2px'
         }}
       >
-        <Typography>{content[activeStep]}</Typography>
+        <Typography>{renderedCards}</Typography>
       </Paper>
-      <Box sx={{ height: '60vh', width: '100%', p: 2, backgroundColor: '#272727', borderRadius: '3px' }}>
-        {content[activeStep]}
+      <Box id="EDIT_ME" sx={{position: 'relative', display: 'flex', height: '60vh', width: '100%', backgroundColor: '#272727', borderRadius: '3px' }}>
+        <TemplateStudyCard renderCard={renderedCards} />
       </Box>
       <MobileStepper
       sx={{color: '#90caf9', backgroundColor: '#2E557C', height: '3vh', borderRadius: '2px' }}
