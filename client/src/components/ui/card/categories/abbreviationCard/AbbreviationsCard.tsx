@@ -4,6 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { Grid, IconButton } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import AbbreviationsCardGrid from '../../card_grid/AbbreviationsCardGrid';
 
 
 export default function AbbreviationsCard({currentState, setDrawerState}) {
@@ -24,18 +25,7 @@ export default function AbbreviationsCard({currentState, setDrawerState}) {
         }} 
         variant="outlined">
         <CardContent sx={{height: '90%'}}>
-          <Grid
-           container
-           columns={3}
-           spacing={2}
-           sx={{height: '100%', width: '100%'}}>
-            <Grid item xs={6}>
-              Hi
-            </Grid>
-            <Grid item xs={6}>
-              Bye
-            </Grid>
-          </Grid>
+          <AbbreviationsCardGrid />
         </CardContent>
         <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
           <IconButton onClick={() => handler(currentState)}>

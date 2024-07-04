@@ -9,12 +9,26 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { cardTestData } from '../../data/CardTestData';
 import ListIcon from '@mui/icons-material/List';
-import { IconButton } from '@mui/material';
+import { Container, IconButton, TextField, ThemeProvider, createTheme } from '@mui/material';
+import { StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
 
+
+const drawerTheme = createTheme({
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: 'white'
+        }
+      }
+    }
+  }
+})
 
 
 export default function StudyDrawer()  {
   const [open, setOpen] = React.useState(false);
+  const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -23,7 +37,7 @@ export default function StudyDrawer()  {
   const DrawerList = (
       <Box sx={{}} role="presentation" onClick={toggleDrawer(false)}>
         <List>
-          {cardTestData.map((card, index) => (
+          {renderedData.map((card, index) => (
             <ListItem key={card.title} disablePadding>
               <ListItemButton>
                 <ListItemText primary={card.title} />
@@ -60,6 +74,12 @@ export default function StudyDrawer()  {
         
 
       >
+        <Container sx={{pt: '2vh'}}>
+          <ThemeProvider theme={drawerTheme}>
+            <TextField label="Search" variant="outlined"/>
+          </ThemeProvider>
+        </Container>
+        
         {DrawerList}
       </Drawer>
     </>

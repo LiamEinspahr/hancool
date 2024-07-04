@@ -7,14 +7,17 @@ import CultureCard from './categories/cultureCard/CultureCard';
 import ParticlesCard from './categories/particlesCard/ParticlesCard';
 import SyntaxCard from './categories/syntaxCard/SyntaxCard';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { AbbreviationsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
+import { StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
+
 
 
 export default function TemplateStudyCard({renderCard}) {
     
     const [drawerState, setDrawerState] = React.useState(false);
+    const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
 
     const handleDrawerState = () => {
-        console.log("handleDrawerState called");
         setDrawerState(!drawerState);
     }
 
@@ -23,17 +26,23 @@ export default function TemplateStudyCard({renderCard}) {
             {
                 (() => {
                     switch(renderCard) {
-                        case 'abbreviations' : 
+                        case 'abbreviations' :
+                            setRenderedData(AbbreviationsTestData); 
                             return <AbbreviationsCard currentState={drawerState} setDrawerState={handleDrawerState} />
-                        case 'commonPhrases' : 
+                        case 'commonPhrases' :
+                            setRenderedData(CommonPhrasesTestData);
                             return <CommonPhrasesCard currentState={drawerState} setDrawerState={handleDrawerState} />
                         case 'conjugations' : 
+                            setRenderedData(ConjugationsTestData);
                             return <ConjugationsCard currentState={drawerState} setDrawerState={handleDrawerState} />
-                        case 'culture' : 
+                        case 'culture' :
+                            setRenderedData(CultureTestData); 
                             return <CultureCard currentState={drawerState} setDrawerState={handleDrawerState} />
-                        case 'particles' : 
+                        case 'particles' :
+                            setRenderedData(ParticlesTestData); 
                             return <ParticlesCard currentState={drawerState} setDrawerState={handleDrawerState} />
-                        case 'syntax' : 
+                        case 'syntax' :
+                            setRenderedData(SyntaxTestData); 
                             return <SyntaxCard currentState={drawerState} setDrawerState={handleDrawerState} />
                     }
                 })()

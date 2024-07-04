@@ -6,7 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
-
+import SyntaxCardGrid from '../../card_grid/SyntaxCardGrid';
+import { SyntaxTestData } from '../../../../data/CardTestData';
 
 export default function SyntaxCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);
@@ -25,13 +26,13 @@ export default function SyntaxCard({currentState, setDrawerState}) {
         }} 
         variant="outlined">
           <CardContent sx={{height: '90%'}}>
-            Abbreviations
-        </CardContent>
-        <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
-          <IconButton onClick={() => handler(currentState)}>
-            <ArrowRightIcon sx={{backgroundColor: '#222222', color: 'white', position: 'absolute', fontSize: '60px'}} />
-          </IconButton>
-        </CardActions>
+            <SyntaxCardGrid />
+          </CardContent>
+          <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
+            <IconButton onClick={() => handler(currentState)}>
+              <ArrowRightIcon sx={{backgroundColor: '#222222', color: 'white', position: 'absolute', fontSize: '60px'}} />
+            </IconButton>
+          </CardActions>
       </Card>
   );
 }

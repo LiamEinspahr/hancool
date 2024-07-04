@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
+import CultureCardGrid from '../../card_grid/CultureCardGrid';
+import { CultureTestData } from '../../../../data/CardTestData';
 
 export default function CultureCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);
@@ -24,13 +26,13 @@ export default function CultureCard({currentState, setDrawerState}) {
         }} 
         variant="outlined">
           <CardContent sx={{height: '90%'}}>
-            Abbreviations
-        </CardContent>
-        <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
-          <IconButton onClick={() => handler(currentState)}>
-            <ArrowRightIcon sx={{backgroundColor: '#222222', color: 'white', position: 'absolute', fontSize: '60px'}} />
-          </IconButton>
-        </CardActions>
+            <CultureCardGrid />
+          </CardContent>
+          <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
+            <IconButton onClick={() => handler(currentState)}>
+              <ArrowRightIcon sx={{backgroundColor: '#222222', color: 'white', position: 'absolute', fontSize: '60px'}} />
+            </IconButton>
+          </CardActions>
       </Card>
   );
 }

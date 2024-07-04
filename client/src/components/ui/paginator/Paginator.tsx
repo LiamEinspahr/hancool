@@ -7,13 +7,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import { StudyCardsPageContext } from '../../pages/StudyCards/StudyCardsPage';
+import { StudyCardsPageCategoryContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
 import TemplateStudyCard from '../card/TemplateStudyCard';
-import SimpleGrow from '../card/card_expansion/CardExpansion';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const content: any = [
   'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/137.png',
@@ -21,84 +17,99 @@ const content: any = [
   'https://www.models-resource.com/resources/big_icons/56/55277.png?updated=1665890171'
 ];
 
+interface PaginatorStepType {
+  step: number,
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const defaultState = {
+  step: 0,
+  setStep: (step: number) => {}
+} as PaginatorStepType
+
+export const PaginatorStepContext = React.createContext<PaginatorStepType>(defaultState);
+
 function Paginator() {
 
-  const {renderedCards, setRenderedCards} = React.useContext(StudyCardsPageContext);
+  const {renderedCategory, setRenderedCategory} = React.useContext(StudyCardsPageCategoryContext);
+  const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
 
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = content.length;
+  const [step, setStep] = React.useState(0);
+  const maxSteps = renderedData.length;
 
   const handleNext = () => {
-    if(activeStep+1 === maxSteps )
-        setActiveStep(0);
+    if(step+1 === maxSteps )
+        setStep(0);
     else
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    if(activeStep === 0)
-        setActiveStep((prevActiveStep) => maxSteps-1)
+    if(step === 0)
+        setStep((prevActiveStep) => maxSteps-1)
     else
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+      setStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleStepChange = (step: number) => {
-    setActiveStep(step);
+    setStep(step);
   };
 
   return (
-    <Box id="paginator_root" sx={{borderRadius: '2px'}}>
-      <Paper
-        square
-        elevation={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          color: '#9BCDFF',
-          backgroundColor: '#2E557C',
-          borderRadius: '2px'
-        }}
-      >
-        <Typography>{renderedCards}</Typography>
-      </Paper>
-      <Box id="EDIT_ME" sx={{position: 'relative', display: 'flex', height: '60vh', width: '100%', backgroundColor: '#272727', borderRadius: '3px' }}>
-        <TemplateStudyCard renderCard={renderedCards} />
+    <PaginatorStepContext.Provider value={{step, setStep}}>
+      <Box id="paginator_root" sx={{borderRadius: '2px'}}>
+        <Paper
+          square
+          elevation={0}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: 50,
+            pl: 2,
+            color: '#9BCDFF',
+            backgroundColor: '#2E557C',
+            borderRadius: '2px'
+          }}
+        >
+          <Typography>{renderedCategory}</Typography>
+        </Paper>
+        <Box sx={{position: 'relative', display: 'flex', height: '60vh', width: '100%', backgroundColor: '#272727', borderRadius: '3px' }}>
+          <TemplateStudyCard renderCard={renderedCategory}  />
+        </Box>
+        <MobileStepper
+        sx={{color: '#90caf9', backgroundColor: '#2E557C', height: '3vh', borderRadius: '2px' }}
+          variant="dots"
+          steps={maxSteps}
+          position="static"
+          activeStep={step}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              sx={{color: '#9BCDFF'}}
+            >
+              Next
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button size="small" onClick={handleBack} sx={{color: '#9BCDFF'}}>
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              Back
+            </Button>
+          }
+        />
       </Box>
-      <MobileStepper
-      sx={{color: '#90caf9', backgroundColor: '#2E557C', height: '3vh', borderRadius: '2px' }}
-        variant="dots"
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            sx={{color: '#9BCDFF'}}
-          >
-            Next
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} sx={{color: '#9BCDFF'}}>
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
-          </Button>
-        }
-      />
-    </Box>
+    </PaginatorStepContext.Provider>
   );
 }
 

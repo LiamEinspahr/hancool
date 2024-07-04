@@ -4,7 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { IconButton } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
+import CommonPhrasesCardGrid from '../../card_grid/CommonPhrasesCardGrid';
 
 export default function CommonPhrasesCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);
@@ -23,7 +23,7 @@ export default function CommonPhrasesCard({currentState, setDrawerState}) {
         }} 
         variant="outlined">
           <CardContent sx={{height: '90%'}}>
-            Abbreviations
+            <CommonPhrasesCardGrid />
         </CardContent>
         <CardActions sx={{display: 'flex', justifyContent:'flex-end', width: '100%', height: '10%'}}>
           <IconButton onClick={() => handler(currentState)}>

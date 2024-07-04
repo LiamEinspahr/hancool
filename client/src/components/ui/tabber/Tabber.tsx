@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs, ThemeProvider, createTheme } from '@mui/material';
 import * as React from 'react';
 import { categoryHeaders } from '../../data/CategoryHeaderData';
-import { StudyCardsPageContext } from '../../pages/StudyCards/StudyCardsPage';
+import { StudyCardsPageCategoryContext } from '../../pages/StudyCards/StudyCardsPage';
 
 const theme = createTheme({
     components: {
@@ -17,13 +17,13 @@ const theme = createTheme({
 
 export default function Tabber() {
 
-    const {renderedCards, setRenderedCards} = React.useContext(StudyCardsPageContext);
+    const {renderedCategory, setRenderedCategory} = React.useContext(StudyCardsPageCategoryContext);
 
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        setRenderedCards(event.currentTarget.id);
+        setRenderedCategory(event.currentTarget.id);
     };
 
     return(
