@@ -15,6 +15,7 @@ import { AbbreviationsTestData, CommonPhrasesTestData, ConjugationsTestData, Cul
 
 
 
+
 interface StudyCardsPageCategoryContextType {
     renderedCategory: string,
     setRenderedCategory: React.Dispatch<React.SetStateAction<string>>;
@@ -23,6 +24,11 @@ interface StudyCardsPageCategoryContextType {
 interface StudyCardsPageCategoryDataType {
     renderedData: any[],
     setRenderedData: React.Dispatch<React.SetStateAction<any[]>>;
+}
+
+interface PaginatorStepType {
+    step: number,
+    setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const categoryDefaultState = {
@@ -35,14 +41,22 @@ const dataDefaltState = {
     setRenderedData: (data: any[]) => {}
 } as StudyCardsPageCategoryDataType
 
+const paginatorDefaultState = {
+    step: 0,
+    setStep: (step: number) => {}
+  } as PaginatorStepType
+
 export const StudyCardsPageCategoryContext = React.createContext<StudyCardsPageCategoryContextType>(categoryDefaultState);
 
 export const StudyCardsPageDataContext = React.createContext<StudyCardsPageCategoryDataType>(dataDefaltState);
+
+export const PaginatorStepContext = React.createContext<PaginatorStepType>(paginatorDefaultState);
 
 export default function StudyCardsPage() {
 
     const [renderedCategory, setRenderedCategory] = React.useState('abbreviations');
     const [renderedData, setRenderedData] = React.useState(SyntaxTestData);
+    const [step, setStep] = React.useState(0);
     
             
 
@@ -51,8 +65,10 @@ export default function StudyCardsPage() {
             <StudyCardsPageCategoryContext.Provider value={{renderedCategory, setRenderedCategory}}>
                 <StudyCardsPageDataContext.Provider value={{renderedData, setRenderedData}}>
                     <StudyCardsPageHeader />
-                    <StudyCardsPageBody />
-                    <StudyCardsPageFooter />
+                    <PaginatorStepContext.Provider value={{step, setStep}}>
+                        <StudyCardsPageBody />
+                        <StudyCardsPageFooter />
+                    </PaginatorStepContext.Provider>
                 </StudyCardsPageDataContext.Provider>
             </StudyCardsPageCategoryContext.Provider>
         </Box>

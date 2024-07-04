@@ -7,35 +7,17 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { StudyCardsPageCategoryContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
+import { PaginatorStepContext, StudyCardsPageCategoryContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
 import TemplateStudyCard from '../card/TemplateStudyCard';
 
-
-const content: any = [
-  'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/137.png',
-  'https://assets.pokemon.com/assets/cms2/img/pokedex/full//233.png',
-  'https://www.models-resource.com/resources/big_icons/56/55277.png?updated=1665890171'
-];
-
-interface PaginatorStepType {
-  step: number,
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const defaultState = {
-  step: 0,
-  setStep: (step: number) => {}
-} as PaginatorStepType
-
-export const PaginatorStepContext = React.createContext<PaginatorStepType>(defaultState);
 
 function Paginator() {
 
   const {renderedCategory, setRenderedCategory} = React.useContext(StudyCardsPageCategoryContext);
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
+  const {step, setStep} = React.useContext(PaginatorStepContext);
 
   const theme = useTheme();
-  const [step, setStep] = React.useState(0);
   const maxSteps = renderedData.length;
 
   const handleNext = () => {

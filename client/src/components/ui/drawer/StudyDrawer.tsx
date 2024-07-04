@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { cardTestData } from '../../data/CardTestData';
 import ListIcon from '@mui/icons-material/List';
 import { Container, IconButton, TextField, ThemeProvider, createTheme } from '@mui/material';
-import { StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
+import { PaginatorStepContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
 
 
 const drawerTheme = createTheme({
@@ -29,6 +29,7 @@ const drawerTheme = createTheme({
 export default function StudyDrawer()  {
   const [open, setOpen] = React.useState(false);
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
+  const {step, setStep} = React.useContext(PaginatorStepContext);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -39,7 +40,7 @@ export default function StudyDrawer()  {
         <List>
           {renderedData.map((card, index) => (
             <ListItem key={card.title} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => setStep(index)}>
                 <ListItemText primary={card.title} />
               </ListItemButton>
             </ListItem>

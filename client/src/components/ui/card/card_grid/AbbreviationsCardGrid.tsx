@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { StudyCardsPageDataContext } from '../../../pages/StudyCards/StudyCardsPage';
-import { PaginatorStepContext } from '../../paginator/Paginator';
+import { PaginatorStepContext } from '../../../pages/StudyCards/StudyCardsPage';
 import { Divider } from '@mui/material';
 
 const dividerTheme = createTheme({
