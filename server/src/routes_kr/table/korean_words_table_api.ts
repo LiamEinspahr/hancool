@@ -1,11 +1,10 @@
 import { Router } from "express";
-import db from "../db/kr";
+import db from "../../db/kr";
 
 const today = new Date().toISOString().split('T')[0];
 
 const router = Router();
 
-// GET /kr_api/words/<specific>
 router.get('/:id', async (req,res) => {
     try {
       const id = req.params.id
@@ -16,7 +15,7 @@ router.get('/:id', async (req,res) => {
     }
   });
 
-  // GET /kr_api/words/<general>
+
   router.get('/', async (req,res) => {
     
     try {
@@ -42,7 +41,7 @@ router.get('/:id', async (req,res) => {
     return(yyyymmdd);
   }
   
-  //INSERT
+
   router.post('/', async (req, res) => {
     try {
       const newWord = {...req.body };
@@ -53,7 +52,7 @@ router.get('/:id', async (req,res) => {
     }
   });
 
-  //DELETE
+
   router.delete('/', async (req, res) => {
     try {
       const id = req.body.id;
@@ -64,7 +63,6 @@ router.get('/:id', async (req,res) => {
     }
   });
 
-  // ====================================================================================
   router.put('/updateID/:id', async (req,res) => {
     try {
       const oldID = req.params.id;
@@ -131,7 +129,6 @@ router.get('/:id', async (req,res) => {
     }
   });
 
-  //UPDATE /api/words/updateLock/:id
   router.put('/updateLock/:id', async (req,res) => {
     try {
       const id = req.params.id;
@@ -143,8 +140,5 @@ router.get('/:id', async (req,res) => {
       res.status(500).json({error: 'Internal server error'});
     }
   });
-
-
-  
 
   export default router;

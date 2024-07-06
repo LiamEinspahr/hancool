@@ -24,25 +24,50 @@ export default function CultureCardGrid() {
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
   const {step, setStep} = React.useContext(PaginatorStepContext);
 
-  return (
-    <ThemeProvider theme={dividerTheme}>
+  if(step > renderedData.length) {
+    setStep(0);
+    return (
+      <ThemeProvider theme={dividerTheme}>
         <Grid container spacing={2} sx={{height: '100%'}}>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Culture
             <Divider />
-            {renderedData[step].culture}
+            {renderedData[0].culture}
           </Grid>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Meaning
             <Divider />
-            {renderedData[step].meaning}
+            {renderedData[0].meaning}
           </Grid>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Usage
             <Divider />
-            {renderedData[step].usage}
+            {renderedData[0].usage}
           </Grid>
         </Grid>
       </ThemeProvider>
-  );
+    );
+  } else {
+      return (
+        <ThemeProvider theme={dividerTheme}>
+          <Grid container spacing={2} sx={{height: '100%'}}>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Culture
+              <Divider />
+              {renderedData[step].culture}
+            </Grid>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Meaning
+              <Divider />
+              {renderedData[step].meaning}
+            </Grid>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Usage
+              <Divider />
+              {renderedData[step].usage}
+            </Grid>
+          </Grid>
+        </ThemeProvider>
+    );
+  }
 }

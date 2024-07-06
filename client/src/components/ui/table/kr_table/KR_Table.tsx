@@ -15,7 +15,7 @@ export default function Table() {
   const [backendKoreanWords, setBackendKoreanWords] = React.useState<TableRow[]>([]);
 
   React.useEffect(() => {
-    fetch("/kr_api/words").then(
+    fetch("/kr_words_api/words").then(
       response => response.json()
     ).then(
       data => {
@@ -49,7 +49,7 @@ export default function Table() {
     dataRows.find((row) => row.id === oldID)!.id = newID;
     setBackendKoreanWords(dataRows);
 
-    fetch(`/kr_api/words/updateID/${oldID}`, {
+    fetch(`/kr_words_api/words/updateID/${oldID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export default function Table() {
     dataRows.find((row) => row.id === id)!.word = newValue;
     setBackendKoreanWords(dataRows);
 
-    fetch(`/kr_api/words/updateWord/${id}`, {
+    fetch(`/kr_words_api/words/updateWord/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export default function Table() {
     dataRows.find((row) => row.id === id)!.romanization = newValue;
     setBackendKoreanWords(dataRows);
 
-    fetch(`/kr_api/words/updateRomanization/${id}`, {
+    fetch(`/kr_words_api/words/updateRomanization/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -128,7 +128,7 @@ export default function Table() {
     dataRows.find((row) => row.id === id)!.definition = newValue;
     setBackendKoreanWords(dataRows);
 
-    fetch(`/kr_api/words/updateDefinition/${id}`, {
+    fetch(`/kr_words_api/words/updateDefinition/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -153,7 +153,7 @@ export default function Table() {
     dataRows.find((row) => row.id === id)!.comfortability = newValue;
     setBackendKoreanWords(dataRows);
 
-    fetch(`/kr_api/words/updateComfortability/${id}`, {
+    fetch(`/kr_words_api/words/updateComfortability/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -178,7 +178,7 @@ export default function Table() {
     dataRows.find((row) => row.id === id)!.expirationDate = newValue;
     setBackendKoreanWords(dataRows);
 
-    fetch(`/kr_api/words/updateExpirationDate/${id}`, {
+    fetch(`/kr_words_api/words/updateExpirationDate/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -207,7 +207,7 @@ export default function Table() {
 
     dataRows.find((row) => row.id === id)!.lock = !lockState;
     setBackendKoreanWords(dataRows);
-    fetch(`/kr_api/words/updateLock/${id}`, {
+    fetch(`/kr_words_api/words/updateLock/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -229,7 +229,7 @@ export default function Table() {
 
   const insertRow = (newRow: TableRow) => {
 
-    fetch('/kr_api/words', {
+    fetch('/kr_words_api/words', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -257,7 +257,7 @@ export default function Table() {
   const deleteRow = (id: string) => {
     
     const idJSON = {id: id};
-    fetch('/kr_api/words', {
+    fetch('/kr_words_api/words', {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

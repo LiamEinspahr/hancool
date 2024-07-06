@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AbbreviationsCardInterface, CardInterface, CommonPhrasesCardInterface, ConjugationsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from './CardInterface';
+import { ContractionsCardInterface, CardInterface, CommonPhrasesCardInterface, ConjugationsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from './CardInterface';
 
 
 export const cardTestData: CardInterface[] = [
@@ -11,42 +11,43 @@ export const cardTestData: CardInterface[] = [
 ];
 
 
-export const AbbreviationsTestData: AbbreviationsCardInterface[] = [
-    {id: 1, title: 'lol', abbreviation: 'rofl', abbreviants: 'roll on the floor laughing', extra: 'N/A' },
-    {id: 2, title: 'hehe', abbreviation: 'lmao', abbreviants: 'laugh my apple off', extra: 'N/A' },
-    {id: 3, title: 'haha', abbreviation: 'coptr', abbreviants: 'heli', extra: 'N/A' },
-
-]
 
 export const CommonPhrasesTestData: CommonPhrasesCardInterface[] = [
-    {id: 1, title: 'dis', commonPhrase: 'lol', meaning: 'huh', usage: 'nahh', extra: "N/A"},
-    {id: 2, title: 'is', commonPhrase: 'bruh', meaning: 'bro', usage: 'brother', extra: "N/A2"},
-    {id: 3, title: 'commmphrz', commonPhrase: 'hehexd', meaning: 't1', usage: 'bm', extra: "N/A3"}
+    {id: 1, title: 'dis', common_phrase: 'lol', meaning: 'huh', usage: 'nahh', common_phrase_extra: "N/A"},
+    {id: 2, title: 'is', common_phrase: 'bruh', meaning: 'bro', usage: 'brother', common_phrase_extra: "N/A2"},
+    {id: 3, title: 'commmphrz', common_phrase: 'hehexd', meaning: 't1', usage: 'bm', common_phrase_extra: "N/A3"}
     
 ]
 
 export const ConjugationsTestData: ConjugationsCardInterface[] = [
-    {id: 1, title: 'con', conjugation: 'esque', meaning: 'like', honorLevel: 'over 9000', extra: "N/A"},
-    {id: 2, title: 'juga', conjugation: 'ily', meaning: 'I <3 u', honorLevel: 'over 1', extra: "N/A2"},
-    {id: 3, title: 'tions', conjugation: 'ed', meaning: 'did', honorLevel: '-1', extra: "N/A3"}
+    {id: 1, title: 'con', conjugation: 'esque', meaning: 'like', honor_level: 'over 9000', conjugations_extra: "N/A"},
+    {id: 2, title: 'juga', conjugation: 'ily', meaning: 'I <3 u', honor_level: 'over 1', conjugations_extra: "N/A2"},
+    {id: 3, title: 'tions', conjugation: 'ed', meaning: 'did', honor_level: '-1', conjugations_extra: "N/A3"}
+]
+
+export const ContractionsTestData: ContractionsCardInterface[] = [
+    {id: 1, title: 'lol', contraction: 'rofl', contractor_1: 'test', contractor_2: 'drive' , contractions_extra: 'N/A' },
+    {id: 2, title: 'hehe', contraction: 'lmao', contractor_1: 'test2', contractor_2: 'drivelel', contractions_extra: 'N/A' },
+    {id: 3, title: 'haha', contraction: 'coptr', contractor_1: 'ab', contractor_2: 'cde', contractions_extra: 'N/A' },
+
 ]
 
 export const CultureTestData: CultureCardInterface[] = [
     
-    {id: 1, title: 'b', culture: 'drinkin', meaning: 'get droonk', usage: 'flirt', extra: "N/A"},
-    {id: 2, title: 'ru', culture: 'bowing', meaning: 'respec', usage: 'every1', extra: "N/A2"},
-    {id: 3, title: 'uhhhh', culture: 'fork ban', meaning: 'ju1 mad', usage: 'intercontinental ballistic missle', extra: "N/A3"}
+    {id: 1, title: 'b', pictureurl: 'na', culture: 'drinkin', meaning: 'get droonk', usage: 'flirt', culture_extra: "N/A"},
+    {id: 2, title: 'ru', pictureurl: 'na', culture: 'bowing', meaning: 'respec', usage: 'every1', culture_extra: "N/A2"},
+    {id: 3, title: 'uhhhh', pictureurl: 'na', culture: 'fork ban', meaning: 'ju1 mad', usage: 'intercontinental ballistic missle', culture_extra: "N/A3"}
 ]
 
 export const ParticlesTestData: ParticlesCardInterface[] = [
-    {id: 1, title: 'tie', particle: 'to', meaning: 'none', usage:'a', extra: "N/A"},
-    {id: 2, title: 't', particle: 'from', meaning: 'exit location', usage: 'c', extra: "N/A2"},
-    {id: 3, title: 'le', particle: 'and', meaning: 'joining', usage: 'dc', extra: "N/A3"}
+    {id: 1, title: 'tie', particle: 'to', meaning: 'none', usage:'a', particles_extra: "N/A"},
+    {id: 2, title: 't', particle: 'from', meaning: 'exit location', usage: 'c', particles_extra: "N/A2"},
+    {id: 3, title: 'le', particle: 'and', meaning: 'joining', usage: 'dc', particles_extra: "N/A3"}
 ]
 
 export const SyntaxTestData: SyntaxCardInterface[] = [
-    {id: 1, title: "sy", syntax: 'whut', meaning: 'idk', usage: 'bruh', extra: "N/A"},
-    {id: 2, title: "nta", syntax: 'cute girl', meaning: ':O', usage: 'blush', extra: "N/A2"},
-    {id: 3, title: "x", syntax: 'comp sci', meaning: 'sometimes cool', usage: '$$$', extra: "N/A3"}
+    {id: 1, title: "sy", syntax: 'whut', meaning: 'idk', commentary: 'bruh', syntax_extra: "N/A"},
+    {id: 2, title: "nta", syntax: 'cute girl', meaning: ':O', commentary: 'blush', syntax_extra: "N/A2"},
+    {id: 3, title: "x", syntax: 'comp sci', meaning: 'sometimes cool', commentary: '$$$', syntax_extra: "N/A3"}
 ]
 

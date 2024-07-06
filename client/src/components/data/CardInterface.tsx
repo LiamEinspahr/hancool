@@ -8,21 +8,13 @@ export interface CardInterface {
     dropdown: string,
 };
 
-export interface AbbreviationsCardInterface {
-    id: number,
-    title: string,
-    abbreviation: string,
-    abbreviants: string,
-    extra: string,
-}
-
 export interface CommonPhrasesCardInterface {
     id: number,
     title: string,
-    commonPhrase: string,
+    common_phrase: string,
     meaning: string,
     usage: string,
-    extra: string
+    common_phrase_extra: string
 }
 
 export interface ConjugationsCardInterface {
@@ -30,17 +22,27 @@ export interface ConjugationsCardInterface {
     title: string,
     conjugation: string,
     meaning: string,
-    honorLevel: string
-    extra: string,
+    honor_level: string
+    conjugations_extra: string,
+}
+
+export interface ContractionsCardInterface {
+    id: number,
+    title: string,
+    contraction: string,
+    contractor_1: string,
+    contractor_2: string,
+    contractions_extra: string,
 }
 
 export interface CultureCardInterface {
     id: number,
     title: string,
+    pictureurl: string,
     culture: string,
     meaning: string,
     usage: string,
-    extra: string
+    culture_extra: string
 }
 
 export interface ParticlesCardInterface {
@@ -49,7 +51,7 @@ export interface ParticlesCardInterface {
     particle: string,
     meaning: string,
     usage: string,
-    extra: string
+    particles_extra: string
 }
 
 export interface SyntaxCardInterface {
@@ -57,7 +59,7 @@ export interface SyntaxCardInterface {
     title: string,
     syntax: string,
     meaning: string,
-    usage: string,
-    extra: string
+    commentary: string,
+    syntax_extra: string
 }
 

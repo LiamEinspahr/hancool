@@ -25,25 +25,53 @@ export default function CommonPhrasesCardGrid() {
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
   const {step, setStep} = React.useContext(PaginatorStepContext);
 
-  return (
-    <ThemeProvider theme={dividerTheme}>
+  if(step > renderedData.length) {
+    setStep(0);
+    return (
+      <ThemeProvider theme={dividerTheme}>
         <Grid container spacing={2} sx={{height: '100%'}}>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Common Phrase
             <Divider />
-            {renderedData[step].commonPhrase}
+            {renderedData[0].common_phrase}
           </Grid>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Meaning
             <Divider />
-            {renderedData[step].meaning}
+            {renderedData[0].meaning}
           </Grid>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Usage
             <Divider />
-            {renderedData[step].usage}
+            {renderedData[0].usage}
           </Grid>
         </Grid>
       </ThemeProvider>
-  );
+    );
+  } else {
+    return (
+      <ThemeProvider theme={dividerTheme}>
+        <Grid container spacing={2} sx={{height: '100%'}}>
+          <Grid item xs={4} sx={{textAlign: 'center'}}>
+            Common Phrase
+            <Divider />
+            {renderedData[step]?.common_phrase}
+          </Grid>
+          <Grid item xs={4} sx={{textAlign: 'center'}}>
+            Meaning
+            <Divider />
+            {renderedData[step]?.meaning}
+          </Grid>
+          <Grid item xs={4} sx={{textAlign: 'center'}}>
+            Usage
+            <Divider />
+            {renderedData[step]?.usage}
+          </Grid>
+        </Grid>
+      </ThemeProvider>
+    );
+
+  }
+
+  
 }

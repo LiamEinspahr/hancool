@@ -1,5 +1,5 @@
 import { Router } from "express";
-import koreanRouter from './koreanWords';
+import koreanRouter from './korean_words_table_api';
 
 const router = Router();
 

@@ -24,25 +24,50 @@ export default function ParticlesCardGrid() {
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
   const {step, setStep} = React.useContext(PaginatorStepContext);
 
-  return (
-    <ThemeProvider theme={dividerTheme}>
+  if(step > renderedData.length) {
+    setStep(0);
+    return (
+      <ThemeProvider theme={dividerTheme}>
+          <Grid container spacing={2} sx={{height: '100%'}}>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Particle
+              <Divider />
+              {renderedData[0].particle}
+            </Grid>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Meaning
+              <Divider />
+              {renderedData[0].meaning}
+            </Grid>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Usage
+              <Divider />
+              {renderedData[0].usage}
+            </Grid>
+          </Grid>
+        </ThemeProvider>
+      );
+  } else {
+    return (
+      <ThemeProvider theme={dividerTheme}>
         <Grid container spacing={2} sx={{height: '100%'}}>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Particle
             <Divider />
-            {renderedData[step].particle}
+            {renderedData[0].particle}
           </Grid>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Meaning
             <Divider />
-            {renderedData[step].meaning}
+            {renderedData[0].meaning}
           </Grid>
           <Grid item xs={4} sx={{textAlign: 'center'}}>
             Usage
             <Divider />
-            {renderedData[step].usage}
+            {renderedData[0].usage}
           </Grid>
         </Grid>
       </ThemeProvider>
-  );
+    );
+  }
 }

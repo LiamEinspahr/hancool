@@ -1,14 +1,14 @@
 import { Button, Card, CardActions, CardContent, Container, IconButton, ThemeProvider, Typography, createTheme } from '@mui/material';
 import * as React from 'react';
-import AbbreviationsCard from './categories/abbreviationCard/AbbreviationsCard';
+import ContractionsCard from './categories/contractionsCard/ContractionsCard';
 import CommonPhrasesCard from './categories/commonPhrasesCard/CommonPhrasesCard';
 import ConjugationsCard from './categories/conjugationsCard/ConjugationsCard';
 import CultureCard from './categories/cultureCard/CultureCard';
 import ParticlesCard from './categories/particlesCard/ParticlesCard';
 import SyntaxCard from './categories/syntaxCard/SyntaxCard';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { AbbreviationsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
-import { StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
+import { ContractionsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
+import { PaginatorStepContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
+import { CommonPhrasesCardInterface, ConjugationsCardInterface, ContractionsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from '../../data/CardInterface';
 
 
 
@@ -16,33 +16,129 @@ export default function TemplateStudyCard({renderCard}) {
     
     const [drawerState, setDrawerState] = React.useState(false);
     const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
+    const {step, setStep} = React.useContext(PaginatorStepContext);
 
     const handleDrawerState = () => {
         setDrawerState(!drawerState);
     }
+
+    const [commonPhrases, setCommonPhrases] = React.useState<CommonPhrasesCardInterface[]>([]);
+    const [conjugations, setConjugations] = React.useState<ConjugationsCardInterface[]>([]);
+    const [contractions, setContractions] = React.useState<ContractionsCardInterface[]>([]);
+    const [culture, setCulture] = React.useState<CultureCardInterface[]>([]);
+    const [particles, setParticles] = React.useState<ParticlesCardInterface[]>([]);
+    const [syntax, setSyntax] = React.useState<SyntaxCardInterface[]>([]);
+
+    React.useEffect(() => {
+
+        const fetchCommonPhrases = async () => {
+            try {
+                fetch("/kr_sc_api/studycards/commonphrases").then(
+                    response => response.json()
+                  ).then(
+                    data => {
+                      setCommonPhrases(data);
+                    }
+                  )
+            } catch (err) {console.log("Could not fetch Common Phrases"); return}
+        }
+
+        const fetchConjugations = async () => {
+            try {
+                fetch("/kr_sc_api/studycards/conjugations").then(
+                    response => response.json()
+                  ).then(
+                    data => {
+                      setConjugations(data);
+                    }
+                  )
+            } catch (err) {console.log("Could not fetch Conjugations"); return}
+        }
+
+        const fetchContractions = async () => {
+            try {
+                fetch("/kr_sc_api/studycards/contractions").then(
+                    response => response.json()
+                  ).then(
+                    data => {
+                      setContractions(data);
+                    }
+                  )
+            } catch (err) {console.log("Could not fetch Contractions"); return}
+        }
+
+        const fetchCulture= async () => {
+            try {
+                fetch("/kr_sc_api/studycards/culture").then(
+                    response => response.json()
+                  ).then(
+                    data => {
+                        setCulture(data);
+                    }
+                  )
+            } catch (err) {console.log("Could not fetch Culture"); return}
+        }
+
+        const fetchParticles = async () => {
+            try {
+                fetch("/kr_sc_api/studycards/particles").then(
+                    response => response.json()
+                  ).then(
+                    data => {
+                      setParticles(data);
+                    }
+                  )
+            } catch (err) {console.log("Could not fetch Particles"); return}
+        }
+
+        const fetchSyntax = async () => {
+            try {
+                fetch("/kr_sc_api/studycards/syntax").then(
+                    response => response.json()
+                  ).then(
+                    data => {
+                     setSyntax(data);
+                    }
+                  )
+            } catch (err) {console.log("Could not fetch Syntax"); return}
+        }
+
+        const fetchAll = async() => {
+            await fetchCommonPhrases();
+            await fetchConjugations();
+            await fetchContractions();
+            await fetchCulture();
+            await fetchParticles();
+            await fetchSyntax()
+            return;
+        }
+
+        fetchAll();
+
+    }, [])
 
     return(
         <Container sx={{position: 'absolute', float: 'left', display: 'flex', height: '100%', py: '23px', width: '100%'}}>
             {
                 (() => {
                     switch(renderCard) {
-                        case 'abbreviations' :
-                            setRenderedData(AbbreviationsTestData); 
-                            return <AbbreviationsCard currentState={drawerState} setDrawerState={handleDrawerState} />
+                        case 'contractions' :
+                            setRenderedData(contractions); 
+                            return <ContractionsCard currentState={drawerState} setDrawerState={handleDrawerState} />
                         case 'commonPhrases' :
-                            setRenderedData(CommonPhrasesTestData);
+                            setRenderedData(commonPhrases);
                             return <CommonPhrasesCard currentState={drawerState} setDrawerState={handleDrawerState} />
                         case 'conjugations' : 
-                            setRenderedData(ConjugationsTestData);
+                            setRenderedData(conjugations);
                             return <ConjugationsCard currentState={drawerState} setDrawerState={handleDrawerState} />
                         case 'culture' :
-                            setRenderedData(CultureTestData); 
+                            setRenderedData(culture); 
                             return <CultureCard currentState={drawerState} setDrawerState={handleDrawerState} />
                         case 'particles' :
-                            setRenderedData(ParticlesTestData); 
+                            setRenderedData(particles); 
                             return <ParticlesCard currentState={drawerState} setDrawerState={handleDrawerState} />
                         case 'syntax' :
-                            setRenderedData(SyntaxTestData); 
+                            setRenderedData(syntax); 
                             return <SyntaxCard currentState={drawerState} setDrawerState={handleDrawerState} />
                     }
                 })()

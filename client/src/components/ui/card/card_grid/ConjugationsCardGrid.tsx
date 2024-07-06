@@ -24,6 +24,54 @@ export default function ConjugationsCardGrid() {
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
   const {step, setStep} = React.useContext(PaginatorStepContext);
 
+  if(step > renderedData.length) {
+    setStep(0);
+    return (
+      <ThemeProvider theme={dividerTheme}>
+          <Grid container spacing={2} sx={{height: '100%'}}>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Conjugation
+              <Divider />
+              {renderedData[0].conjugation}
+            </Grid>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Meaning
+              <Divider />
+              {renderedData[0].meaning}
+            </Grid>
+            <Grid item xs={4} sx={{textAlign: 'center'}}>
+              Honor Level
+              <Divider />
+              {renderedData[0].honorLevel}
+            </Grid>
+          </Grid>
+        </ThemeProvider>
+    );
+  } else {
+    return (
+      <ThemeProvider theme={dividerTheme}>
+        <Grid container spacing={2} sx={{height: '100%'}}>
+          <Grid item xs={4} sx={{textAlign: 'center'}}>
+            Conjugation
+            <Divider />
+            {renderedData[step].conjugation}
+          </Grid>
+          <Grid item xs={4} sx={{textAlign: 'center'}}>
+            Meaning
+            <Divider />
+            {renderedData[step].meaning}
+          </Grid>
+          <Grid item xs={4} sx={{textAlign: 'center'}}>
+            Honor Level
+            <Divider />
+            {renderedData[step].honorLevel}
+          </Grid>
+        </Grid>
+      </ThemeProvider>
+    );
+  }
+    
+
   return (
     <ThemeProvider theme={dividerTheme}>
         <Grid container spacing={2} sx={{height: '100%'}}>

@@ -1,19 +1,10 @@
 import * as React from 'react';
-import SubHeader from '../../layout/subheader/SubHeader';
-import StudyCard from '../../ui/card/TemplateStudyCard';
-import { cardTestData } from '../../data/CardTestData';
-import CategoryHeader from '../../layout/categoryheader/CategoryHeader';
-import Tabber from '../../ui/tabber/Tabber';
 import { Box, Container } from '@mui/material';
-import StudyDrawer from '../../ui/drawer/StudyDrawer';
-import TemplateStudyCard from '../../ui/card/TemplateStudyCard';
-import Paginator from '../../ui/paginator/Paginator';
 import StudyCardsPageHeader from './header/StudyCardsPageHeader';
 import StudyCardsPageBody from './body/StudyCardsPageBody';
 import StudyCardsPageFooter from './footer/StudyCardsPageFooter';
-import { AbbreviationsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
-
-
+import { ContractionsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
+import { CommonPhrasesCardInterface, ConjugationsCardInterface, ContractionsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from '../../data/CardInterface';
 
 
 interface StudyCardsPageCategoryContextType {
@@ -32,12 +23,12 @@ interface PaginatorStepType {
 }
 
 const categoryDefaultState = {
-    renderedCategory: 'abbreviations',
+    renderedCategory: 'commonPhrases',
     setRenderedCategory: (category: string) => {}
 } as StudyCardsPageCategoryContextType;
 
 const dataDefaltState = {
-    renderedData: AbbreviationsTestData,
+    renderedData: ContractionsTestData,
     setRenderedData: (data: any[]) => {}
 } as StudyCardsPageCategoryDataType
 
@@ -54,7 +45,7 @@ export const PaginatorStepContext = React.createContext<PaginatorStepType>(pagin
 
 export default function StudyCardsPage() {
 
-    const [renderedCategory, setRenderedCategory] = React.useState('abbreviations');
+    const [renderedCategory, setRenderedCategory] = React.useState('commonPhrases');
     const [renderedData, setRenderedData] = React.useState(SyntaxTestData);
     const [step, setStep] = React.useState(0);
     

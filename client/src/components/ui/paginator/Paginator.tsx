@@ -17,6 +17,8 @@ function Paginator() {
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
   const {step, setStep} = React.useContext(PaginatorStepContext);
 
+  let currentCategory = renderedCategory[0].toUpperCase() + renderedCategory.slice(1);
+
   const theme = useTheme();
   const maxSteps = renderedData.length;
 
@@ -54,7 +56,7 @@ function Paginator() {
             borderRadius: '2px'
           }}
         >
-          <Typography>{renderedCategory}</Typography>
+          <Typography sx={{fontSize: '2vw'}}>{renderedData[step]?.title}</Typography>
         </Paper>
         <Box sx={{position: 'relative', display: 'flex', height: '60vh', width: '100%', backgroundColor: '#272727', borderRadius: '3px' }}>
           <TemplateStudyCard renderCard={renderedCategory}  />
