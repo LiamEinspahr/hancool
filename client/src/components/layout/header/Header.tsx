@@ -15,7 +15,7 @@ const headerButtons: headerButtonsType[] = [
   {isShown: true, name: 'tables', isLanguage: false, displayNavigation: true},
   {isShown: true, name: 'studycards', isLanguage: false, displayNavigation: true},
   {isShown: true, name: 'korean', isLanguage: true, displayNavigation: false},
-  {isShown: true, name: 'test', isLanguage: true, displayNavigation: false},
+  {isShown: true, name: 'japanese', isLanguage: true, displayNavigation: false},
   {isShown: true, name: 'resources', isLanguage: false, displayNavigation: true},
   {isShown: true, name: 'about', isLanguage: false, displayNavigation: true},
 ];
