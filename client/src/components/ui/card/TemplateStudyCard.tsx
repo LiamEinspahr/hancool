@@ -6,7 +6,6 @@ import ConjugationsCard from './categories/conjugationsCard/ConjugationsCard';
 import CultureCard from './categories/cultureCard/CultureCard';
 import ParticlesCard from './categories/particlesCard/ParticlesCard';
 import SyntaxCard from './categories/syntaxCard/SyntaxCard';
-import { ContractionsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
 import { PaginatorStepContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
 import { CommonPhrasesCardInterface, ConjugationsCardInterface, ContractionsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from '../../data/CardInterface';
 
@@ -144,10 +143,77 @@ export default function TemplateStudyCard({renderCard}) {
                 })()
             }
             { drawerState===true &&
-            <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
-                This is test text
-            </Container>
+
+                (() => {
+                    switch(renderCard) {
+                        case 'commonPhrases' :
+                            return(
+                                <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+                                    { renderedData[step]
+                                        ? renderedData[step].common_phrase_extra
+                                        : <h1>N/A</h1>
+                                    }
+                                </Container>
+                            );
+                        case 'conjugations' : 
+                        return(
+                            <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+                                    { renderedData[step]
+                                            ? renderedData[step].conjugations_extra
+                                            : <h1>N/A</h1>
+
+                                    }
+                            </Container>
+                        );
+                        case 'contractions' :
+                            return(
+                                <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+                                    { renderedData[step]
+                                        ? renderedData[step].contractions_extra
+                                        : <h1>N/A</h1>
+
+                                    }
+                                </Container>
+                            );
+                        case 'culture' :
+                            return(
+                                <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+                                    { renderedData[step]
+                                        ? renderedData[step].culture_extra
+                                        : <h1>N/A</h1>
+
+                                    }
+                                </Container>
+                            );
+                        case 'particles' :
+                            return(
+                                <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+                                    { renderedData[step]
+                                        ? renderedData[step].particles_extra
+                                        : <h1>N/A</h1>
+
+                                    }
+                                </Container>
+                            );
+                        case 'syntax' :
+                            return(
+                                <Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+                                    { renderedData[step]
+                                        ? renderedData[step].syntax_extra
+                                        : renderedData[0].syntax_extra
+
+                                    }
+                                </Container>
+                            );
+                    }
+                })()
+            
             }
         </Container>
     );
 }
+
+
+<Container  sx={{float: 'right', height: '100%', backgroundColor: '#1B2B3A', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.12)', width: '33%', paddingY: '16px', ['@media (min-wdith: 600px)']:{paddingX: '16px'}}}>
+    This is test text
+</Container>

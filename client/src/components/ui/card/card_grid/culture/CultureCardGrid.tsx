@@ -4,8 +4,11 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
-import { StudyCardsPageDataContext } from '../../../pages/StudyCards/StudyCardsPage';
-import { PaginatorStepContext } from '../../../pages/StudyCards/StudyCardsPage';
+import { StudyCardsPageDataContext } from '../../../../pages/StudyCards/StudyCardsPage';
+import { PaginatorStepContext } from '../../../../pages/StudyCards/StudyCardsPage';
+import CulturePictureStyling from './styling/CulturePictureStyling';
+import CultureMeaningStyling from './styling/CultureMeaningStyling';
+import CultureUsageStyling from './styling/CultureUsageStyling';
 
 const dividerTheme = createTheme({
   components: {
@@ -51,21 +54,9 @@ export default function CultureCardGrid() {
       return (
         <ThemeProvider theme={dividerTheme}>
           <Grid container spacing={2} sx={{height: '100%'}}>
-            <Grid item xs={4} sx={{textAlign: 'center'}}>
-              Culture
-              <Divider />
-              {renderedData[step].culture}
-            </Grid>
-            <Grid item xs={4} sx={{textAlign: 'center'}}>
-              Meaning
-              <Divider />
-              {renderedData[step].meaning}
-            </Grid>
-            <Grid item xs={4} sx={{textAlign: 'center'}}>
-              Usage
-              <Divider />
-              {renderedData[step].usage}
-            </Grid>
+            <CulturePictureStyling url={renderedData[step]?.pictureurl} />
+            <CultureMeaningStyling meaning={renderedData[step].meaning} />
+            <CultureUsageStyling usage={renderedData[step]?.usage} />
           </Grid>
         </ThemeProvider>
     );

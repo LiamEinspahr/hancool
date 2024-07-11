@@ -4,7 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { IconButton } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import CommonPhrasesCardGrid from '../../card_grid/CommonPhrasesCardGrid';
+import CommonPhrasesCardGrid from '../../card_grid/common_phrases/CommonPhrasesCardGrid';
 
 export default function CommonPhrasesCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);

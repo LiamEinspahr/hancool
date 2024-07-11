@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
-import CultureCardGrid from '../../card_grid/CultureCardGrid';
-import { CultureTestData } from '../../../../data/CardTestData';
+import CultureCardGrid from '../../card_grid/culture/CultureCardGrid';
 
 export default function CultureCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);

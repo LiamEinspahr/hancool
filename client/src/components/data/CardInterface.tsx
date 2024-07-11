@@ -60,6 +60,8 @@ export interface SyntaxCardInterface {
     syntax: string,
     meaning: string,
     commentary: string,
-    syntax_extra: string
+    syntax_example_english: string,
+    syntax_example_korean: string
+    syntax_extra: string   
 }
 

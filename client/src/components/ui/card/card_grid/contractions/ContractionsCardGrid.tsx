@@ -31,18 +31,21 @@ export default function ContractionsCardGrid() {
   if(step > renderedData.length) {
     setStep(0);
     return (
-      <ThemeProvider theme={dividerTheme}>
-        <Grid container spacing={2} sx={{height: '100%'}}>
-          <ContractionStyling contraction={renderedData[0].contraction} />
-          <Grid item xs={6} sx={{display: 'flex', flexDirection:'column', justifyContent:'center', alignItems: 'center', px: '16px', py: '16px'}}>
-            <Contractor1Styling contractor_1={renderedData[0].contractor_1} />
-            <PlusStyling />
-            <Contractor2Styling contractor_2={renderedData[0].contractor_2} />
+      <>
+        <ThemeProvider theme={dividerTheme}>
+          <Grid container spacing={2} sx={{height: '100%'}}>
+            <ContractionStyling contraction={renderedData[0].contraction} />
+            <Grid item xs={6} sx={{display: 'flex', flexDirection:'column', justifyContent:'center', alignItems: 'center', px: '16px', py: '16px'}}>
+              <Contractor1Styling contractor_1={renderedData[0].contractor_1} />
+              <PlusStyling />
+              <Contractor2Styling contractor_2={renderedData[0].contractor_2} />
+            </Grid>
           </Grid>
-        </Grid>
-      </ThemeProvider>
+        </ThemeProvider>
+      </>
     );
   } else {
+
     return (
       <ThemeProvider theme={dividerTheme}>
         <Grid container spacing={2} sx={{height: '100%'}}>

@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
-import SyntaxCardGrid from '../../card_grid/SyntaxCardGrid';
-import { SyntaxTestData } from '../../../../data/CardTestData';
+import SyntaxCardGrid from '../../card_grid/syntax/SyntaxCardGrid';
 
 export default function SyntaxCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);

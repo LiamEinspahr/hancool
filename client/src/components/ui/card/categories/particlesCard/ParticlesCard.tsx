@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
-import ParticlesCardGrid from '../../card_grid/ParticlesCardGrid';
-import { ParticlesTestData } from '../../../../data/CardTestData';
+import ParticlesCardGrid from '../../card_grid/particles/ParticlesCardGrid';
 
 
 export default function ParticlesCard({currentState, setDrawerState}) {

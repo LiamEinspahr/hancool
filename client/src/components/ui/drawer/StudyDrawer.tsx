@@ -7,7 +7,6 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { cardTestData } from '../../data/CardTestData';
 import ListIcon from '@mui/icons-material/List';
 import { Container, IconButton, TextField, ThemeProvider, createTheme } from '@mui/material';
 import { PaginatorStepContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';

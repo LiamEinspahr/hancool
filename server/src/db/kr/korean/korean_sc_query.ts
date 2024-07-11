@@ -49,12 +49,14 @@ interface ParticlesCardInterface {
 }
 
 interface SyntaxCardInterface {
-    id: number,
-    title: string,
-    syntax: string,
-    meaning: string,
-    commentary: string,
-    syntax_extra: string
+  id: number,
+  title: string,
+  syntax: string,
+  meaning: string,
+  commentary: string,
+  syntax_example_english: string,
+  syntax_example_korean: string
+  syntax_extra: string   
 }
 
 

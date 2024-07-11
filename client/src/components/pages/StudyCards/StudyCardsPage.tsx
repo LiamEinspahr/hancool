@@ -3,7 +3,7 @@ import { Box, Container } from '@mui/material';
 import StudyCardsPageHeader from './header/StudyCardsPageHeader';
 import StudyCardsPageBody from './body/StudyCardsPageBody';
 import StudyCardsPageFooter from './footer/StudyCardsPageFooter';
-import { ContractionsTestData, CommonPhrasesTestData, ConjugationsTestData, CultureTestData, ParticlesTestData, SyntaxTestData } from '../../data/CardTestData';
+import { CardDefaultLoad } from '../../data/CardDefaultLoad';
 import { CommonPhrasesCardInterface, ConjugationsCardInterface, ContractionsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from '../../data/CardInterface';
 
 
@@ -28,7 +28,7 @@ const categoryDefaultState = {
 } as StudyCardsPageCategoryContextType;
 
 const dataDefaltState = {
-    renderedData: ContractionsTestData,
+    renderedData: CardDefaultLoad,
     setRenderedData: (data: any[]) => {}
 } as StudyCardsPageCategoryDataType
 
@@ -46,7 +46,7 @@ export const PaginatorStepContext = React.createContext<PaginatorStepType>(pagin
 export default function StudyCardsPage() {
 
     const [renderedCategory, setRenderedCategory] = React.useState('commonPhrases');
-    const [renderedData, setRenderedData] = React.useState(SyntaxTestData);
+    const [renderedData, setRenderedData] = React.useState(CardDefaultLoad);
     const [step, setStep] = React.useState(0);
     
             

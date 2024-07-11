@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
-import ConjugationsCardGrid from '../../card_grid/ConjugationsCardGrid';
-import { ConjugationsTestData } from '../../../../data/CardTestData';
+import ConjugationsCardGrid from '../../card_grid/conjugations/ConjugationsCardGrid';
 
 export default function ConjugationsCard({currentState, setDrawerState}) {
   const [openExpansion, setOpenExpansion] = React.useState(false);
