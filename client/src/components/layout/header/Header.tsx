@@ -13,9 +13,9 @@ export interface headerButtonsType {
 
 const headerButtons: headerButtonsType[] = [
   {isShown: true, name: 'tables', isLanguage: false, displayNavigation: true},
-  {isShown: true, name: 'flashcards', isLanguage: false, displayNavigation: true},
+  {isShown: true, name: 'studycards', isLanguage: false, displayNavigation: true},
   {isShown: true, name: 'korean', isLanguage: true, displayNavigation: false},
-  {isShown: true, name: 'japanese', isLanguage: true, displayNavigation: false},
+  {isShown: true, name: 'test', isLanguage: true, displayNavigation: false},
   {isShown: true, name: 'resources', isLanguage: false, displayNavigation: true},
   {isShown: true, name: 'about', isLanguage: false, displayNavigation: true},
 ];
@@ -44,16 +44,18 @@ export default function Header() {
 
 
     return(
-      <AppBar position="static">
-        <Toolbar sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
-          <HeaderTitle></HeaderTitle>
-          <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
-            <HeaderButtonsContext.Provider value={currentHeaderButtons}>
-              <HeaderButtons></HeaderButtons>
-              <HeaderSettings></HeaderSettings>
-            </HeaderButtonsContext.Provider>
-         </RenderedButtonsContext.Provider>
-        </Toolbar>
-      </AppBar>
+      <Box id="header_root" >
+        <AppBar id="header_appbar" position="static" sx={{boxShadow: 10}}>
+          <Toolbar id="header_toolbar" sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
+            <HeaderTitle></HeaderTitle>
+            <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
+              <HeaderButtonsContext.Provider value={currentHeaderButtons}>
+                <HeaderButtons></HeaderButtons>
+                <HeaderSettings></HeaderSettings>
+              </HeaderButtonsContext.Provider>
+          </RenderedButtonsContext.Provider>
+          </Toolbar>
+        </AppBar>
+      </Box>
     );
 }

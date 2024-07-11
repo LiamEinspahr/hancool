@@ -1,4 +1,4 @@
-import * as words from '../jp/japanese/japanese_query';
+import * as words from './japanese/japanese_words_query';
 
 export default {
     words

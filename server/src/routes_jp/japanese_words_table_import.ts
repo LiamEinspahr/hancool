@@ -1,5 +1,5 @@
 import { Router } from "express";
-import japaneseRouter from './japaneseWords';
+import japaneseRouter from './japanese_words_table_api';
 
 const router = Router();
 

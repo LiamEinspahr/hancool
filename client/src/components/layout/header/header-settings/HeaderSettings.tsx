@@ -41,7 +41,7 @@ export default function HeaderSettings() {
   };
 
     const DrawerList = (
-        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+        <Box id="header_settings_button" sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
           <List>
             <ListItem key="buttonToggle" sx={{display: "list-item"}} disablePadding>
               <ListItemButton disabled={true}>
@@ -75,11 +75,11 @@ export default function HeaderSettings() {
       );
     
       return (
-        <Container sx={{position: 'relative', float:'right', marginLeft: 0 , marginRight: 0, ['@media (min-width: 600px)']: {paddingLeft: 0, paddingRight: 0}, ['@media (min-width: 1200px)']: {width: 'auto'} }}>
+        <Container id="header_settings_icon" sx={{position: 'relative', float:'right', marginLeft: 0 , marginRight: 0, ['@media (min-width: 600px)']: {paddingLeft: 0, paddingRight: 0}, ['@media (min-width: 1200px)']: {width: 'auto'} }}>
           <IconButton onClick={toggleDrawer(true)} sx={{float: 'right'}}>
             <SettingsIcon />
           </IconButton>
-          <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+          <Drawer id="header_settings_drawer" anchor="right" open={open} onClose={toggleDrawer(false)}>
             {DrawerList}
           </Drawer>
         </Container>

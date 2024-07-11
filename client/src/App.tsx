@@ -12,7 +12,7 @@ import AboutPage from './components/pages/AboutPage';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ResourcesPage from './components/pages/ResourcesPage';
 import TablesPage from './components/pages/TablesPage';
-import FlashCardsPage from './components/pages/FlashCardsPage';
+import StudyCardsPage from './components/pages/StudyCards/StudyCardsPage';
 
 interface SubHeaderContextType {
   renderedLanguage: string,
@@ -55,8 +55,8 @@ const [renderedLanguage, setRenderedLanguage] = React.useState('korean');
               element={<TablesPage />}
           ></Route>
           <Route
-              path="/flashcards"
-              element={<FlashCardsPage />}
+              path="/studycards"
+              element={<StudyCardsPage />}
           ></Route>  
           <Route
               path="/about"
