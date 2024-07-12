@@ -1,8 +1,32 @@
 import * as React from 'react';
-import { AppBar, Box, Toolbar, styled } from '@mui/material';
+import { AppBar, Box, ThemeProvider, Toolbar, createTheme, styled } from '@mui/material';
 import HeaderButtons from './header-buttons/HeaderButtons';
 import HeaderTitle from './header-title/HeaderTitle';
 import HeaderSettings from './header-settings/HeaderSettings';
+
+
+const header_theme = createTheme({
+    components: {
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            position: 'static',
+            boxShadow: '10'
+          }
+        }
+      },
+      MuiToolbar: {
+        styleOverrides: {
+          root: {
+            '@media (min-width: 600px)': {paddingRight: 0}
+          }
+        }
+      }
+    },
+    palette: {
+      mode: 'dark'
+    }
+})
 
 export interface headerButtonsType {
   isShown: Boolean,
@@ -44,18 +68,20 @@ export default function Header() {
 
 
     return(
-      <Box id="header_root" >
-        <AppBar id="header_appbar" position="static" sx={{boxShadow: 10}}>
-          <Toolbar id="header_toolbar" sx={{['@media (min-width: 600px)']: {paddingRight: 0}}}> 
-            <HeaderTitle></HeaderTitle>
-            <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
-              <HeaderButtonsContext.Provider value={currentHeaderButtons}>
-                <HeaderButtons></HeaderButtons>
-                <HeaderSettings></HeaderSettings>
-              </HeaderButtonsContext.Provider>
-          </RenderedButtonsContext.Provider>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <ThemeProvider theme={header_theme}>
+        <Box id="header_root" >
+          <AppBar id="header_appbar">
+            <Toolbar id="header_toolbar"> 
+              <HeaderTitle></HeaderTitle>
+              <RenderedButtonsContext.Provider value={{renderedButtons, setRenderedButtons}}>
+                <HeaderButtonsContext.Provider value={currentHeaderButtons}>
+                  <HeaderButtons></HeaderButtons>
+                  <HeaderSettings></HeaderSettings>
+                </HeaderButtonsContext.Provider>
+            </RenderedButtonsContext.Provider>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      </ThemeProvider>
     );
 }

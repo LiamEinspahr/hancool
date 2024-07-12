@@ -15,7 +15,7 @@ export default function RowLock({expirationDate, id, lockState, onClick}) {
         <>
           { lockState 
             ? <ToggleButton
-              sx={{ backgroundColor: '#383838', color: 'white', border: 'none', opacity: '80%'}}
+              sx={{ backgroundColor: '#383838', border: 'none', color: 'white',  opacity: '80%'}}
               value={id}
               onClick={(e) => handleChange()}
             >
@@ -23,7 +23,7 @@ export default function RowLock({expirationDate, id, lockState, onClick}) {
             </ToggleButton>
 
             : <ToggleButton
-            sx={{ backgroundColor: 'white', border: 'none', opacity: '100%', fontWeight: '600'}}
+            sx={{ backgroundColor: 'white', border: 'none', fontWeight: '600', opacity: '100%'}}
             value={id}
             onClick={(e) => handleChange()}
           >

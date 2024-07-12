@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { SubHeaderContext } from '../../App';
-import { RenderedButtonsContext } from '../layout/header/Header';
-import { Link } from 'react-router-dom';
-import KR_Table from '../ui/table/kr_table/KR_Table';
-import JP_Table from '../ui/table/jp_table/JP_Table';
 import SubHeader from '../layout/subheader/SubHeader';
+import WordsTable from '../ui/table/words_table/WordsTable';
 
 export default function TablesPage() {
 
@@ -27,7 +24,7 @@ export default function TablesPage() {
     return(
         <>
             <SubHeader />
-            {renderedLanguage === 'korean' ? <KR_Table /> : <JP_Table />}
+            <WordsTable language={renderedLanguage} />
         </>
     );
 }

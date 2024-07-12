@@ -1,7 +1,45 @@
 import * as React from 'react';
-import { Box, Button, Container, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, Button, Container, createTheme, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, ThemeProvider, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {headerButtonsType, RenderedButtonsContext, HeaderButtonsContext } from '../Header';
+
+const headerSettings_theme = createTheme({
+  components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          float: 'right'
+        }
+      }
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          float:'right',
+          marginLeft: 0 , 
+          marginRight: 0, 
+          position: 'relative', 
+          '@media (min-width: 600px)': {paddingLeft: 0, paddingRight: 0}, 
+          '@media (min-width: 1200px)': {width: 'auto'}
+        }
+      }
+    },
+    MuiStack: {
+      styleOverrides: {
+        root: {
+          display: "grid", 
+          justifyItems: 'start', 
+          marginBottom: "4vh", 
+          paddingLeft: "18%"
+        }
+      }
+    }
+  },
+  palette: {
+    mode: 'dark'
+  }
+})
+
 
 interface nonButtonDisplay_SettingsInterface {
   id: string,
@@ -17,8 +55,6 @@ const toggleColors = {
   isOn: "#850000",
   isOff: "#32A72C"
 }
-
-
 
 export default function HeaderSettings() {
 
@@ -50,7 +86,7 @@ export default function HeaderSettings() {
               <ToggleButtonGroup
                 value={renderedButtons}
                 onChange={HandleRender}>
-                <Stack sx={{display: "grid", justifyItems: 'start', marginBottom: "4vh", paddingLeft: "18%"}}>
+                <Stack>
                 {headerButtons.map((btn, index) => (
                   (headerButtons[index].displayNavigation !== false)
                     ? <Box marginTop={"20px"}>
@@ -75,13 +111,15 @@ export default function HeaderSettings() {
       );
     
       return (
-        <Container id="header_settings_icon" sx={{position: 'relative', float:'right', marginLeft: 0 , marginRight: 0, ['@media (min-width: 600px)']: {paddingLeft: 0, paddingRight: 0}, ['@media (min-width: 1200px)']: {width: 'auto'} }}>
-          <IconButton onClick={toggleDrawer(true)} sx={{float: 'right'}}>
-            <SettingsIcon />
-          </IconButton>
-          <Drawer id="header_settings_drawer" anchor="right" open={open} onClose={toggleDrawer(false)}>
-            {DrawerList}
-          </Drawer>
-        </Container>
+        <ThemeProvider theme={headerSettings_theme}>
+          <Container id="header_settings_icon">
+            <IconButton onClick={toggleDrawer(true)}>
+              <SettingsIcon />
+            </IconButton>
+            <Drawer id="header_settings_drawer" anchor="right" open={open} onClose={toggleDrawer(false)}>
+              {DrawerList}
+            </Drawer>
+          </Container>
+        </ThemeProvider>
       );
     }

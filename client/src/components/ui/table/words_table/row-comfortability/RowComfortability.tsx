@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider } from '@mui/material';
 
+
 export default function RowComfortability({id, disabled, passedInValue, onChange}) {
   
   const [comfortability, setComfortability] = React.useState(passedInValue);

@@ -12,8 +12,43 @@ import { Container, IconButton, TextField, ThemeProvider, createTheme } from '@m
 import { PaginatorStepContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
 
 
-const drawerTheme = createTheme({
+const studyDrawer_theme = createTheme({
   components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingTop: '2vh'
+        }
+      }
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '20%',
+          position: 'relative'
+        },
+        paper: {
+          position: 'relative'
+        },
+        paperAnchorLeft: {
+          backgroundColor: '#422356',
+          borderRadius: '2px',
+          color: 'white',
+          height: '100%',
+          left: '0.1%',
+          position: 'fixed',
+          top: '11.55%',
+          width: '11%',
+        }
+      }
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: '#9BCDFF'
+        }
+      }
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -21,7 +56,7 @@ const drawerTheme = createTheme({
         }
       }
     }
-  }
+  },
 })
 
 
@@ -35,7 +70,7 @@ export default function StudyDrawer()  {
   };
 
   const DrawerList = (
-      <Box sx={{}} role="presentation" onClick={toggleDrawer(false)}>
+      <Box role="presentation" onClick={toggleDrawer(false)}>
         <List>
           {renderedData.map((card, index) => (
             <ListItem key={card.title} disablePadding>
@@ -50,38 +85,21 @@ export default function StudyDrawer()  {
   );
 
   return (
-    <>
-      <IconButton sx={{color: '#9BCDFF'}} onClick={toggleDrawer(!open)}>
+    <ThemeProvider theme={studyDrawer_theme}>
+      <IconButton onClick={toggleDrawer(!open)}>
         <ListIcon />
       </IconButton>
       <Drawer
+        anchor='left'
         hideBackdrop
-        sx={{['&.MuiDrawer-root']:{position: 'relative', paddingLeft: '20%'}, ['&.MuiDrawer-paper']:{position: 'relative'}, ['&.MuiBackdrop-root']:{paddingLeft: '5%'}}} 
         open={open} 
         onClose={toggleDrawer(false)}
-        PaperProps={{
-          sx: {
-            position: 'fixed',
-            top: '11.55%',
-            left: '0.1%',
-            width: '11%',
-            height: '100%',
-            borderRadius: '2px',
-            backgroundColor: '#422356',
-            color: 'white'
-          }
-        }}
-        
-
       >
-        <Container sx={{pt: '2vh'}}>
-          <ThemeProvider theme={drawerTheme}>
+        <Container>
             <TextField label="Search" variant="outlined"/>
-          </ThemeProvider>
         </Container>
-        
         {DrawerList}
       </Drawer>
-    </>
+      </ThemeProvider>
   );
 }

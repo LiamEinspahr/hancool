@@ -29,19 +29,18 @@ export const DataTable = styled(DataGrid)(({ theme }) => ({
         },
       }, 
     },
+    color: '#FFFF',
+    margin: '1vw 2vh',
     '& .header-cell' : {
       backgroundColor: '#2A2A28'
       },
-    '.18pvjta-MuiDataGrid-root .MuiDataGrid-cell': {
-      
-    },
     '.MuiDataGrid-columnHeaderTitleContainer' : {
       backgroundColor: '#2A2A28'
     },
     '.MuiDataGrid-editInputCell': {
-      color: 'white',
       backgroundColor: '#2E2E2E',
-      BorderColor: '#2E2E2E'
+      BorderColor: '#2E2E2E',
+      color: 'white'
     },
     '.MuiInputBase-root': {
       color: 'white'
@@ -54,7 +53,5 @@ export const DataTable = styled(DataGrid)(({ theme }) => ({
     },
     '.MuiTablePagination-selectLabel': {
       color: 'white'
-    },
-      margin: '1vw 2vh',
-      color: '#FFFF',
+    },  
   }));

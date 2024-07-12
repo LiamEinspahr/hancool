@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
@@ -11,7 +11,45 @@ import { PaginatorStepContext, StudyCardsPageCategoryContext, StudyCardsPageData
 import TemplateStudyCard from '../card/TemplateStudyCard';
 
 
-function Paginator() {
+const paginator_theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: '#9BCDFF'
+        }
+      }
+    },
+    MuiMobileStepper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2E557C',
+          borderRadius: '2px', 
+          color: '#90caf9',  
+          height: '3vh'
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        elevation0: {
+          alignItems: 'center',
+          backgroundColor: '#2E557C',
+          borderRadius: '2px',
+          color: '#9BCDFF',
+          display: 'flex',
+          height: 50,
+          pl: 2,
+        }
+      }
+    }
+  },
+  palette: {
+    mode: 'dark'
+  }
+})
+
+export default function Paginator() {
 
   const {renderedCategory, setRenderedCategory} = React.useContext(StudyCardsPageCategoryContext);
   const {renderedData, setRenderedData} = React.useContext(StudyCardsPageDataContext);
@@ -41,20 +79,12 @@ function Paginator() {
   };
 
   return (
+    <ThemeProvider theme={paginator_theme}>
     <PaginatorStepContext.Provider value={{step, setStep}}>
       <Box id="paginator_root" sx={{borderRadius: '2px'}}>
         <Paper
           square
           elevation={0}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            height: 50,
-            pl: 2,
-            color: '#9BCDFF',
-            backgroundColor: '#2E557C',
-            borderRadius: '2px'
-          }}
         >
           <Typography sx={{fontSize: '2vw'}}>{renderedData[step]?.title}</Typography>
         </Paper>
@@ -62,7 +92,6 @@ function Paginator() {
           <TemplateStudyCard renderCard={renderedCategory}  />
         </Box>
         <MobileStepper
-        sx={{color: '#90caf9', backgroundColor: '#2E557C', height: '3vh', borderRadius: '2px' }}
           variant="dots"
           steps={maxSteps}
           position="static"
@@ -71,7 +100,7 @@ function Paginator() {
             <Button
               size="small"
               onClick={handleNext}
-              sx={{color: '#9BCDFF'}}
+              sx={{}}
             >
               Next
               {theme.direction === 'rtl' ? (
@@ -94,7 +123,7 @@ function Paginator() {
         />
       </Box>
     </PaginatorStepContext.Provider>
+    </ThemeProvider>
   );
 }
 
-export default Paginator;

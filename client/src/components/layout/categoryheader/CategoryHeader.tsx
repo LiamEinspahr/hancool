@@ -1,47 +1,75 @@
 import * as React from 'react';
-import { AppBar, Box, Button, Container, ToggleButton, ToggleButtonGroup, Toolbar, Typography, styled } from '@mui/material';
+import { AppBar, Box, Button, Container, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme, styled } from '@mui/material';
 import { categoryHeaders } from '../../data/CategoryHeaderData';
 
+
+const categoryHeader_theme = createTheme({
+    components: {
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    position: 'static',
+                    backgroundColor: '#53AA41',
+                    borderRadius: '2px'
+                }
+            }
+        },
+        MuiToggleButtonGroup: {
+            styleOverrides: {
+                root: {
+                    maxWidth: '100%',
+                    '@media (min-width: 600px)': {minWidth: '100%'},
+                    '.MuiToggleButtonGroup-firstButton': {
+                        backgroundColor: '#3a772e',
+                        borderRadius: '5px',
+                        color: 'white',
+                        marginLeft: '0.25%',
+                        maxHeight: '25px',
+                        minWidth: '7%',
+                        
+                    },
+                    '.MuiToggleButtonGroup-lastButton': {
+                        backgroundColor: '#3a772e',
+                        borderRadius: '5px',
+                        color: 'white',
+                        marginLeft: '0.25%',
+                        maxHeight: '25px',
+                        minWidth: '7%'
+                        
+                    },
+                    '.MuiToggleButtonGroup-middleButton': {
+                        backgroundColor: '#3a772e',
+                        borderRadius: '5px',
+                        color: 'white',
+                        marginLeft: '0.25%',
+                        maxHeight: '25px',
+                        minWidth: '7%'
+                        
+                    }  
+                }
+            }
+        },
+        MuiToolbar: {
+            styleOverrides: {
+                root: {
+                    marginLeft: '0%',
+                    '@media (min-width: 600px)': {maxWidth: '92vw', minHeight: '48px', paddingLeft: '0.5%', paddingRight: '0.5%'}
+                }
+            }
+        }
+    }
+})
 
 
 
 export default function SubHeader() {
     
     return(
-        <>
-        <Box sx={{position: 'relative', marginX: '1.26%', borderRadius: '20px' }}>
-                <AppBar position="static" sx={{backgroundColor: '#53AA41', borderRadius: '2px'}}>
-                    <Toolbar sx={{ marginLeft: '0%', ['@media (min-width: 600px)']: {minHeight: '48px', paddingLeft: '0.5%', paddingRight: '0.5%', maxWidth: '92vw'}}}>
-                        <ToggleButtonGroup exclusive
-                            sx={{
-                                maxWidth: '100%',
-                                ['@media (min-width: 600px)']: {minWidth: '100%'},
-                                '.MuiToggleButtonGroup-middleButton': {
-                                    backgroundColor: '#3a772e',
-                                    borderRadius: '5px',
-                                    color: 'white',
-                                    maxHeight: '25px',
-                                    minWidth: '7%', 
-                                    marginLeft: '0.25%'
-                                },
-                                '.MuiToggleButtonGroup-firstButton': {
-                                    backgroundColor: '#3a772e',
-                                    borderRadius: '5px',
-                                    color: 'white',
-                                    maxHeight: '25px',
-                                    minWidth: '7%', 
-                                    marginLeft: '0.25%'
-                                },
-                                '.MuiToggleButtonGroup-lastButton': {
-                                    backgroundColor: '#3a772e',
-                                    borderRadius: '5px',
-                                    color: 'white',
-                                    maxHeight: '25px',
-                                    minWidth: '7%', 
-                                    marginLeft: '0.25%'
-                                }
-                            }}
-                        >
+        <ThemeProvider theme={categoryHeader_theme}>
+            <Box sx={{position: 'relative', marginX: '1.26%', borderRadius: '20px' }}>
+                <AppBar>
+                    <Toolbar sx={{ }}>
+                        <ToggleButtonGroup exclusive>
                             {categoryHeaders.map((button, index) => (
                                 (categoryHeaders[index].isShown)
                                 ? <ToggleButton 
@@ -57,6 +85,6 @@ export default function SubHeader() {
                     </Toolbar>
                 </AppBar>
             </Box>
-        </>
+        </ThemeProvider>
     );
 }
