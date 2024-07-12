@@ -1,7 +1,5 @@
-import * as React from 'react';
-import { Box, alpha, styled } from '@mui/material';
-import { DataGrid, GridToolbar, GridRowsProp, GridColDef, gridClasses, GridFilterModel, GridColumnVisibilityModel} from '@mui/x-data-grid';
-import { BorderColor, Padding } from '@mui/icons-material';
+import { styled } from '@mui/material';
+import { DataGrid, gridClasses} from '@mui/x-data-grid';
 
 
 export const DataTable = styled(DataGrid)(({ theme }) => ({

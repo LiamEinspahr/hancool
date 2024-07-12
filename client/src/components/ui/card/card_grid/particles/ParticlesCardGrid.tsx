@@ -8,7 +8,7 @@ import { StudyCardsPageDataContext } from '../../../../pages/StudyCards/StudyCar
 import { PaginatorStepContext } from '../../../../pages/StudyCards/StudyCardsPage';
 import ParticleStyle from './styling/ParticleStyle';
 import ParticleMeaningStyle from './styling/ParticleMeaningStyle';
-import ParticleUsageStyle from './styling/ParticelUsageStyle';
+import ParticleUsageStyle from './styling/ParticleUsageStyle';
 
 const dividerTheme = createTheme({
   components: {

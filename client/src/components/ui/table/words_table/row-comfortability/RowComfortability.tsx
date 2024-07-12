@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
 
 
 export default function RowComfortability({id, disabled, passedInValue, onChange}) {

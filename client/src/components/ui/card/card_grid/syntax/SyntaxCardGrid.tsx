@@ -6,10 +6,10 @@ import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
 import { StudyCardsPageDataContext } from '../../../../pages/StudyCards/StudyCardsPage';
 import { PaginatorStepContext } from '../../../../pages/StudyCards/StudyCardsPage';
-import SyntaxStyling from './SyntaxStyling';
-import SyntaxMeaningStyling from './SyntaxMeaningStyling';
-import SyntaxCommentaryStyling from './SyntaxCommentaryStyling';
-import SyntaxExampleStyling from './SyntaxExampleStyling';
+import SyntaxStyling from './styling/SyntaxStyling';
+import SyntaxMeaningStyling from './styling/SyntaxMeaningStyling';
+import SyntaxCommentaryStyling from './styling/SyntaxCommentaryStyling';
+import SyntaxExampleStyling from './styling/SyntaxExampleStyling';
 
 const dividerTheme = createTheme({
   components: {

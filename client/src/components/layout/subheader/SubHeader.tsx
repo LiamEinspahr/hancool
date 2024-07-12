@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { AppBar, Box, Button, Container, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme, styled } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { BorderAllRounded } from '@mui/icons-material';
+import { AppBar, Box, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme, styled } from '@mui/material';
 import { RenderedButtonsContext } from '../header/Header';
-import KR_Table from '../../ui/table/words_table/WordsTable';
 import { SubHeaderContext } from '../../../App';
 
 

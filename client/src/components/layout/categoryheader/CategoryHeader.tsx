@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { AppBar, Box, Button, Container, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, Typography, createTheme, styled } from '@mui/material';
+import { AppBar, Box, ThemeProvider, ToggleButton, ToggleButtonGroup, Toolbar, createTheme} from '@mui/material';
 import { categoryHeaders } from '../../data/CategoryHeaderData';
 
 

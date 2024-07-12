@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Box, Button, Container, createTheme, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, ThemeProvider, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, Container, createTheme, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Stack, ThemeProvider, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {headerButtonsType, RenderedButtonsContext, HeaderButtonsContext } from '../Header';
+import {RenderedButtonsContext, HeaderButtonsContext } from '../Header';
 
 const headerSettings_theme = createTheme({
   components: {

@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { PaginatorStepContext, StudyCardsPageCategoryContext, StudyCardsPageDataContext } from '../../pages/StudyCards/StudyCardsPage';
-import TemplateStudyCard from '../card/TemplateStudyCard';
+import CardContainer from '../card/CardContainer';
 
 
 const paginator_theme = createTheme({
@@ -89,7 +89,7 @@ export default function Paginator() {
           <Typography sx={{fontSize: '2vw'}}>{renderedData[step]?.title}</Typography>
         </Paper>
         <Box sx={{position: 'relative', display: 'flex', height: '60vh', width: '100%', backgroundColor: '#272727', borderRadius: '3px' }}>
-          <TemplateStudyCard renderCard={renderedCategory}  />
+          <CardContainer renderCard={renderedCategory}  />
         </Box>
         <MobileStepper
           variant="dots"

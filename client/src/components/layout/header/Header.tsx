@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Box, ThemeProvider, Toolbar, createTheme, styled } from '@mui/material';
+import { AppBar, Box, ThemeProvider, Toolbar, createTheme} from '@mui/material';
 import HeaderButtons from './header-buttons/HeaderButtons';
 import HeaderTitle from './header-title/HeaderTitle';
 import HeaderSettings from './header-settings/HeaderSettings';

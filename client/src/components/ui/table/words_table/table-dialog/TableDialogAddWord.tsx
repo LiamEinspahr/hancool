@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slider, Switch, TextField, Typography } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from '@mui/material';
 import { TableRow } from '../../../../data/TableRowInterface';
 
 
@@ -16,9 +14,6 @@ export default function TableDialogAddWord(props: any) {
       setOpen(false);
     };
 
-    const [comfortability, setComfortability] = React.useState<number>();
-    const [expirationDate, setExpirationDate] = React.useState<string>();
-    const [lock, setLock] = React.useState<boolean>();
 
 
 

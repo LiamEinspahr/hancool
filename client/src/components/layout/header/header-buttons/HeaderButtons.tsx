@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Button, Container, createTheme, ThemeProvider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { render } from '@testing-library/react';
-import { Padding } from '@mui/icons-material';
 import { RenderedButtonsContext } from '../Header';
 
 const headerButtons_theme = createTheme({

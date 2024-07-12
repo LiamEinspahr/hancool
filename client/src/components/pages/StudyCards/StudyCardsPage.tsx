@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import StudyCardsPageHeader from './header/StudyCardsPageHeader';
 import StudyCardsPageBody from './body/StudyCardsPageBody';
 import StudyCardsPageFooter from './footer/StudyCardsPageFooter';
 import { CardDefaultLoad } from '../../data/CardDefaultLoad';
-import { CommonPhrasesCardInterface, ConjugationsCardInterface, ContractionsCardInterface, CultureCardInterface, ParticlesCardInterface, SyntaxCardInterface } from '../../data/CardInterface';
-
 
 interface StudyCardsPageCategoryContextType {
     renderedCategory: string,

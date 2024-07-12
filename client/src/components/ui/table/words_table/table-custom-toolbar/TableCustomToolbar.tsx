@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from "@mui/x-data-grid";
+import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarExport, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import TableDialogAddWord from '../table-dialog/TableDialogAddWord';
 import TableDialogDeleteWord from '../table-dialog/TableDialogDeleteWord';
 

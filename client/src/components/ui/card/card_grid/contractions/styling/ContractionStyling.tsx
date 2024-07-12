@@ -1,34 +1,60 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, createTheme, Grid, styled, Typography } from '@mui/material';
 import * as React from 'react';
+import EqualsStyling from './EqualsStyling';
+import { ThemeProvider } from '@emotion/react';
 
 
+const ContractionStyling_StyledBox = styled(Box)({
+  backgroundColor: '#CECECE',
+  borderRadius: '8px',
+  height: '50%',
+  maxWidth: '74.5%',
+  width: 'auto'
+});
+
+const contractionStyling_theme = createTheme({
+  components: {
+    MuiGrid: {
+      styleOverrides: {
+        item: {
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          paddingBottom: '16px',
+          paddingLeft: '16px',
+          paddingRight: '16px',
+          paddingTop: '16px'
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: 'black', 
+          display:'flex', 
+          flexDirection:'column',
+          fontSize: '7.2vw',
+          height: '100%',
+          justifyContent:'center'
+        }
+      }
+    }
+  }
+})
 
 export default function ContractionStyling({contraction}) {
 
     return(
-        <Grid item xs={6} sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', px: '16px', py: '16px'}}>
-            <Box sx={{height: '50%', width: 'auto', maxWidth: '74.5%', backgroundColor: '#CECECE', borderRadius: '8px'}}>
+      <ThemeProvider theme={contractionStyling_theme}>
+        <Grid item xs={6}>
+            <ContractionStyling_StyledBox>
               <Typography sx={{
-                  display:'flex', 
-                  flexDirection:'column', 
-                  justifyContent:'center', 
-                  color: 'black', 
-                  height: '100%', 
-                  fontSize: '7.2vw'}}>
+                  }}>
                 {contraction}
               </Typography>
-            </Box>
-            <Box>
-              <Typography sx={{
-                  display:'flex', 
-                  flexDirection:'column', 
-                  justifyContent:'center', 
-                  color: 'white', 
-                  height: '100%', 
-                  fontSize: '4vw'}}>
-                =
-              </Typography>
-            </Box>
+            </ContractionStyling_StyledBox>
+            <EqualsStyling />
           </Grid>
+        </ThemeProvider>
     );
 }

@@ -1,5 +1,4 @@
 import { Container } from '@mui/material';
-import * as React from 'react';
 import Tabber from '../../../ui/tabber/Tabber';
 import StudyDrawer from '../../../ui/drawer/StudyDrawer';
 

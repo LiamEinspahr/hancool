@@ -18,6 +18,13 @@ const dividerTheme = createTheme({
           backgroundColor: 'white'
         }
       }
+    },
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          textAlign: 'center'
+        }
+      }
     }
   }
 })
@@ -32,21 +39,9 @@ export default function CultureCardGrid() {
     return (
       <ThemeProvider theme={dividerTheme}>
         <Grid container spacing={2} sx={{height: '100%'}}>
-          <Grid item xs={4} sx={{textAlign: 'center'}}>
-            Culture
-            <Divider />
-            {renderedData[0].culture}
-          </Grid>
-          <Grid item xs={4} sx={{textAlign: 'center'}}>
-            Meaning
-            <Divider />
-            {renderedData[0].meaning}
-          </Grid>
-          <Grid item xs={4} sx={{textAlign: 'center'}}>
-            Usage
-            <Divider />
-            {renderedData[0].usage}
-          </Grid>
+        <CulturePictureStyling url={renderedData[0]?.pictureurl} />
+            <CultureMeaningStyling meaning={renderedData[0].meaning} />
+            <CultureUsageStyling usage={renderedData[0]?.usage} />
         </Grid>
       </ThemeProvider>
     );
