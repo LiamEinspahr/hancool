@@ -61,7 +61,7 @@ const categoryHeader_theme = createTheme({
 
 
 
-export default function SubHeader() {
+export default function CategoryHeader() {
     
     return(
         <ThemeProvider theme={categoryHeader_theme}>
