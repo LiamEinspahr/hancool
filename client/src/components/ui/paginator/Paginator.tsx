@@ -86,7 +86,7 @@ export default function Paginator() {
           square
           elevation={0}
         >
-          <Typography sx={{fontSize: '2vw'}}>{renderedData[step]?.title}</Typography>
+          <Typography sx={{fontSize: '2vw', paddingX: '8px'}}>{renderedData[step]?.title}</Typography>
         </Paper>
         <Box sx={{position: 'relative', display: 'flex', height: '60vh', width: '100%', backgroundColor: '#272727', borderRadius: '3px' }}>
           <CardContainer renderCard={renderedCategory}  />

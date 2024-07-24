@@ -10,5 +10,5 @@ export function getPrompts() {
   }
 
   export function getVocab() {
-    return SelectQuery<any>('SELECT * FROM korean_prompter_vocab;');
+    return SelectQuery<any>('SELECT * FROM korean_prompter_variables;');
   }

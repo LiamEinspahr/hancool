@@ -3,7 +3,7 @@ import db from "../../db/kr";
 
 const router = Router();
 
-router.get('/prompter_prompts', async (req,res) => {
+router.get('/prompter_sentence', async (req,res) => {
     try {
       const words = await db.prompter.getPrompts();
       res.json(words);
@@ -12,7 +12,7 @@ router.get('/prompter_prompts', async (req,res) => {
     }
   });
 
-  router.get('/prompter_vocab', async (req,res) => {
+  router.get('/prompter_sentence_variable', async (req,res) => {
     try {
       const words = await db.prompter.getVocab();
       res.json(words);

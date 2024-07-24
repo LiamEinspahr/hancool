@@ -1,13 +1,16 @@
 import * as React from 'react';
 import SubHeader from '../../layout/subheader/SubHeader';
-import { Button, Container, createTheme, Typography } from '@mui/material';
+import {createTheme, Stack} from '@mui/material';
 import { Padding } from '@mui/icons-material';
-import * as VOCABCONTEXT from './PrompterData';
+import * as PROMPTVAR from './PrompterData';
+import PrompterPageHeader from './header/PrompterPageHeader';
+import PrompterPageBody from './body/PrompterPageBody';
 
-interface prompter_part {
+interface prompter_sentence_part {
     text: string,
     isVariable: boolean,
-    vocab_type: string
+    isOptional: boolean,
+    variable_type: string
 }
 
 const prompterPage_theme = createTheme({
@@ -40,52 +43,84 @@ const prompterPage_theme = createTheme({
 
 export default function PrompterPage() {
 
-    
+    const isOptionalRegex = new RegExp('(io)+(\\s)+[a-z]+');
 
-   const {sentences, setSentences} = React.useContext(VOCABCONTEXT.prompter_prompts_context);
-   const [currentSentence, setCurrentSentence] = React.useState<VOCABCONTEXT.prompter_sentence>();
+   const {sentences, setSentences} = React.useContext(PROMPTVAR.prompter_prompts_context);
+   const [displaySentence, setDisplaySentence] = React.useState('');
+   const [displaySentenceLanguage, setDisplaySentenceLangauge] = React.useState('Generate a sentence to start');
+   const [hiddenSentence, setHiddenSentence] = React.useState('');
+   const [isHidden, setIsHidden] = React.useState(false);
    
-   React.useEffect(() => {
-    const initialPrompt = generatePrompt();
-    setCurrentSentence(initialPrompt);
-   },[])
+   const handleHidden = () => {
+    setIsHidden(!isHidden);
+    return;
+   }
 
-   const {appearance,setAppearance} = React.useContext(VOCABCONTEXT.appearance_vocab_context);
-   const {clothes,setClothes} = React.useContext(VOCABCONTEXT.clothes_vocab_context);
-   const {conjugation,setConjugation} = React.useContext(VOCABCONTEXT.conjugation_vocab_context);
-   const {direction,setDirection} = React.useContext(VOCABCONTEXT.direction_vocab_context);
-   const {everytime,setEveryTime} = React.useContext(VOCABCONTEXT.everyTime_vocab_context);
-   const {excuseme,setExcuseMe} = React.useContext(VOCABCONTEXT.excuseMe_vocab_context);
-   const {familialrelationship,setFamilialRelationship} = React.useContext(VOCABCONTEXT.familialRelationship_vocab_context);
-   const {feeling,setFeeling} = React.useContext(VOCABCONTEXT.feeling_vocab_context);
-   const {food,setFood} = React.useContext(VOCABCONTEXT.food_vocab_context);
-   const {generaltime,setGeneralTime} = React.useContext(VOCABCONTEXT.generalTime_vocab_context);
-   const {hobby,setHobby} = React.useContext(VOCABCONTEXT.hobby_vocab_context);
-   const {hour,setHour} = React.useContext(VOCABCONTEXT.hour_vocab_context);
-   const {item,setItem} = React.useContext(VOCABCONTEXT.item_vocab_context);
-   const {job,setJob} = React.useContext(VOCABCONTEXT.job_vocab_context);
-   const {land,setLand} = React.useContext(VOCABCONTEXT.land_vocab_context);
-   const {minute,setMinute} = React.useContext(VOCABCONTEXT.minute_vocab_context);
-   const {month,setMonth} = React.useContext(VOCABCONTEXT.month_vocab_context);
-   const {name,setName} = React.useContext(VOCABCONTEXT.name_vocab_context);
-   const {native,setNative} = React.useContext(VOCABCONTEXT.native_vocab_context);
-   const {place,setPlace} = React.useContext(VOCABCONTEXT.place_vocab_context);
-   const {preposition,setPreposition} = React.useContext(VOCABCONTEXT.preposition_vocab_context);
-   const {season,setSeason} = React.useContext(VOCABCONTEXT.season_vocab_context);
-   const {sino,setSino} = React.useContext(VOCABCONTEXT.sino_vocab_context);
-   const {taste,setTaste} = React.useContext(VOCABCONTEXT.taste_vocab_context);
-   const {timemodifier,setTimeModifier} = React.useContext(VOCABCONTEXT.timeModifier_vocab_context);
-   const {tod,setTod} = React.useContext(VOCABCONTEXT.tod_vocab_context);
-   const {transportation,setTransportation} = React.useContext(VOCABCONTEXT.transportation_vocab_context);
-   const {weather,setWeather} = React.useContext(VOCABCONTEXT.weather_vocab_context);
 
-   const generatePractice = () => {
-        const practicePrompt = generatePrompt();
-        setCurrentSentence(practicePrompt);
-        const english_parsed: prompter_part[] = parsePrompt(practicePrompt, 'english');
-        const korean_parsed: prompter_part[] = parsePrompt(practicePrompt, 'korean');
-        //console.log(english_parsed, '/n', korean_parsed);
-        const setVars = setPromptVariables(english_parsed, korean_parsed);
+   const {appearance,setAppearance} = React.useContext(PROMPTVAR.appearance_context);
+   const {clothes,setClothes} = React.useContext(PROMPTVAR.clothes_context);
+   const {color,setColor} = React.useContext(PROMPTVAR.color_context);
+   const {conjugation,setConjugation} = React.useContext(PROMPTVAR.conjugation_context);
+   const {direction,setDirection} = React.useContext(PROMPTVAR.direction_context);
+   const {dow,setDow} = React.useContext(PROMPTVAR.dow_context);
+   const {everytime,setEveryTime} = React.useContext(PROMPTVAR.everyTime_context);
+   const {excuseme,setExcuseMe} = React.useContext(PROMPTVAR.excuseMe_context);
+   const {familialrelationship,setFamilialRelationship} = React.useContext(PROMPTVAR.familialRelationship_context);
+   const {feeling,setFeeling} = React.useContext(PROMPTVAR.feeling_context);
+   const {food,setFood} = React.useContext(PROMPTVAR.food_context);
+   const {generaltime,setGeneralTime} = React.useContext(PROMPTVAR.generalTime_context);
+   const {hobby,setHobby} = React.useContext(PROMPTVAR.hobby_context);
+   const {hour,setHour} = React.useContext(PROMPTVAR.hour_context);
+   const {hourtime,setHourTime} = React.useContext(PROMPTVAR.hourTime_context);
+   const {ing,setIng} = React.useContext(PROMPTVAR.ing_context);
+   const {item,setItem} = React.useContext(PROMPTVAR.item_context);
+   const {itemtwo,setItemTwo} = React.useContext(PROMPTVAR.itemTwo_context);
+   const {job,setJob} = React.useContext(PROMPTVAR.job_context);
+   const {land,setLand} = React.useContext(PROMPTVAR.land_context);
+   const {locativeadverb,setLocativeAdverb} = React.useContext(PROMPTVAR.locativeAdverb_context);
+   const {minute,setMinute} = React.useContext(PROMPTVAR.minute_context);
+   const {minutetime,setMinuteTime} = React.useContext(PROMPTVAR.minuteTime_context);
+   const {month,setMonth} = React.useContext(PROMPTVAR.month_context);
+   const {name,setName} = React.useContext(PROMPTVAR.name_context);
+   const {native,setNative} = React.useContext(PROMPTVAR.native_context);
+   const {personadjective,setPersonAdjective} = React.useContext(PROMPTVAR.personAdjective_context);
+   const {place,setPlace} = React.useContext(PROMPTVAR.place_context);
+   const {preposition,setPreposition} = React.useContext(PROMPTVAR.preposition_context);
+   const {pronoun,setPronoun} = React.useContext(PROMPTVAR.pronoun_context);
+   const {season,setSeason} = React.useContext(PROMPTVAR.season_context);
+   const {sightseeing,setSightSeeing} = React.useContext(PROMPTVAR.sightSeeing_context);
+   const {sino,setSino} = React.useContext(PROMPTVAR.sino_context);
+   const {taste,setTaste} = React.useContext(PROMPTVAR.taste_context);
+   const {timemodifier,setTimeModifier} = React.useContext(PROMPTVAR.timeModifier_context);
+   const {tod,setTod} = React.useContext(PROMPTVAR.tod_context);
+   const {transportation,setTransportation} = React.useContext(PROMPTVAR.transportation_context);
+   const {weather,setWeather} = React.useContext(PROMPTVAR.weather_context);
+
+   const generatePracticeSentence = () => {
+        //First, pick a random sentence structure from the database
+        const practicePrompt = generateSentence();
+
+        if(practicePrompt.uniqueVariables === 0) {
+            let tempArray = [practicePrompt.english_sentence, practicePrompt.korean_sentence];
+            determineDisplaySentence(tempArray);
+        }
+        else {
+            //Then, parse the sentences for unique variables
+            const parsedSentences: prompter_sentence_part[][] = parseSentence(practicePrompt.english_sentence, practicePrompt.korean_sentence);
+            //After parsing, we need to generate a random value from the database to replace each variable
+            const generatedValuesToReplaceSentenceVariables: PROMPTVAR.prompter_sentence_variable[] = generateSentenceVariables(parsedSentences);
+
+            //Then, we need to replace the variables with the generated values
+            const sentencesWithValues: prompter_sentence_part[][] = setSentenceVariables(parsedSentences, generatedValuesToReplaceSentenceVariables, practicePrompt.includesOptional);
+
+
+            //Then, we need to convert from parts to a string
+            const sentencePartsToString = sentencePartsMerge(sentencesWithValues);
+            
+            //Finally, we need to randomly pick whether to show the English or Korean Sentence on the screen (UI)
+            determineDisplaySentence(sentencePartsToString);
+        }
+
    }
 
    // RNG ===============================================================================
@@ -95,11 +130,15 @@ export default function PrompterPage() {
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
     }
   
-    const generateVocab = (category: string) => {
+    const generateVariable = (variable_category: string) => {
+
     const minIndex = 0;
 
-    switch(category) 
+
+    switch(variable_category) 
     {
+        
+
         case 'appearance' : {
             const maxIndex = appearance.length-1;
             const rand = generateInRange(minIndex, maxIndex);
@@ -110,6 +149,11 @@ export default function PrompterPage() {
             const rand = generateInRange(minIndex, maxIndex);
             return(clothes[rand]);
             }
+        case 'color' : {
+            const maxIndex = color.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(color[rand]);
+            }
         case 'conjugation' : {
             const maxIndex = conjugation.length-1;
             const rand = generateInRange(minIndex, maxIndex);
@@ -119,6 +163,11 @@ export default function PrompterPage() {
             const maxIndex = direction.length-1;
             const rand = generateInRange(minIndex, maxIndex);
             return(direction[rand]);
+            }
+        case 'dow' : {
+            const maxIndex = dow.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(dow[rand]);
             }
         case 'everytime' : {
             const maxIndex = everytime.length-1;
@@ -156,19 +205,35 @@ export default function PrompterPage() {
             return(hobby[rand]);
             }
         case 'hour' : {
-            const maxIndex = hour.length-1;
+            return(hour[0]);
+            }
+        case 'hourtime' : {
+            const maxIndex = hourtime.length-1;
             const rand = generateInRange(minIndex, maxIndex);
-            return(hour[rand]);
+            return(hourtime[rand]);
+            }
+        case 'ing' : {
+            return(ing[0]);
             }
         case 'item' : {
             const maxIndex = item.length-1;
             const rand = generateInRange(minIndex, maxIndex);
             return(item[rand]);
             }
+        case 'itemtwo' : {
+            const maxIndex = itemtwo.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(itemtwo[rand]);
+            }
         case 'job' : {
             const maxIndex = job.length-1;
             const rand = generateInRange(minIndex, maxIndex);
             return(job[rand]);
+            }
+        case 'locativeadverb' : {
+            const maxIndex = locativeadverb.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(locativeadverb[rand]);
             }
         case 'land' : {
             const maxIndex = land.length-1;
@@ -176,9 +241,12 @@ export default function PrompterPage() {
             return(land[rand]);
             }
         case 'minute' : {
-            const maxIndex = minute.length-1;
+            return(minute[0]);
+            }
+        case 'minutetime' : {
+            const maxIndex = minutetime.length-1;
             const rand = generateInRange(minIndex, maxIndex);
-            return(minute[rand]);
+            return(minutetime[rand]);
             }
         case 'month' : {
             const maxIndex = month.length-1;
@@ -195,6 +263,11 @@ export default function PrompterPage() {
             const rand = generateInRange(minIndex, maxIndex);
             return(native[rand]);
             }
+        case 'personadjective' : {
+            const maxIndex = personadjective.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(personadjective[rand]);
+            }
         case 'place' : {
             const maxIndex = place.length-1;
             const rand = generateInRange(minIndex, maxIndex);
@@ -205,10 +278,20 @@ export default function PrompterPage() {
             const rand = generateInRange(minIndex, maxIndex);
             return(preposition[rand]);
             }
+        case 'pronoun' : {
+            const maxIndex = pronoun.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(pronoun[rand]);
+            }
         case 'season' : {
             const maxIndex = season.length-1;
             const rand = generateInRange(minIndex, maxIndex);
             return(season[rand]);
+            }
+        case 'sightseeing' : {
+            const maxIndex = sightseeing.length-1;
+            const rand = generateInRange(minIndex, maxIndex);
+            return(sightseeing[rand]);
             }
         case 'sino' : {
             const maxIndex = sino.length-1;
@@ -242,15 +325,24 @@ export default function PrompterPage() {
             }
         }    
 
+        let NULL_RETURN: PROMPTVAR.prompter_sentence_variable = {
+            id: -1, 
+            korean_variable: 'NULL', 
+            english_variable: 'NULL', 
+            variable_type: 'NULL', 
+        };
+
+        return(NULL_RETURN);
+
     }
 
-    const generateMultipleVocab = (category: string, amount: number) => {
+    const generateMultipleVariables = (variable_category: string, amount: number) => {
 
-        let multipleVocab: VOCABCONTEXT.prompter_vocab[] = [];
+        let multipleVocab: PROMPTVAR.prompter_sentence_variable[] = [];
         let counter = 0;
 
         while(counter !== amount) {
-            const singleVocab = generateVocab(category);
+            const singleVocab = generateVariable(variable_category);
             multipleVocab.push(singleVocab!);
             counter++;
         }
@@ -258,109 +350,254 @@ export default function PrompterPage() {
         return(multipleVocab);
     }
 
-    const generatePrompt = () => {
+    const generateSentence = () => {
         const minIndex = 0;
         const maxIndex = sentences.length-1;
         const rand = generateInRange(minIndex, maxIndex);
         return sentences[rand];
     }
 
-    // PROMPT PARSING =====================================================================
-
-    const parsePrompt = (toParse: VOCABCONTEXT.prompter_sentence, language: string) => {
-        let input: string = '';
-        // Regex to match text between % symbols
-        if(language === 'english')
-            input = toParse!.english
-        else if(language === 'korean')
-            input = toParse!.korean
-        const regex = /%([^%]+)%/g;
-        let result: prompter_part[] = [];
-        let lastIndex = 0;
-
-        // Find all matches of the pattern
-        let match;
-        while ((match = regex.exec(input)) !== null) {
-            // Push the part before the match
-            if (lastIndex !== match.index) {
-                let tempPart: prompter_part = {text: input.substring(lastIndex, match.index), isVariable: false, vocab_type: ''};
-                result.push(tempPart);
-            }
-            // Push the matched part
-            let tempPart: prompter_part = {text: match[1], isVariable: true, vocab_type: match[1]}
-            result.push(tempPart);
-            // Update the last index to the end of the current match
-            lastIndex = regex.lastIndex;
-        }
-
-        // Push the remaining part of the string after the last match
-        if (lastIndex < input.length) {
-            let tempPart: prompter_part = {text: input.substring(lastIndex), isVariable: false, vocab_type: ''};
-            result.push(tempPart);
-        }
-
-        return result;
+    const generateIncludeOptionalVariable = () => {
+        const randomIndex = Math.random() < 0.5 ? 0 : 1;
+        return(randomIndex);
     }
 
-    const setPromptVariables = async (englishTranslation: prompter_part[], koreanTranslation: prompter_part[]) => {
+    // PROMPT PARSING =====================================================================
 
-        for(let index = 0; index < englishTranslation.length; index++) {
+    const parseSentence = (englishToParse: string, koreanToParse: string) => {
 
-            let englishPart = englishTranslation[index];
+        const toParseArray: string[] =[englishToParse, koreanToParse];
+        // Regex to match text between % symbols
+        const regex = /%([^%]+)%/g;
+        let result: prompter_sentence_part[][] = [];
 
-            if(englishPart.isVariable && englishPart.vocab_type !== '') {
+        for(let arrayIndex = 0; arrayIndex < toParseArray.length; arrayIndex++) {
 
-                let replace_placeHolder = await generateVocab(englishPart.text);
+            let pushToResult: prompter_sentence_part[] = [];
+            let input = toParseArray[arrayIndex];
+            let lastIndex = 0;
 
-                englishTranslation[index].text = replace_placeHolder!.english_vocab;
+            // Find all matches of the pattern
+            let match;
+            while ((match = regex.exec(input)) !== null) {
+                // Push the part before the match
+                if (lastIndex !== match.index) {
+                    let prefixSentencePart: prompter_sentence_part = {text: input.substring(lastIndex, match.index), isVariable: false, isOptional: false, variable_type: ''}
+                    pushToResult.push(prefixSentencePart);
+                }
+                // Push the matched part
+                const isOptionalVariable = match[1].match(isOptionalRegex);
 
-                for(let j = 0; j < koreanTranslation.length; j++) {
+                if(isOptionalVariable !== null) {
+                    let restoreVariableText = match[1].split(' ');
+                    let matchSentencePart: prompter_sentence_part = {text: restoreVariableText[1], isVariable: true, isOptional: true, variable_type: restoreVariableText[1]};
+                    pushToResult.push(matchSentencePart);
 
-                    let koreanPart = koreanTranslation[j];
+                }
+                else {
+                    let matchSentencePart: prompter_sentence_part = {text: match[1], isVariable: true, isOptional: false, variable_type: match[1]};
+                    pushToResult.push(matchSentencePart);
 
-                    if(koreanPart.isVariable && koreanPart.vocab_type === englishPart.vocab_type) {
-                        koreanTranslation[j].text = replace_placeHolder!.korean_vocab;
-                        break;
+                }
+                // Update the last index to the end of the current match
+                lastIndex = regex.lastIndex;
+            }
+
+            
+
+            // Push the remaining part of the string after the last match
+            if (lastIndex < input.length) {
+                let suffixSentencePart: prompter_sentence_part = {text: input.substring(lastIndex), isVariable: false, isOptional: false, variable_type: ''};
+                pushToResult.push(suffixSentencePart);
+            }
+
+            result.push(pushToResult);
+
+        }
+        
+
+        return result;
+
+    }
+
+    const generateSentenceVariables = (parsedPartsArray: prompter_sentence_part[][]) => {
+
+        let alreadyGeneratedVariables: string[] = [];
+        let returnVariables: PROMPTVAR.prompter_sentence_variable[] = [];
+
+        for(let arrayIndex = 0; arrayIndex < parsedPartsArray.length; arrayIndex++) {
+
+            for(let partIndex = 0; partIndex < parsedPartsArray[arrayIndex].length; partIndex++) {
+
+                let currentPart = parsedPartsArray[arrayIndex][partIndex];
+
+                if(currentPart.isVariable === true) {
+
+                    if(alreadyGeneratedVariables.includes(currentPart.variable_type) === false) {
+
+                        alreadyGeneratedVariables.push(currentPart.variable_type);
+                        let generateNewValue: PROMPTVAR.prompter_sentence_variable = generateVariable(currentPart.variable_type);
+                        returnVariables.push(generateNewValue);
+
                     }
+                }
+
+            }
+        }
+
+        return(returnVariables);
+    }
+
+    const setSentenceVariables = (sentencesArray: prompter_sentence_part[][], valuesToUse: PROMPTVAR.prompter_sentence_variable[], includesOptional: number) => {
+
+        //Index 0 is always the English Sentence
+        //Index 1 is always the Korean Sentence
+        let setEnglishSentence = sentencesArray[0];
+        let setKoreanSentence = sentencesArray[1];
+
+        if(includesOptional == 1) {
+            let optionalVariablesSet = setOptionalSentenceVariables(sentencesArray,valuesToUse);
+        }
+
+            for(let englishPartIndex = 0; englishPartIndex < setEnglishSentence.length; englishPartIndex++) {
+
+                let currentPart = setEnglishSentence[englishPartIndex];
+
+                if(currentPart.isVariable === true && currentPart.text !== '') {
+                        
+                    let useToReplace = valuesToUse.find((element) => currentPart.variable_type === element.variable_type);
+                    setEnglishSentence[englishPartIndex].text = useToReplace!.english_variable
+                }
+            }
+
+            for(let koreanPartIndex = 0; koreanPartIndex < setKoreanSentence.length; koreanPartIndex++) {
+
+                let currentPart = setKoreanSentence[koreanPartIndex];
+                if(currentPart.isVariable === true && currentPart.text !== '') {
+                                           
+                    let useToReplace = valuesToUse.find((element) => currentPart.variable_type === element.variable_type);
+                    setKoreanSentence[koreanPartIndex].text = useToReplace!.korean_variable;
+                }
+
+            }
+        return([setEnglishSentence, setKoreanSentence]);
+
+    }
+
+    const setOptionalSentenceVariables = (sentencesArray: prompter_sentence_part[][], valuesToUse: PROMPTVAR.prompter_sentence_variable[]) => {
+
+
+        interface optionalVariable {
+            variable_type: string,
+            isIncluded: boolean
+        }
+
+        let generatedOptionalVariables: optionalVariable[] = [];
+
+        let setOptionalEnglishSentence = sentencesArray[0];
+        let setOptionalKoreanSentence = sentencesArray[1];
+        
+        //First, scan just the english sentence for all optional variables,
+        //since both translations will include the same number of and equivalent variables
+        for(let intialScanIndex = 0; intialScanIndex < setOptionalEnglishSentence.length; intialScanIndex++) {
+
+            let currentPart = setOptionalEnglishSentence[intialScanIndex];
+
+            if(currentPart.isVariable && currentPart.isOptional) {
+                if(generateIncludeOptionalVariable() === 1) {
+                    generatedOptionalVariables.push({variable_type: currentPart.variable_type, isIncluded: true})
+                } else {
+                    generatedOptionalVariables.push({variable_type: currentPart.variable_type, isIncluded: false})
                 }
             }
         }
 
-        const combinedTranslations:string[] = partsToString([englishTranslation, koreanTranslation]);
+        //Next, scan both arrays, and replace optional values with correct rng
+        for(let englishPartIndex = 0; englishPartIndex < setOptionalEnglishSentence.length; englishPartIndex++) {
 
-        console.log(combinedTranslations[0]);
-        console.log(combinedTranslations[1]);
-    }
+            let currentPart = setOptionalEnglishSentence[englishPartIndex];
 
-    const partsToString = (arrays: prompter_part[][]) => {
+            if(currentPart.isVariable && currentPart.isOptional) {
+                    //Now, scan generatedOptionalVariables to see if this var will be generated
+                    const shouldGenerate = generatedOptionalVariables.find((element) => currentPart.variable_type === element.variable_type);
+    
+                    if(shouldGenerate!.isIncluded) {
+                        let useToReplace = valuesToUse.find((element) => currentPart.variable_type === element.variable_type);
+                        setOptionalEnglishSentence[englishPartIndex].text = useToReplace!.english_variable
+                    } else {
+                        setOptionalEnglishSentence[englishPartIndex].text = '';
+                    }
+            }
+        }
 
-        let returnCombined: string[] = [];
+        for(let koreanPartIndex = 0; koreanPartIndex < setOptionalKoreanSentence.length; koreanPartIndex++) {
 
-        for(let i = 0; i < arrays.length; i++) {
+            let currentPart = setOptionalKoreanSentence[koreanPartIndex];
 
-            let combinedString: string = '';
-
-            for(let j = 0; j < arrays[i].length; j++) {
-                combinedString = combinedString + arrays[i][j].text;
+            if(currentPart.isVariable && currentPart.isOptional) {
+                //Do the same for the Korean sentence
+                const shouldGenerate = generatedOptionalVariables.find((element) => currentPart.variable_type === element.variable_type);
+                    
+                    if(shouldGenerate!.isIncluded) {
+                        let useToReplace = valuesToUse.find((element) => currentPart.variable_type === element.variable_type);
+                        setOptionalEnglishSentence[koreanPartIndex].text = useToReplace!.english_variable
+                    } else {
+                        setOptionalKoreanSentence[koreanPartIndex].text = '';
+                    }
             }
 
-            returnCombined.push(combinedString);
+        }
+
+        //Finally, return arrays with the optional variables consistently set
+        return({setOptionalEnglishSentence, setOptionalKoreanSentence});
+    }
+
+    const sentencePartsMerge = (setSentenceArray: prompter_sentence_part[][]) => {
+
+        let finalizedStrings: string[] = [];
+
+        for(let arrayIndex = 0; arrayIndex < setSentenceArray.length; arrayIndex++) {
+
+            let currentMerging: string = '';
+
+            for(let partIndex = 0; partIndex < setSentenceArray[arrayIndex].length; partIndex++) {
+
+                let currentPart = setSentenceArray[arrayIndex][partIndex];
+                currentMerging = currentMerging + setSentenceArray[arrayIndex][partIndex].text;
+            }
+
+            finalizedStrings.push(currentMerging);
         }
         
-        return(returnCombined);
+        return(finalizedStrings);
     }
+
+    const determineDisplaySentence = async (sentences: string[]) => {
+        //Index 0 is always the English Sentence
+        //Index 1 is always the Korean Sentence
+        const randomIndex = Math.random() < 0.5 ? 0 : 1;
+        const sentenceToDisplay = sentences[randomIndex];
+        const sentenceToHide = sentences.find((element) => element !== sentenceToDisplay);
+
+
+        await setDisplaySentence(sentenceToDisplay);
+        await setHiddenSentence(sentenceToHide!);
+
+        //If english sentence was picked
+        if(sentenceToDisplay === sentences[0]) {
+            await setDisplaySentenceLangauge('english');
+        }
+        else {
+            await setDisplaySentenceLangauge('korean');
+        }
+
+        return;
+    } 
     
     return(
-        <>
-            <Button onClick={() => {generatePractice()}}>Test</Button>
-            <Container>
-                <Typography>
-                    {currentSentence?.english}
-                    <br />
-                    {currentSentence?.korean}
-                </Typography>
-            </Container>
-
-        </>
+        <Stack direction="column" spacing={2} sx={{height:'92vh'}}>
+            <PrompterPageHeader generate={generatePracticeSentence} hide={handleHidden} hidden={isHidden} />
+            <PrompterPageBody displaySentence={displaySentence} displayLangauge={displaySentenceLanguage} hidden={isHidden} hiddenSentence={hiddenSentence}/>
+        </Stack>
     );
 }
