@@ -174,6 +174,11 @@ interface Prompter_Pronoun_Interface {
     setPronoun: React.Dispatch<React.SetStateAction<prompter_sentence_variable[]>>
 }
 
+interface Prompter_Quality_Interface {
+    quality: prompter_sentence_variable[],
+    setQuality: React.Dispatch<React.SetStateAction<prompter_sentence_variable[]>>
+}
+
 interface Prompter_Season_Interface {
     season: prompter_sentence_variable[],
     setSeason: React.Dispatch<React.SetStateAction<prompter_sentence_variable[]>>
@@ -372,6 +377,11 @@ const pronounDefaultState = {
     setPronoun: (arr: prompter_sentence_variable[]) => {}
 } as Prompter_Pronoun_Interface
 
+const qualityDefaultState = {
+    quality: [],
+    setQuality: (arr: prompter_sentence_variable[]) => {}
+} as Prompter_Quality_Interface
+
 const seasonDefaultState = {
     season: [],
     setSeason: (arr: prompter_sentence_variable[]) => {}
@@ -444,6 +454,7 @@ export const personAdjective_context = React.createContext<Prompter_PersonAdject
 export const place_context = React.createContext<Prompter_Place_Interface>(placeDefaultState);
 export const preposition_context = React.createContext<Prompter_Preposition_Interface>(prepositionDefaultState);
 export const pronoun_context = React.createContext<Prompter_Pronoun_Interface>(pronounDefaultState);
+export const quality_context = React.createContext<Prompter_Quality_Interface>(qualityDefaultState);
 export const season_context = React.createContext<Prompter_Season_Interface>(seasonDefaultState);
 export const sightSeeing_context = React.createContext<Prompter_SightSeeing_Interface>(sightSeeingDefaultState);
 export const sino_context = React.createContext<Prompter_Sino_Interface>(sinoDefaultState);
@@ -487,6 +498,7 @@ export default function PrompterData() {
     const [personadjective,setPersonAdjective] = React.useState<prompter_sentence_variable[]>([]);
     const [preposition,setPreposition] = React.useState<prompter_sentence_variable[]>([]);
     const [pronoun,setPronoun] = React.useState<prompter_sentence_variable[]>([]);
+    const [quality,setQuality] = React.useState<prompter_sentence_variable[]>([]);
     const [season,setSeason] = React.useState<prompter_sentence_variable[]>([]);
     const [sightseeing,setSightSeeing] = React.useState<prompter_sentence_variable[]>([]);
     const [sino,setSino] = React.useState<prompter_sentence_variable[]>([]);
@@ -611,6 +623,9 @@ export default function PrompterData() {
                             case 'pronoun' :
                                 setPronoun(pronoun => [...pronoun, vocab]);
                                 return;
+                            case 'quality' :
+                                setQuality(quality => [...quality, vocab]);
+                                return;
                             case 'season' :
                                 setSeason(season => [...season, vocab]);
                                 return;
@@ -686,23 +701,25 @@ export default function PrompterData() {
                                                                                                                         <place_context.Provider value={{place,setPlace}}>
                                                                                                                             <preposition_context.Provider value={{preposition,setPreposition}}>
                                                                                                                                 <pronoun_context.Provider value={{pronoun,setPronoun}}>
-                                                                                                                                    <season_context.Provider value={{season,setSeason}}>
-                                                                                                                                        <sightSeeing_context.Provider value={{sightseeing,setSightSeeing}}>
-                                                                                                                                            <sino_context.Provider value={{sino,setSino}}>
-                                                                                                                                                <taste_context.Provider value={{taste,setTaste}}>
-                                                                                                                                                    <timeModifier_context.Provider value={{timemodifier,setTimeModifier}}>
-                                                                                                                                                        <tod_context.Provider value={{tod,setTod}}>
-                                                                                                                                                            <transportation_context.Provider value={{transportation,setTransportation}}>
-                                                                                                                                                                <weather_context.Provider value={{weather,setWeather}}>
-                                                                                                                                                                    <PrompterPage />
-                                                                                                                                                                </weather_context.Provider>
-                                                                                                                                                            </transportation_context.Provider>
-                                                                                                                                                        </tod_context.Provider>
-                                                                                                                                                    </timeModifier_context.Provider>
-                                                                                                                                                </taste_context.Provider>
-                                                                                                                                            </sino_context.Provider>
-                                                                                                                                        </sightSeeing_context.Provider>
-                                                                                                                                    </season_context.Provider>
+                                                                                                                                    <quality_context.Provider value={{quality,setQuality}}>
+                                                                                                                                        <season_context.Provider value={{season,setSeason}}>
+                                                                                                                                            <sightSeeing_context.Provider value={{sightseeing,setSightSeeing}}>
+                                                                                                                                                <sino_context.Provider value={{sino,setSino}}>
+                                                                                                                                                    <taste_context.Provider value={{taste,setTaste}}>
+                                                                                                                                                        <timeModifier_context.Provider value={{timemodifier,setTimeModifier}}>
+                                                                                                                                                            <tod_context.Provider value={{tod,setTod}}>
+                                                                                                                                                                <transportation_context.Provider value={{transportation,setTransportation}}>
+                                                                                                                                                                    <weather_context.Provider value={{weather,setWeather}}>
+                                                                                                                                                                        <PrompterPage />
+                                                                                                                                                                    </weather_context.Provider>
+                                                                                                                                                                </transportation_context.Provider>
+                                                                                                                                                            </tod_context.Provider>
+                                                                                                                                                        </timeModifier_context.Provider>
+                                                                                                                                                    </taste_context.Provider>
+                                                                                                                                                </sino_context.Provider>
+                                                                                                                                            </sightSeeing_context.Provider>
+                                                                                                                                        </season_context.Provider>
+                                                                                                                                    </quality_context.Provider>
                                                                                                                                 </pronoun_context.Provider>
                                                                                                                             </preposition_context.Provider>
                                                                                                                         </place_context.Provider>

@@ -23,7 +23,7 @@ export default function PrompterPageBody({displaySentence, displayLangauge, hidd
     return(
         <ThemeProvider theme={prompterPageBody_theme}>
             <Stack direction="column" spacing={2}>
-                <Typography sx={{fontSize: '7vh'}}>
+                <Typography sx={{fontSize: '6vh'}}>
                     {displaySentence}
                 </Typography>
                 <Typography sx={{fontSize: '3vh'}}>
