@@ -45,7 +45,6 @@ const prompterPage_theme = createTheme({
 
 export default function PrompterPage() {
 
-    const isOptionalRegex = new RegExp('(io)+(\\s)+[a-z]+');
     const testOptionalRegex = new RegExp('[a-z]*(\\s)*(io)+(\\s)+[a-z]+');
 
    const {sentences, setSentences} = React.useContext(PROMPTVAR.prompter_prompts_context);
@@ -61,6 +60,7 @@ export default function PrompterPage() {
 
 
    const {appearance,setAppearance} = React.useContext(PROMPTVAR.appearance_context);
+   const {blank, setBlank} = React.useContext(PROMPTVAR.blank_context);
    const {clothes,setClothes} = React.useContext(PROMPTVAR.clothes_context);
    const {color,setColor} = React.useContext(PROMPTVAR.color_context);
    const {conjugation,setConjugation} = React.useContext(PROMPTVAR.conjugation_context);
@@ -146,6 +146,9 @@ export default function PrompterPage() {
                 const rand = generateInRange(minIndex, maxIndex);
                 return(appearance[rand]);
                 }
+            case 'blank' : {
+                return(blank[0]);
+            }
             case 'clothes' : {
                 const maxIndex = clothes.length-1;
                 const rand = generateInRange(minIndex, maxIndex);

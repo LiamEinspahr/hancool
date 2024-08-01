@@ -29,6 +29,11 @@ interface Prompter_Appearance_Interface {
     setAppearance: React.Dispatch<React.SetStateAction<prompter_sentence_variable[]>>
 }
 
+interface Prompter_Blank_Interface {
+    blank: prompter_sentence_variable[],
+    setBlank: React.Dispatch<React.SetStateAction<prompter_sentence_variable[]>> 
+}
+
 interface Prompter_Clothes_Interface {
     clothes: prompter_sentence_variable[],
     setClothes: React.Dispatch<React.SetStateAction<prompter_sentence_variable[]>>
@@ -232,6 +237,11 @@ const appearanceDefaultState = {
     setAppearance: (arr: prompter_sentence_variable[]) => {}
 } as Prompter_Appearance_Interface
 
+const blankDefaultState = {
+    blank: [],
+    setBlank: (arr: prompter_sentence_variable[]) => {}
+} as Prompter_Blank_Interface
+
 const clothesDefaultState = {
     clothes: [],
     setClothes: (arr: prompter_sentence_variable[]) => {}
@@ -426,6 +436,7 @@ export const prompter_prompts_context = React.createContext<Prompter_Prompts_Int
 
 export const appearance_context = React.createContext<Prompter_Appearance_Interface>(appearanceDefaultState);
 export const clothes_context = React.createContext<Prompter_Clothes_Interface>(clothesDefaultState);
+export const blank_context = React.createContext<Prompter_Blank_Interface>(blankDefaultState);
 export const color_context = React.createContext<Prompter_Color_Interface>(colorDefaultState);
 export const conjugation_context = React.createContext<Prompter_Conjugation_Interface>(conjugationDefaultState);
 export const direction_context = React.createContext<Prompter_Direction_Interface>(directionDefaultState);
@@ -469,6 +480,7 @@ export default function PrompterData() {
     const [sentences, setSentences] = React.useState<prompter_sentence[]>([]);
 
     const [appearance,setAppearance] = React.useState<prompter_sentence_variable[]>([]);
+    const [blank,setBlank] = React.useState<prompter_sentence_variable[]>([]);
     const [clothes,setClothes] = React.useState<prompter_sentence_variable[]>([]);
     const [color,setColor] = React.useState<prompter_sentence_variable[]>([]);
     const [conjugation,setConjugation] = React.useState<prompter_sentence_variable[]>([]);
@@ -538,6 +550,9 @@ export default function PrompterData() {
                                 return;
                             case 'clothes' :
                                 setClothes(clothes => [...clothes, vocab]);
+                                return;
+                            case 'blank' :
+                                setBlank(blank => [...blank ,vocab]);
                                 return;
                             case 'color' :
                                 setColor(color => [...color, vocab]);
@@ -672,83 +687,85 @@ export default function PrompterData() {
     return(
         <prompter_prompts_context.Provider value={{sentences, setSentences}}>
             <appearance_context.Provider value={{appearance,setAppearance}}>
-                <clothes_context.Provider value={{clothes, setClothes}}>
-                    <color_context.Provider value={{color,setColor}}>
-                        <conjugation_context.Provider value={{conjugation, setConjugation}}>
-                            <direction_context.Provider value={{direction, setDirection}}>
-                                <dow_context.Provider value={{dow,setDow}}>
-                                    <everyTime_context.Provider value={{everytime,setEveryTime}}>
-                                        <excuseMe_context.Provider value={{excuseme,setExcuseMe}}>
-                                            <familialRelationship_context.Provider value={{familialrelationship,setFamilialRelationship}}>
-                                                <feeling_context.Provider value={{feeling,setFeeling}}>
-                                                    <food_context.Provider value={{food,setFood}}>
-                                                        <generalTime_context.Provider value={{generaltime,setGeneralTime}}>
-                                                            <hobby_context.Provider value={{hobby,setHobby}}>
-                                                                <hour_context.Provider value={{hour,setHour}}>
-                                                                    <hourTime_context.Provider value={{hourtime,setHourTime}}>
-                                                                        <ing_context.Provider value={{ing,setIng}}>
-                                                                            <item_context.Provider value={{item,setItem}}>
-                                                                                <itemTwo_context.Provider value={{itemtwo,setItemTwo}}>
-                                                                                    <job_context.Provider value={{job,setJob}}>
-                                                                                        <land_context.Provider value={{land,setLand}}>
-                                                                                            <locativeAdverb_context.Provider value={{locativeadverb,setLocativeAdverb}}>
-                                                                                                <minute_context.Provider value={{minute,setMinute}}>
-                                                                                                    <minuteTime_context.Provider value={{minutetime,setMinuteTime}}>
-                                                                                                        <month_context.Provider value={{month,setMonth}}>
-                                                                                                            <name_context.Provider value={{name,setName}}>
-                                                                                                                <native_context.Provider value={{native,setNative}}>
-                                                                                                                    <personAdjective_context.Provider value={{personadjective,setPersonAdjective}}>
-                                                                                                                        <place_context.Provider value={{place,setPlace}}>
-                                                                                                                            <preposition_context.Provider value={{preposition,setPreposition}}>
-                                                                                                                                <pronoun_context.Provider value={{pronoun,setPronoun}}>
-                                                                                                                                    <quality_context.Provider value={{quality,setQuality}}>
-                                                                                                                                        <season_context.Provider value={{season,setSeason}}>
-                                                                                                                                            <sightSeeing_context.Provider value={{sightseeing,setSightSeeing}}>
-                                                                                                                                                <sino_context.Provider value={{sino,setSino}}>
-                                                                                                                                                    <taste_context.Provider value={{taste,setTaste}}>
-                                                                                                                                                        <timeModifier_context.Provider value={{timemodifier,setTimeModifier}}>
-                                                                                                                                                            <tod_context.Provider value={{tod,setTod}}>
-                                                                                                                                                                <transportation_context.Provider value={{transportation,setTransportation}}>
-                                                                                                                                                                    <weather_context.Provider value={{weather,setWeather}}>
-                                                                                                                                                                        <PrompterPage />
-                                                                                                                                                                    </weather_context.Provider>
-                                                                                                                                                                </transportation_context.Provider>
-                                                                                                                                                            </tod_context.Provider>
-                                                                                                                                                        </timeModifier_context.Provider>
-                                                                                                                                                    </taste_context.Provider>
-                                                                                                                                                </sino_context.Provider>
-                                                                                                                                            </sightSeeing_context.Provider>
-                                                                                                                                        </season_context.Provider>
-                                                                                                                                    </quality_context.Provider>
-                                                                                                                                </pronoun_context.Provider>
-                                                                                                                            </preposition_context.Provider>
-                                                                                                                        </place_context.Provider>
-                                                                                                                    </personAdjective_context.Provider>
-                                                                                                                </native_context.Provider>
-                                                                                                            </name_context.Provider>
-                                                                                                        </month_context.Provider>
-                                                                                                    </minuteTime_context.Provider>
-                                                                                                </minute_context.Provider>
-                                                                                            </locativeAdverb_context.Provider>
-                                                                                        </land_context.Provider>
-                                                                                    </job_context.Provider>
-                                                                                </itemTwo_context.Provider>
-                                                                            </item_context.Provider>
-                                                                        </ing_context.Provider>
-                                                                    </hourTime_context.Provider>
-                                                                </hour_context.Provider>
-                                                            </hobby_context.Provider>
-                                                        </generalTime_context.Provider>
-                                                    </food_context.Provider>
-                                                </feeling_context.Provider>
-                                            </familialRelationship_context.Provider>
-                                        </excuseMe_context.Provider>
-                                    </everyTime_context.Provider>
-                                </dow_context.Provider>
-                            </direction_context.Provider>
-                        </conjugation_context.Provider>
-                    </color_context.Provider>
-                </clothes_context.Provider>
+                <blank_context.Provider value={{blank,setBlank}}>
+                    <clothes_context.Provider value={{clothes, setClothes}}>
+                        <color_context.Provider value={{color,setColor}}>
+                            <conjugation_context.Provider value={{conjugation, setConjugation}}>
+                                <direction_context.Provider value={{direction, setDirection}}>
+                                    <dow_context.Provider value={{dow,setDow}}>
+                                        <everyTime_context.Provider value={{everytime,setEveryTime}}>
+                                            <excuseMe_context.Provider value={{excuseme,setExcuseMe}}>
+                                                <familialRelationship_context.Provider value={{familialrelationship,setFamilialRelationship}}>
+                                                    <feeling_context.Provider value={{feeling,setFeeling}}>
+                                                        <food_context.Provider value={{food,setFood}}>
+                                                            <generalTime_context.Provider value={{generaltime,setGeneralTime}}>
+                                                                <hobby_context.Provider value={{hobby,setHobby}}>
+                                                                    <hour_context.Provider value={{hour,setHour}}>
+                                                                        <hourTime_context.Provider value={{hourtime,setHourTime}}>
+                                                                            <ing_context.Provider value={{ing,setIng}}>
+                                                                                <item_context.Provider value={{item,setItem}}>
+                                                                                    <itemTwo_context.Provider value={{itemtwo,setItemTwo}}>
+                                                                                        <job_context.Provider value={{job,setJob}}>
+                                                                                            <land_context.Provider value={{land,setLand}}>
+                                                                                                <locativeAdverb_context.Provider value={{locativeadverb,setLocativeAdverb}}>
+                                                                                                    <minute_context.Provider value={{minute,setMinute}}>
+                                                                                                        <minuteTime_context.Provider value={{minutetime,setMinuteTime}}>
+                                                                                                            <month_context.Provider value={{month,setMonth}}>
+                                                                                                                <name_context.Provider value={{name,setName}}>
+                                                                                                                    <native_context.Provider value={{native,setNative}}>
+                                                                                                                        <personAdjective_context.Provider value={{personadjective,setPersonAdjective}}>
+                                                                                                                            <place_context.Provider value={{place,setPlace}}>
+                                                                                                                                <preposition_context.Provider value={{preposition,setPreposition}}>
+                                                                                                                                    <pronoun_context.Provider value={{pronoun,setPronoun}}>
+                                                                                                                                        <quality_context.Provider value={{quality,setQuality}}>
+                                                                                                                                            <season_context.Provider value={{season,setSeason}}>
+                                                                                                                                                <sightSeeing_context.Provider value={{sightseeing,setSightSeeing}}>
+                                                                                                                                                    <sino_context.Provider value={{sino,setSino}}>
+                                                                                                                                                        <taste_context.Provider value={{taste,setTaste}}>
+                                                                                                                                                            <timeModifier_context.Provider value={{timemodifier,setTimeModifier}}>
+                                                                                                                                                                <tod_context.Provider value={{tod,setTod}}>
+                                                                                                                                                                    <transportation_context.Provider value={{transportation,setTransportation}}>
+                                                                                                                                                                        <weather_context.Provider value={{weather,setWeather}}>
+                                                                                                                                                                            <PrompterPage />
+                                                                                                                                                                        </weather_context.Provider>
+                                                                                                                                                                    </transportation_context.Provider>
+                                                                                                                                                                </tod_context.Provider>
+                                                                                                                                                            </timeModifier_context.Provider>
+                                                                                                                                                        </taste_context.Provider>
+                                                                                                                                                    </sino_context.Provider>
+                                                                                                                                                </sightSeeing_context.Provider>
+                                                                                                                                            </season_context.Provider>
+                                                                                                                                        </quality_context.Provider>
+                                                                                                                                    </pronoun_context.Provider>
+                                                                                                                                </preposition_context.Provider>
+                                                                                                                            </place_context.Provider>
+                                                                                                                        </personAdjective_context.Provider>
+                                                                                                                    </native_context.Provider>
+                                                                                                                </name_context.Provider>
+                                                                                                            </month_context.Provider>
+                                                                                                        </minuteTime_context.Provider>
+                                                                                                    </minute_context.Provider>
+                                                                                                </locativeAdverb_context.Provider>
+                                                                                            </land_context.Provider>
+                                                                                        </job_context.Provider>
+                                                                                    </itemTwo_context.Provider>
+                                                                                </item_context.Provider>
+                                                                            </ing_context.Provider>
+                                                                        </hourTime_context.Provider>
+                                                                    </hour_context.Provider>
+                                                                </hobby_context.Provider>
+                                                            </generalTime_context.Provider>
+                                                        </food_context.Provider>
+                                                    </feeling_context.Provider>
+                                                </familialRelationship_context.Provider>
+                                            </excuseMe_context.Provider>
+                                        </everyTime_context.Provider>
+                                    </dow_context.Provider>
+                                </direction_context.Provider>
+                            </conjugation_context.Provider>
+                        </color_context.Provider>
+                    </clothes_context.Provider>
+                </blank_context.Provider>
             </appearance_context.Provider>
         </prompter_prompts_context.Provider>
     );
